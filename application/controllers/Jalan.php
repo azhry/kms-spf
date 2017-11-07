@@ -35,6 +35,21 @@ class Jalan extends MY_Controller
 					'latitude'	=> $latitude,
 					'longitude'	=> $longitude
 				]);
+
+				$upload_path = realpath(APPPATH . '../img/');
+				$config = [
+					'file_name'			=> $this->db->insert_id() . '.jpg',
+					'allowed_types'		=> 'jpg|jpeg|png',
+					'upload_path'		=> $upload_path
+				];
+				$this->load->library('upload');
+				$this->upload->initialize($config);
+
+				if (!$this->upload->do_upload('foto'))
+				{
+					$this->response['error']			= true;
+					$this->response['error_message']	= 'Error while uploading image';
+				}
 			}
 			else
 			{
