@@ -8,6 +8,7 @@ class Jalan extends MY_Controller
 	{
 		parent::__construct();
 		$this->response['error'] = false;
+		
 		$this->load->model('jalan_m');
 	}
 
