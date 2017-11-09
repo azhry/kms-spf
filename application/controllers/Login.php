@@ -10,9 +10,10 @@ class Login extends MY_Controller
 	public function secret_login_url()
 	{
 		$this->load->model('pegawai_m');
+		$postdata = json_decode(file_get_contents('php://input')); 
 		$response['error'] = false;
-		$nip 		= $this->POST('nip');
-		$password 	= $this->POST('password');
+		$nip 		= $postdata->nip;
+		$password 	= $postdata->password;
 		if (isset($nip, $password))
 		{
 			$check_account = $this->pegawai_m->get_row([
