@@ -26,11 +26,9 @@ class MY_Controller extends CI_Controller
         }
 	}
 
-	public function template($data, $template = 'admin')
+	public function template($data)
 	{
-	    if ($template == 'admin') {
-	      return $this->load->view('template/layout', $data);
-	    }
+	    return $this->load->view('includes/layout', $data);
 	}
 
 	public function POST($name)
@@ -57,7 +55,7 @@ class MY_Controller extends CI_Controller
 	{
 		if ($_FILES[$tag_name])
 		{
-			$upload_path = realpath(APPPATH . '../assets/img/' . $directory . '/');
+			$upload_path = realpath(APPPATH . $directory . '/');
 			@unlink($upload_path . '/' . $id . '.jpg');
 			$config = [
 				'file_name' 		=> $id . '.jpg',
