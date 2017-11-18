@@ -122,15 +122,12 @@
                             <option value="Buruk">Buruk</option>
                           </select>
                         </div>
-                        <div class="form-inline">
-                          <div class="form-group">
-                            <label for="latitude">Latitude<span class="required">*</span></label>
-                            <input type="text" name="latitude" class="form-control" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="longitude">Longitude<span class="required">*</span></label>
-                            <input type="text" name="longitude" class="form-control" required>
-                          </div>
+                        <div class="form-group">
+                          <label>Pilih Koordinat Jalan</label>
+                          <div class="gmap" id="map-add" style="width: 100%; height: 250px;"></div>
+                          <p>Koordinat: <span id="map-add-latitude"></span>, <span id="map-add-longitude"></span></p>
+                          <input type="hidden" id="map-add-hidden_latitude" name="latitude" required>
+                          <input type="hidden" id="map-add-hidden_longitude" name="longitude" required>
                         </div>
                         <div class="form-group">
                             <label for="foto">Upload Foto Jalan<span class="required">*</span></label>
@@ -176,7 +173,14 @@
                           <label for="kondisi">Kondisi<span class="required">*</span></label>
                           <div id="kondisi"></div>
                         </div>
-                        <div class="form-inline">
+                        <div class="form-group">
+                          <label>Pilih Koordinat Jalan</label>
+                          <div class="gmap" id="map-edit" style="width: 100%; height: 250px;"></div>
+                          <p>Koordinat: <span id="map-edit-latitude"></span>, <span id="map-edit-longitude"></span></p>
+                          <input type="hidden" id="map-edit-hidden_latitude" name="latitude" required>
+                          <input type="hidden" id="map-edit-hidden_longitude" name="longitude" required>
+                        </div>
+                        <!-- <div class="form-inline">
                           <div class="form-group">
                             <label for="latitude">Latitude<span class="required">*</span></label>
                             <input type="text" name="latitude" id="latitude" class="form-control" required>
@@ -185,7 +189,7 @@
                             <label for="longitude">Longitude<span class="required">*</span></label>
                             <input type="text" name="longitude" id="longitude" class="form-control" required>
                           </div>
-                        </div>
+                        </div> -->
                         <br>
                         <div id="img-placeholder">
                           <img src="<?= base_url('img/150x150.png') ?>" width="150" height="150">
@@ -210,6 +214,10 @@
                     $('#dataTables-example').DataTable({
                         responsive: true
                     });
+
+                    $('#add').on('shown.bs.modal', function() {
+                      initMap('map-add');
+                    });
                 });
 
                 function get_jalan(id_data) {
@@ -232,10 +240,68 @@
                       $('#tipe').html(json.tipe_jalan);
                       $('#kondisi').html(json.kondisi_jalan);
                       $('#img-placeholder').html('<img src="<?= base_url('img') ?>/' + json.id_data + '.jpg?' + json.id_data + '" width="150" height="150">');
+
+                      editMap('map-edit', json.latitude, json.longitude);
                     },
                     error: function(e) {
                       console.log(e.responseText);
                     }
+                  });
+                }
+
+                function initMap(id) {
+                  $('#' + id + '-latitude').text('');
+                  $('#' + id + '-longitude').text('');
+                  $('#' + id + '-hidden_latitude').val(null);
+                  $('#' + id + '-hidden_longitude').val(null);
+                  var coordinate = {lat: -6.121435, lng: 106.774124};
+                  var map = new google.maps.Map(document.getElementById(id), {
+                    zoom: 8,
+                    center: coordinate
+                  });
+                  var marker = new google.maps.Marker({
+                    position: coordinate,
+                    map: map
+                  });
+                  google.maps.event.addListener(map, 'click', function(event){
+                    var latLng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+                    marker.setPosition(latLng);
+                    $('#' + id + '-latitude').text(event.latLng.lat());
+                    $('#' + id + '-longitude').text(event.latLng.lng());
+                    $('#' + id + '-hidden_latitude').val(event.latLng.lat());
+                    $('#' + id + '-hidden_longitude').val(event.latLng.lng());
+
+                  });
+                  google.maps.event.addListener(map, 'mousemove', function(event){
+                    map.setOptions({draggableCursor: 'pointer'});
+                  });
+                }
+
+                function editMap(id, latitude, longitude) {
+                  $('#' + id + '-latitude').text(latitude);
+                  $('#' + id + '-longitude').text(longitude);
+                  $('#' + id + '-hidden_latitude').val(latitude);
+                  $('#' + id + '-hidden_longitude').val(longitude);
+                  var coordinate = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+                  var map = new google.maps.Map(document.getElementById(id), {
+                    zoom: 8,
+                    center: coordinate
+                  });
+                  var marker = new google.maps.Marker({
+                    position: coordinate,
+                    map: map
+                  });
+                  google.maps.event.addListener(map, 'click', function(event){
+                    var latLng = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+                    marker.setPosition(latLng);
+                    $('#' + id + '-latitude').text(event.latLng.lat());
+                    $('#' + id + '-longitude').text(event.latLng.lng());
+                    $('#' + id + '-hidden_latitude').val(event.latLng.lat());
+                    $('#' + id + '-hidden_longitude').val(event.latLng.lng());
+
+                  });
+                  google.maps.event.addListener(map, 'mousemove', function(event){
+                    map.setOptions({draggableCursor: 'pointer'});
                   });
                 }
             </script>

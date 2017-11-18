@@ -6,7 +6,7 @@
                 <a href="<?= base_url('admin/jalan') ?>">
                   <div class="tile-stats">
                     <div class="icon"><i class="fa fa-user"></i></div>
-                    <div class="count">6</div>
+                    <div class="count"><?= count($jalan) ?></div>
                     <h3>Data Jalan</h3>
                   </div>
                 </a>
@@ -15,7 +15,7 @@
                 <a href="<?= base_url('admin/user') ?>">
                   <div class="tile-stats">
                     <div class="icon"><i class="fa fa-user"></i></div>
-                    <div class="count">9</div>
+                    <div class="count"><?= count($pegawai) ?></div>
                     <h3>Data User</h3>
                   </div>
                 </a>
