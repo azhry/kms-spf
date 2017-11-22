@@ -4,7 +4,7 @@
             <h4 align="center">Sistem Informasi Geografis Untuk Pemetaan Kondisi Jalan Dinas PUBM dan PSDA Kota Palembang</h4><hr>
             <div class="page-title">
               <div class="title_left">
-                <h3 class="page-header">Data Jalan <button class="btn btn-success" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i></button>
+                <h3 class="page-header">Data Jalan <!-- <button class="btn btn-success" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i></button> -->
                 </h3>
               </div>
 
@@ -69,9 +69,9 @@
                                   <td class="text-center"><?= $row->latitude ?>, <?= $row->longitude ?></td>
                                   <td>
                                     <center>
-                                      <a href="<?= base_url('admin/detail-jalan') ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Detail</a>
-                                      <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" onclick="get_jalan(<?= $row->id_data ?>);"><i class="fa fa-edit"></i> Edit</a>
-                                      <a href="<?= base_url('admin/jalan?delete=true&id=' . $row->id_data) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
+                                      <a href="<?= base_url('admin/detail-jalan') ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Lihat</a>
+                                      <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" onclick="get_jalan(<?= $row->id_data ?>);"><i class="fa fa-edit"></i> Ubah</a>
+                                      <a href="<?= base_url('admin/jalan?delete=true&id=' . $row->id_data) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>
                                     </center>
                                   </td>
                                 </tr>
@@ -150,7 +150,7 @@
                <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Data Jalan</h4>
+                    <h4 class="modal-title">Detail Data Jalan</h4>
                   </div>
                   <div class="modal-body">
                         <input type="hidden" name="id_data" id="id_data">

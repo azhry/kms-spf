@@ -5,6 +5,7 @@ class Admin extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('pegawai_m');
 	}
 
 	public function index()
@@ -15,6 +16,17 @@ class Admin extends MY_Controller
 		$this->data['pegawai']	= $this->pegawai_m->get();
 		$this->data['title'] 	= 'Dashboard | ' . $this->title;
 		$this->data['content']	= 'admin/dashboard';
+		$this->template($this->data);
+	}
+
+	public function map()
+	{
+		$this->load->model('jalan_m');
+		$this->load->model('pegawai_m');
+		$this->data['jalan']	= $this->jalan_m->get();
+		$this->data['pegawai']	= $this->pegawai_m->get();
+		$this->data['title'] 	= 'Dashboard | ' . $this->title;
+		$this->data['content']	= 'admin/map';
 		$this->template($this->data);
 	}
 
@@ -158,6 +170,14 @@ class Admin extends MY_Controller
 		$this->data['pegawai']	= $this->pegawai_m->get_by_order('nama', 'ASC');
 		$this->data['title']	= 'Data User | ' . $this->title;
 		$this->data['content']	= 'admin/data_user';
+		$this->template($this->data);
+	}
+
+	public function detail_user($nip)
+	{
+		$this->data['pegawai']	= $this->pegawai_m->get_row(['nip' => $nip]);
+		$this->data['title'] 	= 'Dashboard | ' . $this->title;
+		$this->data['content']	= 'admin/detail_user';
 		$this->template($this->data);
 	}
 }
