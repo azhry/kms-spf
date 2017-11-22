@@ -1,6 +1,7 @@
     <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
+            <h4 align="center">Sistem Informasi Geografis Untuk Pemetaan Kondisi Jalan Dinas PUBM dan PSDA Kota Palembang</h4><hr>
             <div class="page-title">
               <div class="title_left">
                 <h3 class="page-header">Data Jalan <button class="btn btn-success" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i></button>
