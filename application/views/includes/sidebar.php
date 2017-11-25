@@ -10,12 +10,12 @@
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
+              <!-- <div class="profile_pic">
                 <img src="<?= base_url('assets/production/') ?>images/img.jpg" alt="User" class="img-circle profile_img">
-              </div>
+              </div> -->
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?= $nip ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -27,6 +27,7 @@
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
+                  <?php if ($role == 'admin'): ?>
                   <li><a href="<?= base_url('admin') ?>"><i class="fa fa-home"></i> Dashboard</a>
                     <ul class="nav child_menu">
                     </ul>
@@ -39,6 +40,16 @@
                     <ul class="nav child_menu">
                     </ul>
                   </li>
+                  <?php elseif ($role == 'kepala dinas'): ?>
+                  <li><a href="<?= base_url('kepala-dinas') ?>"><i class="fa fa-home"></i> Dashboard</a>
+                    <ul class="nav child_menu">
+                  </ul>
+                  </li>
+                  <li><a href="<?= base_url('kepala-dinas/jalan') ?>"><i class="fa fa-user fa-fw"></i> Data Jalan</a>
+                    <ul class="nav child_menu">
+                    </ul>
+                  </li>
+                  <?php endif; ?>
                 </ul>
               </div>
 

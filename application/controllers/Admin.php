@@ -5,6 +5,21 @@ class Admin extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->data['nip'] 	= $this->session->userdata('nip');
+		$this->data['role']	= $this->session->userdata('role');
+		if (!isset($this->data['nip'], $this->data['role']))
+		{
+			$this->session->sess_destroy();
+			redirect('login');
+			exit;
+		}
+
+		if ($this->data['role'] != 'admin')
+		{
+			$this->session->sess_destroy();
+			redirect('login');
+			exit;
+		}
 	}
 
 	public function index()
@@ -97,6 +112,30 @@ class Admin extends MY_Controller
 		$this->template($this->data);	
 	}
 
+	public function detail_jalan()
+	{
+		$this->data['id_data'] = $this->uri->segment(3);
+		if (!isset($this->data['id_data']))
+		{
+			$this->flashmsg('<i class="fa fa-warning"></i> Required parameters are missing', 'danger');
+			redirect('admin/jalan');
+			exit;
+		}
+
+		$this->load->model('jalan_m');
+		$this->data['jalan'] = $this->jalan_m->get_row(['id_data' => $this->data['id_data']]);
+		if (!$this->data['jalan'])
+		{
+			$this->flashmsg('<i class="fa fa-warning"></i> Data jalan tidak ditemukan', 'danger');
+			redirect('admin/jalan');
+			exit;
+		}
+
+		$this->data['title'] 	= 'Detail Jalan | ' . $this->title;
+		$this->data['content']	= 'admin/detail_jalan';
+		$this->template($this->data);
+	}
+
 	public function user()
 	{
 		$this->load->model('pegawai_m');
@@ -109,7 +148,8 @@ class Admin extends MY_Controller
 				'jabatan'		=> $this->POST('jabatan'),
 				'email'			=> $this->POST('email'),
 				'nomor_hp'		=> $this->POST('nomor_hp'),
-				'password'		=> md5($this->POST('password'))
+				'password'		=> md5($this->POST('password')),
+				'role'			=> $this->POST('role')
 			];
 
 			$this->pegawai_m->insert($this->data['user']);
@@ -128,7 +168,8 @@ class Admin extends MY_Controller
 				'nama'			=> $this->POST('nama'),
 				'jabatan'		=> $this->POST('jabatan'),
 				'email'			=> $this->POST('email'),
-				'nomor_hp'		=> $this->POST('nomor_hp')
+				'nomor_hp'		=> $this->POST('nomor_hp'),
+				'role'			=> $this->POST('role')
 			];
 
 			if (!empty($password)) $this->data['user']['password'] = md5($password);
@@ -142,6 +183,11 @@ class Admin extends MY_Controller
 		if ($this->POST('get') && $this->POST('nip'))
 		{
 			$this->data['user'] = $this->pegawai_m->get_row(['nip' => $this->POST('nip')]);
+			$role = [
+				'admin'			=> 'Admin',
+				'kepala dinas'	=> 'Kepala Dinas'
+			];
+			$this->data['user']->dropdown = form_dropdown('role', $role, $this->data['user']->role, ['id' => 'role', 'class' => 'form-control']);
 			echo json_encode($this->data['user']);
 			exit;
 		}
@@ -158,6 +204,30 @@ class Admin extends MY_Controller
 		$this->data['pegawai']	= $this->pegawai_m->get_by_order('nama', 'ASC');
 		$this->data['title']	= 'Data User | ' . $this->title;
 		$this->data['content']	= 'admin/data_user';
+		$this->template($this->data);
+	}
+
+	public function detail_user()
+	{
+		$this->data['nip'] = $this->uri->segment(3);
+		if (!isset($this->data['nip']))
+		{
+			$this->flashmsg('<i class="fa fa-warning"></i> Required parameters are missing', 'danger');
+			redirect('admin/user');
+			exit;
+		}
+
+		$this->load->model('pegawai_m');
+		$this->data['pegawai'] = $this->pegawai_m->get_row(['nip' => $this->data['nip']]);
+		if (!isset($this->data['pegawai']))
+		{
+			$this->flashmsg('<i class="fa fa-warning"></i> Data pegawai tidak ditemukan', 'danger');
+			redirect('admin/user');
+			exit;	
+		}
+
+		$this->data['title']	= 'Detail User | ' . $this->title;
+		$this->data['content']	= 'admin/detail_user';
 		$this->template($this->data);
 	}
 }

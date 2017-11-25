@@ -7,7 +7,9 @@ class Pegawai extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->response['error'] = false;
+		$this->response['error'] 			= false;
+		$this->response['error_message']	= '';
+		$this->response['data']				= [];
 		$this->load->model('pegawai_m');
 	}
 
@@ -86,6 +88,22 @@ class Pegawai extends MY_Controller
 			{
 				$this->response['data'] = $this->pegawai_m->select();
 			}
+		}
+
+		echo json_encode($this->response);
+	}
+
+	public function delete_pegawai()
+	{
+		$request_method = $this->METHOD();
+		if ($request_method == 'post')
+		{
+			$this->pegawai_m->delete($this->POST('nip'));
+		}
+		else
+		{
+			$this->response['error'] 			= true;
+			$this->response['error_message']	= 'Request aborted';
 		}
 
 		echo json_encode($this->response);

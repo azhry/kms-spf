@@ -196,9 +196,9 @@ class MY_Model extends CI_Model
 		return $this->validate($rules);
 	}
 
-	public function flashmsg($msg, $type = 'success')
+	public function flashmsg($msg, $type = 'success',$name='msg')
 	{
-		return $this->session->set_flashdata('msg', '<div class="alert alert-'.$type.'">'.$msg.'</div>');
+		return $this->session->set_flashdata($name, '<div class="alert alert-'.$type.' alert-dismissable"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$msg.'</div>');
 	}
 
 	public function get_col($col)

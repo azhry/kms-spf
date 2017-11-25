@@ -66,7 +66,7 @@
                                   <td class="text-center"><?= $row->nomor_hp ?></td>
                                   <td>
                                     <center>
-                                      <a href="<?= base_url('admin/detail-user') ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Detail</a>
+                                      <a href="<?= base_url('admin/detail-user/' . $row->nip) ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Detail</a>
                                       <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" onclick="get_user('<?= $row->nip ?>');"><i class="fa fa-edit"></i> Edit</a>
                                       <a href="<?= base_url('admin/user?delete=true&id=' . $row->nip) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
                                     </center>
@@ -105,6 +105,14 @@
                         <div class="form-group">
                             <label for="email">Email<span class="required">*</span></label>
                             <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="role">Role<span class="required">*</span></label>
+                          <select name="role" class="form-control" required>
+                            <option>Pilih Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="kepala dinas">Kepala Dinas</option>
+                          </select>
                         </div>
                         <div class="form-group">
                             <label for="nomor_hp">Nomor HP<span class="required">*</span></label>
@@ -151,6 +159,10 @@
                             <input type="email" class="form-control" name="email" id="email" required>
                         </div>
                         <div class="form-group">
+                          <label for="role">Role<span class="required">*</span></label>
+                          <div id="role-dropdown"></div>
+                        </div>
+                        <div class="form-group">
                             <label for="nomor_hp">Nomor HP<span class="required">*</span></label>
                             <input type="text" class="form-control" name="nomor_hp" id="nomor_hp" required>
                         </div>
@@ -192,6 +204,7 @@
                         $('#jabatan').val(json.jabatan);
                         $('#email').val(json.email);
                         $('#nomor_hp').val(json.nomor_hp);
+                        $('#role-dropdown').html(json.dropdown);
                     },
                     error: function(e) {
                       console.log(e.responseText);

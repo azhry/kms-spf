@@ -68,7 +68,7 @@
                                   <td class="text-center"><?= $row->latitude ?>, <?= $row->longitude ?></td>
                                   <td>
                                     <center>
-                                      <a href="<?= base_url('admin/detail-jalan') ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Detail</a>
+                                      <a href="<?= base_url('admin/detail-jalan/' . $row->id_data) ?>" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> Detail</a>
                                       <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" onclick="get_jalan(<?= $row->id_data ?>);"><i class="fa fa-edit"></i> Edit</a>
                                       <a href="<?= base_url('admin/jalan?delete=true&id=' . $row->id_data) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</a>
                                     </center>

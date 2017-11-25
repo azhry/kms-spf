@@ -5,6 +5,21 @@ class Kepala_dinas extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->data['nip'] 	= $this->session->userdata('nip');
+		$this->data['role']	= $this->session->userdata('role');
+		if (!isset($this->data['nip'], $this->data['role']))
+		{
+			$this->session->sess_destroy();
+			redirect('login');
+			exit;
+		}
+
+		if ($this->data['role'] != 'kepala dinas')
+		{
+			$this->session->sess_destroy();
+			redirect('login');
+			exit;
+		}
 	}
 
 	public function index()

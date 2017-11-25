@@ -23,6 +23,9 @@
 
     <!-- jQuery -->
     <script src="<?= base_url('assets') ?>/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcsdhzlDXAOHihT8kYUqvxBPhXDv4qtm0"></script>
   </head>
 
   <body class="nav-md">

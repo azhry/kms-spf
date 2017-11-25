@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2017 at 04:31 PM
+-- Generation Time: Nov 25, 2017 at 06:01 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -37,6 +37,13 @@ CREATE TABLE `jalan` (
   `longitude` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `jalan`
+--
+
+INSERT INTO `jalan` (`id_data`, `nama`, `kelurahan`, `kecamatan`, `tipe`, `kondisi`, `latitude`, `longitude`) VALUES
+(1, 'Jakarta', 'Jakarta', 'Jakarta', 'Aspal', 'Baik', -6.599130675207247, 106.82281494140625);
+
 -- --------------------------------------------------------
 
 --
@@ -50,8 +57,17 @@ CREATE TABLE `pegawai` (
   `email` varchar(150) NOT NULL,
   `nomor_hp` varchar(15) NOT NULL,
   `password` varchar(32) NOT NULL,
-  `access_token` text NOT NULL
+  `access_token` text NOT NULL,
+  `role` enum('admin','kepala dinas') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pegawai`
+--
+
+INSERT INTO `pegawai` (`nip`, `nama`, `jabatan`, `email`, `nomor_hp`, `password`, `access_token`, `role`) VALUES
+('09021181419007', 'Azhary Arliansyah', 'Adm00n', 'arliansyah_azhary@yahoo.com', '0988', '985fabf8f96dc1c4c306341031569937', '', 'admin'),
+('09021181520021', 'aaaaaaaa', 'Bukan Adm00n', 'asdasd@gmail.com', '09090', '985fabf8f96dc1c4c306341031569937', '', 'kepala dinas');
 
 --
 -- Indexes for dumped tables
@@ -77,7 +93,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `jalan`
 --
 ALTER TABLE `jalan`
-  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

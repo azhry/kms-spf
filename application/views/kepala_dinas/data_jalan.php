@@ -24,6 +24,11 @@
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="map" style="width: 100%; height: 300px;"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <div>
@@ -83,5 +88,30 @@
                     $('#dataTables-example').DataTable({
                         responsive: true
                     });
+
+                    initMap();
                 });
+
+                function initMap() {
+                  var coordinate = {lat: -6.121435, lng: 106.774124};
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 8,
+                    center: coordinate
+                  });
+
+                  <?php foreach ($jalan as $row): ?>
+                    var marker_<?= $row->id_data ?> = new google.maps.Marker({
+                      position: {lat: <?= $row->latitude ?>, lng: <?= $row->longitude ?>},
+                      map: map
+                    });
+                    var infoWindow_<?= $row->id_data ?> = new google.maps.InfoWindow({
+                      content: '<?= $row->nama ?>'
+                    });
+                    infoWindow_<?= $row->id_data ?>.open(map, marker_<?= $row->id_data ?>);
+                  <?php endforeach; ?>
+                  
+                  google.maps.event.addListener(map, 'mousemove', function(event){
+                    map.setOptions({draggableCursor: 'pointer'});
+                  });
+                }
             </script>
