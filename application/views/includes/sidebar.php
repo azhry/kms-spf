@@ -3,16 +3,16 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?= base_url('') ?>" class="site_title"><i class="fa fa-paw"></i> <span>Laporan Jalan</span></a>
+              <a href="<?= base_url('') ?>" class="site_title"><img width="20%" src="<?= base_url('assets') ?>/logo.jpg" class="img img-thumbnail img-responsive"> <span>Pemetaan Jalan</span></a>
             </div>
 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <!-- <div class="profile_pic">
-                <img src="<?= base_url('assets/production/') ?>images/img.jpg" alt="User" class="img-circle profile_img">
-              </div> -->
+              <div class="profile_pic">
+                <img src="<?= base_url('assets/') ?>/user.png" alt="User" class="img-circle profile_img">
+              </div>
               <div class="profile_info">
                 <span>Welcome,</span>
                 <h2><?= $nip ?></h2>

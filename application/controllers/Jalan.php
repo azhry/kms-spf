@@ -118,3 +118,4 @@ class Jalan extends MY_Controller
 		echo json_encode($this->response);
 	}
 }
+

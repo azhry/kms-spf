@@ -50,7 +50,8 @@ class Login extends MY_Controller
 	public function secret_login_url()
 	{
 		$this->load->model('pegawai_m');
-		$postdata = json_decode(file_get_contents('php://input')); 
+		$postdata = json_decode(file_get_contents('php://input'));
+		// echo json_encode($postdata);exit; 
 		$response['error'] = false;
 		$nip 		= $postdata->nip;
 		$password 	= $postdata->password;
@@ -78,7 +79,8 @@ class Login extends MY_Controller
 				];
 
 				$this->pegawai_m->update($check_account->nip, $entry);
-				$response['access_token'] =  $access_token;
+				// $response['access_token'] =  $access_token;
+				$response['profile']	= json_encode($check_account);
 			}
 		}
 		else
