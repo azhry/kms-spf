@@ -20,13 +20,21 @@ class Jalan extends MY_Controller
 
 		if ($request_method == 'post')
 		{
-			$nama		= $this->POST('nama');
-			$kelurahan	= $this->POST('kelurahan');
-			$kecamatan	= $this->POST('kecamatan');
-			$tipe		= $this->POST('tipe');
-			$kondisi	= $this->POST('kondisi');
-			$latitude	= $this->POST('latitude');
-			$longitude	= $this->POST('longitude');
+			$postdata 	= json_decode(file_get_contents('php://input'));
+			$nama		= $postdata->nama;
+			$kelurahan	= $postdata->kelurahan;
+			$kecamatan	= $postdata->kecamatan;
+			$tipe		= $postdata->tipe;
+			$kondisi	= $postdata->kondisi;
+			$latitude	= $postdata->latitude;
+			$longitude	= $postdata->longitude;
+			// $nama		= $this->POST('nama');
+			// $kelurahan	= $this->POST('kelurahan');
+			// $kecamatan	= $this->POST('kecamatan');
+			// $tipe		= $this->POST('tipe');
+			// $kondisi	= $this->POST('kondisi');
+			// $latitude	= $this->POST('latitude');
+			// $longitude	= $this->POST('longitude');
 			if (isset($nama, $kelurahan, $kecamatan, $tipe, $kondisi, $latitude, $longitude))
 			{
 				$this->jalan_m->insert([
@@ -69,6 +77,58 @@ class Jalan extends MY_Controller
 		echo json_encode($this->response);
 	}
 
+	public function edit_jalan()
+	{
+		$request_method = $this->METHOD();
+
+		if ($request_method == 'post')
+		{
+			$postdata 	= json_decode(file_get_contents('php://input'));
+			$nama		= $postdata->nama;
+			$kelurahan	= $postdata->kelurahan;
+			$kecamatan	= $postdata->kecamatan;
+			$tipe		= $postdata->tipe;
+			$kondisi	= $postdata->kondisi;
+			$latitude	= $postdata->latitude;
+			$longitude	= $postdata->longitude;
+			if (isset($nama, $kelurahan, $kecamatan, $tipe, $kondisi, $latitude, $longitude))
+			{
+				$this->jalan_m->update($postdata->id_data, [
+					'nama'		=> $nama,
+					'kelurahan'	=> $kelurahan,
+					'kecamatan'	=> $kecamatan,
+					'tipe'		=> $tipe,
+					'kondisi'	=> $kondisi,
+					'latitude'	=> $latitude,
+					'longitude'	=> $longitude
+				]);
+
+				$upload_path = realpath(APPPATH . '../img/');
+				$config = [
+					'file_name'			=> $this->db->insert_id() . '.jpg',
+					'allowed_types'		=> 'jpg|jpeg|png',
+					'upload_path'		=> $upload_path
+				];
+				$this->load->library('upload');
+				$this->upload->initialize($config);
+
+				$this->upload->do_upload('foto')
+			}
+			else
+			{
+				$this->response['error']			= true;
+				$this->response['error_message']	= 'Required parameters are missing';
+			}
+		}
+		else
+		{
+			$this->response['error'] 			= true;
+			$this->response['error_message']	= 'Request aborted';
+		}
+
+		echo json_encode($this->response);	
+	}
+
 	public function get_jalan()
 	{
 		$type = $this->GET('type', true);
@@ -107,7 +167,8 @@ class Jalan extends MY_Controller
 		$request_method = $this->METHOD();
 		if ($request_method == 'post')
 		{
-			$this->jalan_m->delete($this->POST('id_data'));
+			$postdata = json_decode(file_get_contents('php://input'));
+			$this->jalan_m->delete($postdata->id_data);
 		}
 		else
 		{

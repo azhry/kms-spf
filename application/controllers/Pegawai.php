@@ -19,7 +19,9 @@ class Pegawai extends MY_Controller
 
 		if ($request_method == 'post')
 		{
-			$nip 		= $this->POST('nip');
+			$postdata = json_decode(file_get_contents('php://input'));
+			$nip 	= $postdata->nip;
+			// $nip 		= $this->POST('nip');
 			$pegawai = $this->pegawai_m->get_row(['nip'	=> $nip]);
 			if (isset($pegawai))
 			{
@@ -28,11 +30,16 @@ class Pegawai extends MY_Controller
 			}
 			else
 			{
-				$nama		= $this->POST('nama');
-				$jabatan	= $this->POST('jabatan');
-				$email		= $this->POST('email');
-				$nomor_hp	= $this->POST('nomor_hp');
-				$password	= md5($this->POST('password'));
+				$nama		= $postdata->nama;
+				$jabatan	= $postdata->jabatan;
+				$email		= $postdata->email;
+				$nomor_hp	= $postdata->nomor_hp;
+				$password	= md5($postdata->password);
+				// $nama		= $this->POST('nama');
+				// $jabatan	= $this->POST('jabatan');
+				// $email		= $this->POST('email');
+				// $nomor_hp	= $this->POST('nomor_hp');
+				// $password	= md5($this->POST('password'));
 				if (isset($nip, $nama, $jabatan, $email, $nomor_hp, $password))
 				{
 					$this->pegawai_m->insert([
@@ -98,7 +105,8 @@ class Pegawai extends MY_Controller
 		$request_method = $this->METHOD();
 		if ($request_method == 'post')
 		{
-			$this->pegawai_m->delete($this->POST('nip'));
+			$postdata = json_decode(file_get_contents('php://input'));
+			$this->pegawai_m->delete($postdata->nip);
 		}
 		else
 		{
