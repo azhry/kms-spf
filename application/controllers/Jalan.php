@@ -112,7 +112,7 @@ class Jalan extends MY_Controller
 				$this->load->library('upload');
 				$this->upload->initialize($config);
 
-				$this->upload->do_upload('foto')
+				$this->upload->do_upload('foto');
 			}
 			else
 			{

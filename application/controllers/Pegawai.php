@@ -116,4 +116,54 @@ class Pegawai extends MY_Controller
 
 		echo json_encode($this->response);
 	}
+
+	public function update_pegawai()
+	{
+		$request_method = $this->METHOD();
+
+		if ($request_method == 'post')
+		{
+			$postdata 	= json_decode(file_get_contents('php://input'));
+			$nip 		= $postdata->nip;
+			$nama		= $postdata->nama;
+			$jabatan	= $postdata->jabatan;
+			$email		= $postdata->email;
+			$nomor_hp	= $postdata->nomor_hp;
+			$password	= $postdata->password;
+			if (isset($nip, $nama, $jabatan, $email, $nomor_hp))
+			{
+				if (!empty($password))
+				{
+					$this->pegawai_m->update($nip, [
+						'nama'		=> $nama,
+						'jabatan'	=> $jabatan,
+						'email'		=> $email,
+						'nomor_hp'	=> $nomor_hp
+					]);
+				}
+				else
+				{
+					$this->pegawai_m->update($nip, [
+						'nama'		=> $nama,
+						'jabatan'	=> $jabatan,
+						'email'		=> $email,
+						'nomor_hp'	=> $nomor_hp,
+						'password'	=> md5($password)
+					]);
+				}
+			}
+			else
+			{
+				$this->response['error']			= true;
+				$this->response['error_message']	= 'Required parameters are missing';
+			}
+		}
+		else
+		{
+			$this->response['error'] 			= true;
+			$this->response['error_message']	= 'Request aborted';
+		}
+
+		echo json_encode($this->response);	
+	}
 }
