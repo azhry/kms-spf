@@ -1,58 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?= $title ?></title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Knowledge Management System - PT. Sumatera Prima Fibreboard">
+  <meta name="author" content="Harsi Rahayu">
+  <meta name="keyword" content="Knowledge, Management, Information, System, Fuzzy, String, Matching">
+  <link rel="shortcut icon" href="<?= base_url('assets/NiceAdmin') ?>/img/logo-big.png">
 
-    <!-- Bootstrap -->
-    <link href="<?= base_url('assets') ?>/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="<?= base_url('assets') ?>/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="<?= base_url('assets') ?>/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="<?= base_url('assets') ?>/vendors/animate.css/animate.min.css" rel="stylesheet">
+  <title><?= $title ?></title>
 
-    <!-- Custom Theme Style -->
-    <link href="<?= base_url('assets') ?>/build/css/custom.min.css" rel="stylesheet">
-  </head>
+  <!-- Bootstrap CSS -->
+  <link href="<?= base_url('assets/NiceAdmin') ?>/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="<?= base_url('assets/NiceAdmin') ?>/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="<?= base_url('assets/NiceAdmin') ?>/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="<?= base_url('assets/NiceAdmin') ?>/css/font-awesome.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="<?= base_url('assets/NiceAdmin') ?>/css/style.css" rel="stylesheet">
+  <link href="<?= base_url('assets/NiceAdmin') ?>/css/style-responsive.css" rel="stylesheet" />
 
-  <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <?= $this->session->flashdata('msg') ?>
-            <?= form_open('login/login-process') ?>
-              <h1>Login Form</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="NIP" name="nip" required />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" name="password" required />
-              </div>
-              <div style="margin-left: 0px !important;">
-                <input type="submit" name="login-submit" value="Login" class="btn btn-lg btn-success btn-block">
-              </div>
-              <!-- <div>
-                  <a class="reset_pass" href="#">Lost your password?</a>
-              </div> -->
+    <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
 
-              <div class="clearfix"></div>
-            </form>
-          </section>
+<body class="login-img3-body">
+
+  <div class="container">
+
+    <form class="login-form" action="index.html">
+      <div class="login-wrap">
+        <p class="login-img"><i class="icon_lock_alt"></i></p>
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_profile"></i></span>
+          <input type="text" class="form-control" placeholder="Username" autofocus>
         </div>
-
-        
+        <div class="input-group">
+          <span class="input-group-addon"><i class="icon_key_alt"></i></span>
+          <input type="password" class="form-control" placeholder="Password">
+        </div>
+        <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+                <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
+            </label>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+        <button class="btn btn-info btn-lg btn-block" type="submit">Signup</button>
       </div>
+    </form>
+    <div class="text-right">
+      <div class="credits">
+          <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+          <a href="https://bootstrapmade.com/">Free Bootstrap Templates</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
     </div>
-  </body>
+  </div>
+
+
+</body>
+
 </html>
