@@ -21,6 +21,13 @@ class Admin extends MY_Controller
 		$this->template($this->data, 'admin');
 	}	
 
+	public function input_data_pelamar()
+	{
+		$this->data['title']	= 'Input Data Pelamar | ' . $this->title;
+		$this->data['content']	= 'admin/input_data_pelamar';
+		$this->template($this->data, 'admin');
+	}
+
 	public function input_penilaian()
 	{
 		$this->data['title']	= 'Input Penilaian | ' . $this->title;
