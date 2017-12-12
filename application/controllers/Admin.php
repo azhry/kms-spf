@@ -41,4 +41,25 @@ class Admin extends MY_Controller
 		$this->data['content']	= 'admin/hasil_penilaian';
 		$this->template($this->data, 'admin');
 	}
+
+	public function user()
+	{
+		$this->data['title']	= 'Daftar User | ' . $this->title;
+		$this->data['content']	= 'admin/user';
+		$this->template($this->data, 'admin');
+	}
+
+	public function tambah_user()
+	{
+		$this->data['title']	= 'Tambah User | ' . $this->title;
+		$this->data['content']	= 'admin/tambah_user';
+		$this->template($this->data, 'admin');
+	}
+
+	public function edit_user()
+	{
+		$this->data['title']	= 'Edit User | ' . $this->title;
+		$this->data['content']	= 'admin/edit_user';
+		$this->template($this->data, 'admin');
+	}
 }

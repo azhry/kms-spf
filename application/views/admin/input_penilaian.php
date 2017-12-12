@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Pages</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/daftar_pelamar') ?>/index.html">Daftar Pelamar</a></li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/daftar_pelamar') ?>">Daftar Pelamar</a></li>
                     <li><i class="fa fa-bars"></i><a href="<?= base_url('admin/input_penilaian') ?>">Penilaian</a></li>
                 </ol>
             </div>
