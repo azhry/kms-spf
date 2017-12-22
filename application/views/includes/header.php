@@ -26,6 +26,10 @@
 
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcsdhzlDXAOHihT8kYUqvxBPhXDv4qtm0"></script>
+
+    <!-- TinyMCE -->
+    <script src="<?=base_url('assets/vendor/tinymce/jquery.tinymce.min.js')?>"></script>
+    <script src="<?=base_url('assets/vendor/tinymce/tinymce.js')?>"></script>
   </head>
 
   <body class="nav-md">

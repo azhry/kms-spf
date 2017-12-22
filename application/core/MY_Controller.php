@@ -48,11 +48,11 @@ class MY_Controller extends CI_Controller
 	{
 		if ($_FILES[$tag_name])
 		{
-			$upload_path = realpath(APPPATH . $directory . '/');
-			@unlink($upload_path . '/' . $id . '.jpg');
+			$upload_path = realpath(APPPATH . '../assets/' . $directory . '/');
+			@unlink($upload_path . '/' . $id . '.pdf');
 			$config = [
-				'file_name' 		=> $id . '.jpg',
-				'allowed_types'		=> 'jpg|png|bmp|jpeg',
+				'file_name' 		=> $id . '.pdf',
+				'allowed_types'		=> 'pdf',
 				'upload_path'		=> $upload_path
 			];
 			$this->load->library('upload');

@@ -33,6 +33,10 @@
         Author: BootstrapMade
         Author URL: https://bootstrapmade.com
         ======================================================= -->
+
+        <!-- TinyMCE -->
+        <script src="<?=base_url('assets/vendor/tinymce/jquery.tinymce.min.js')?>"></script>
+        <script src="<?=base_url('assets/vendor/tinymce/tinymce.js')?>"></script>
     </head>
     <body>
         <!-- container section start -->
