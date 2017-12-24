@@ -25,20 +25,50 @@
 
                 <?= form_open('admin/input-penilaian') ?>
                   <div class="form-group">
-                    <label>Administrasi</label>
-                    <select name="administrasi" class="form-control" id=""></select>
+                    <label>Kompetensi Inti</label>
+                    <select name="kompetensi_inti" class="form-control" id="">
+                      <option>- Pilih -</option>
+                      <option value="Kurang Baik">Kurang Baik</option>
+                      <option value="Baik">Baik</option>
+                      <option value="Sangat Baik">Sangat Baik</option>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label>Wawancara</label>
-                    <select name="wawancara" class="form-control" id=""></select>
+                    <label>Kompetensi Peran</label>
+                    <select name="kompetensi_peran" class="form-control" id="">
+                      <option>- Pilih -</option>
+                      <option value="Kurang Bisa Memimpin">Kurang Bisa Memimpin</option>
+                      <option value="Bisa Memimpin">Bisa Memimpin</option>
+                      <option value="Sangat Bisa Memimpin">Sangat Bisa Memimpin</option>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label>Psikotes</label>
-                    <select name="psikotes" class="form-control" id=""></select>
+                    <label>Kompetensi Fungsional</label>
+                    <select name="kompetensi_fungsional" class="form-control" id="">
+                      <option>- Pilih -</option>
+                      <option value="Kurang Menguasai">Kurang Menguasai</option>
+                      <option value="Menguasai">Menguasai</option>
+                      <option value="Sangat Menguasai">Sangat Menguasai</option>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label>MCU</label>
-                    <select name="MCU" class="form-control" id=""></select>
+                    <label>Kompetensi Pendidikan</label>
+                    <select name="kompetensi_pendidikan" class="form-control" id="">
+                      <option>- Pilih -</option>
+                      <option value="SMA">SMA</option>
+                      <option value="D3">D3</option>
+                      <option value="S1">S1</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Kompetensi Pengalaman Kerja</label>
+                    <select name="kompetensi_pengalaman_kerja" class="form-control" id="">
+                      <option>- Pilih -</option>
+                      <option value="Kurang Pengalaman">Kurang Pengalaman</option>
+                      <option value="Pengalaman">Pengalaman</option>
+                      <option value="Sangat Pengalaman">Sangat Pengalaman</option>
+                    </select>
                   </div>
                   <input type="submit" name="submit" value="Submit" class="btn btn-primary">
                 </form>

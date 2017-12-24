@@ -13,8 +13,8 @@
         </div>
         <!-- page start-->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Data Pengetahuan Tacit <a href="<?= base_url('admin/tambah-data-tacit') ?>" class="btn btn-success btn-circle"><i class="fa fa-plus"></i></a></h1>
+            <div class="col-lg-12" style="font-size: 30px; padding: 5%;">
+                Data Pengetahuan Tacit <a href="<?= base_url('admin/tambah-data-tacit') ?>" class="btn btn-info btn-circle"><i class="fa fa-plus"></i></a> 
             </div>
             <!-- /.col-lg-12 -->
         </div>
