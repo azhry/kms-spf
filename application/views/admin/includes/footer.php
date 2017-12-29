@@ -18,5 +18,8 @@
         <script src="<?= base_url('assets/NiceAdmin') ?>/js/jquery.nicescroll.js" type="text/javascript"></script>
         <!--custome script for all page-->
         <script src="<?= base_url('assets/NiceAdmin') ?>/js/scripts.js"></script>
+
+        <!-- Bootstrap Datepicker JavaScript -->
+    <script src="<?= base_url('assets/datepicker') ?>/js/bootstrap-datepicker.min.js"></script>
     </body>
 </html>

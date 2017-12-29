@@ -7,6 +7,12 @@
             <li><a href="<?= base_url('admin/daftar-pengetahuan-tacit') ?>" class=""><i class="fa fa-book"></i> <span>Pengetahuan Tacit</span></a></li></li>
             <li><a href="<?= base_url('admin/daftar-pengetahuan-explicit') ?>" class=""><i class="fa fa-book"></i> <span>Pengetahuan Explicit</span></a></li>
             <li><a href="<?= base_url('admin/data-user') ?>" class=""><i class="fa fa-user"></i> <span>Data User</span></a></li></li>
+            <li><a href="<?= base_url('admin/departemen') ?>" class=""><i class="fa fa-book"></i> <span>Departemen</span></a></li>
+            <li><a href="<?= base_url('admin/kriteria') ?>" class=""><i class="fa fa-book"></i> <span>Kriteria</span></a></li>
+            <li><a href="<?= base_url('admin/role') ?>" class=""><i class="fa fa-book"></i> <span>Role</span></a></li>
+            <li><a href="<?= base_url('admin/fuzzy') ?>" class=""><i class="fa fa-book"></i> <span>Fuzzy</span></a></li>
+            <li><a href="<?= base_url('admin/jabatan') ?>" class=""><i class="fa fa-book"></i> <span>Jabatan</span></a></li>
+            <li><a href="<?= base_url('admin/karyawan') ?>" class=""><i class="fa fa-user fa-fw"></i> <span>Karyawan</span></a></li>
         </ul>
         <!-- sidebar menu end-->
     </div>

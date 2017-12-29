@@ -21,6 +21,11 @@
         <link href="<?= base_url('assets/NiceAdmin') ?>/css/style-responsive.css" rel="stylesheet" />
 
         <script src="<?= base_url('assets/NiceAdmin') ?>/js/jquery.js"></script>
+
+        <!-- Bootstrap Datepicker CSS -->
+        <link href="<?= base_url('assets/datepicker') ?>/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
         <!--[if lt IE 9]>
         <script src="js/html5shiv.js"></script>
