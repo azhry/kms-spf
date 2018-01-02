@@ -3,9 +3,9 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Karyawan</h3>
+                <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Hak Akses</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/karyawan') ?>">Karyawan</a></li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/hak_akses') ?>">Hak Akses</a></li>
                 </ol>
             </div>
         </div>
@@ -15,8 +15,8 @@
             <section class="panel">
               <header class="panel-heading">
                 <h3>
-                    Daftar Karyawan
-                    <a href="<?= base_url('admin/tambah_data_karyawan') ?>" class="btn btn-success">
+                    Daftar Hak Akses
+                    <a href="<?= base_url('admin/tambah_data_hak_akses') ?>" class="btn btn-success">
                     <i class="fa fa-plus"></i></a>
                 </h3>
               </header>
@@ -29,24 +29,18 @@
                 <tbody>
                   <tr>
                     <th>No</th>
-                    <th><i class="icon_profile"></i> Departemen</th>
-                    <th><i class="icon_profile"></i> Jabatan</th>
-                    <th><i class="icon_profile"></i> NIK</th>
-                    <th><i class="icon_profile"></i> Nama</th>
+                    <th><i class="icon_profile"></i> Role</th>
+                    <th><i class="icon_profile"></i> Karyawan</th>
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <?php $i = 1; foreach($data as $row): ?>
                   <tr>
                     <td><?= $i++ ?></td>
-                    <td><?= $this->departemen_m->get_row(['id_departemen' => $row->id_departemen])->nama_departemen ?></td>
-                    <td><?= $this->jabatan_m->get_row(['id_jabatan' => $row->id_jabatan])->nama_jabatan ?></td>
-                    <td><?= $row->NIK ?></td>
-                    <td><?= $row->nama ?></td>
+                    <td><?= $this->role_m->get_row(['id_role' => $row->id_role])->role ?></td>
+                    <td><?= $this->karyawan_m->get_row(['id_karyawan' => $row->id_karyawan])->nama ?></td>
                     <td>
                       <div class="btn-group">
-                        <a class="btn btn-success" href="<?= base_url('admin/detail_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
-                        <a class="btn btn-primary" href="<?= base_url('admin/edit_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
-                        <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
+                        <a href="<?= base_url('admin/hapus_hak_akses/'.$row->id_role.'_'.$row->id_karyawan) ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -66,7 +60,7 @@
 
   function delete_row(id) {
     $.ajax({
-        url: '<?= base_url('admin/karyawan') ?>',
+        url: '<?= base_url('admin/hak_akses') ?>',
         type: 'POST',
         data: {
             delete: true,
@@ -74,7 +68,7 @@
         },
         success: function(response) {
             var json = $.parseJSON(response);
-            window.location = '<?= base_url('admin/data-karyawan') ?>';
+            window.location = '<?= base_url('admin/data-hak_akses') ?>';
         },
         error: function(e) {
             console.log(e.responseText);

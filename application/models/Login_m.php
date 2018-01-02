@@ -7,20 +7,36 @@ class Login_m extends MY_Model
 		parent::__construct();
 	}
 
-	public function login($nip, $password)
+	public function login($data)
 	{
-		$this->load->model('pegawai_m');
-		$pegawai = $this->pegawai_m->get_row([
-			'nip' 		=> $nip,
-			'password'	=> $password
+
+		$this->load->model('karyawan_m');
+		$karyawan = $this->karyawan_m->get_row([
+			'username' 		=> $data['username'],
+			'password'		=> $data['password']
 		]);
-		if ($pegawai)
+
+		if ($karyawan)
 		{
 			$this->session->set_userdata([
-				'nip'	=> $pegawai->nip,
-				'role'	=> $pegawai->role
+				'id_karyawan'	=> $karyawan->id_karyawan,
+				'username'		=> $karyawan->username
 			]);
 		}
-		return $pegawai;
+		return $karyawan;
+	}
+
+	public function cek_akses($id_karyawan, $id_role){
+
+		$hak_akses = $this->db->query('SELECT * FROM `hak_akses` WHERE id_role = '.$id_role.' and id_karyawan = '.$id_karyawan.'')->result();
+
+		if (count($hak_akses) == 1)
+		{
+			$this->session->set_userdata([
+				'id_karyawan'	=> $hak_akses->id_karyawan,
+				'id_role'		=> $hak_akses->id_role
+			]);
+		}
+		return $hak_akses;
 	}
 }

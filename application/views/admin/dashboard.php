@@ -15,12 +15,12 @@
         
         
         <div class="row">
-            <a href="<?= base_url('admin/daftar-pengetahuan-tacit') ?>">
+            <a href="<?= base_url('admin/karyawan') ?>">
               <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="info-box blue-bg">
-                  <i class="fa fa-book"></i>
-                  <div class="count">6.674</div>
-                  <div class="title">Pengetahuan Tacit</div>
+                  <i class="fa fa-user"></i>
+                  <div class="count"><?= count($karyawan) ?></div>
+                  <div class="title">Karyawan</div>
                 </div>
                 <!--/.info-box-->
               </div>
@@ -28,12 +28,12 @@
             </a>
 
 
-            <a href="<?= base_url('admin/daftar-pengetahuan-explicit') ?>">
+            <a href="<?= base_url('admin/departemen') ?>">
               <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="info-box brown-bg">
                   <i class="fa fa-book"></i>
-                  <div class="count">7.538</div>
-                  <div class="title">Pengetahuan Explicit</div>
+                  <div class="count"><?= count($departemen) ?></div>
+                  <div class="title">Departemen</div>
                 </div>
                 <!--/.info-box-->
               </div>

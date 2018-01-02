@@ -28,12 +28,22 @@
                             </div>
                             <div class="form-group">
                                 <label>Departemen<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="id_departemen" required>
+                                <select name="id_departemen" class="form-control" required>
+                                    <option>-Pilih-</option>
+                                    <?php foreach($departemen as $row): ?>
+                                        <option value="<?= $row->id_departemen ?>"><?= $row->nama_departemen ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                           
                             <div class="form-group">
                                 <label>Jabatan<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="id_jabatan" required>
+                                <select name="id_jabatan" class="form-control" required>
+                                    <option>-Pilih-</option>
+                                    <?php foreach($jabatan as $row): ?>
+                                        <option value="<?= $row->id_jabatan ?>"><?= $row->nama_jabatan ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
 
                             <div class="form-group">

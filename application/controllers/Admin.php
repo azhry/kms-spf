@@ -11,8 +11,12 @@ class Admin extends MY_Controller
 
 	public function index()
 	{
+        $this->load->model('departemen_m');
+        $this->load->model('karyawan_m');
 		$this->data['title']	= 'Dashboard | ' . $this->title;
 		$this->data['content']	= 'admin/dashboard';
+        $this->data['departemen']   = $this->departemen_m->get();
+        $this->data['karyawan']      = $this->karyawan_m->get();
 		$this->template($this->data, 'admin');
 	}
 
@@ -41,27 +45,6 @@ class Admin extends MY_Controller
 	{
 		$this->data['title']	= 'Hasil Penilaian | ' . $this->title;
 		$this->data['content']	= 'admin/hasil_penilaian';
-		$this->template($this->data, 'admin');
-	}
-
-	public function user()
-	{
-		$this->data['title']	= 'Daftar User | ' . $this->title;
-		$this->data['content']	= 'admin/user';
-		$this->template($this->data, 'admin');
-	}
-
-	public function tambah_user()
-	{
-		$this->data['title']	= 'Tambah User | ' . $this->title;
-		$this->data['content']	= 'admin/tambah_user';
-		$this->template($this->data, 'admin');
-	}
-
-	public function edit_user()
-	{
-		$this->data['title']	= 'Edit User | ' . $this->title;
-		$this->data['content']	= 'admin/edit_user';
 		$this->template($this->data, 'admin');
 	}
 
@@ -360,6 +343,7 @@ class Admin extends MY_Controller
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->departemen_m->delete($this->POST('id'));
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
             exit;
         }
 
@@ -439,6 +423,7 @@ class Admin extends MY_Controller
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->kriteria_m->delete($this->POST('id'));
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
             exit;
         }
 
@@ -515,9 +500,14 @@ class Admin extends MY_Controller
     public function role()
     {
         $this->load->model('role_m');
+        $this->load->model('hak_akses_m');
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->role_m->delete($this->POST('id'));
+
+            // hapus juga di hak akses
+            $this->hak_akses_m->delete_by(['id_role' => $this->POST('id')]);
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
             exit;
         }
 
@@ -602,6 +592,7 @@ class Admin extends MY_Controller
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->fuzzy_m->delete($this->POST('id'));
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
             exit;
         }
 
@@ -681,6 +672,7 @@ class Admin extends MY_Controller
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->jabatan_m->delete($this->POST('id'));
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
             exit;
         }
 
@@ -694,6 +686,9 @@ class Admin extends MY_Controller
 
     public function tambah_data_karyawan()
     {
+        $this->load->model('departemen_m');
+        $this->load->model('jabatan_m');
+
         if($this->POST('simpan')){
 
             $this->data['input'] = [
@@ -723,11 +718,16 @@ class Admin extends MY_Controller
 
         $this->data['title']        = 'Tambah Data karyawan';
         $this->data['content']      = 'admin/karyawan_tambah';
+        $this->data['departemen']   = $this->departemen_m->get();
+        $this->data['jabatan']      = $this->jabatan_m->get();
         $this->template($this->data, 'admin');
     }
 
     public function edit_data_karyawan()
-    {   
+    {
+        $this->load->model('departemen_m');
+        $this->load->model('jabatan_m');
+
         $this->data['id'] = $this->uri->segment(3);
         if (!isset($this->data['id']))
         {
@@ -789,11 +789,16 @@ class Admin extends MY_Controller
 
         $this->data['title']        = 'Edit Data karyawan';
         $this->data['content']      = 'admin/karyawan_edit';
+        $this->data['departemen']   = $this->departemen_m->get();
+        $this->data['jabatan']      = $this->jabatan_m->get();
         $this->template($this->data, 'admin');
     }
 
     public function detail_data_karyawan()
     {
+        $this->load->model('departemen_m');
+        $this->load->model('jabatan_m');
+
         $this->data['id'] = $this->uri->segment(3);
         if (!isset($this->data['id']))
         {
@@ -819,15 +824,83 @@ class Admin extends MY_Controller
     public function karyawan()
     {
         $this->load->model('karyawan_m');
+        $this->load->model('departemen_m');
+        $this->load->model('jabatan_m');
+        $this->load->model('hak_akses_m');
+
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->karyawan_m->delete($this->POST('id'));
+
+            // hapus juga di hak akses
+            $this->hak_akses_m->delete_by(['id_karyawan' => $this->POST('id')]);
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
             exit;
         }
 
         $this->data['data']        = $this->karyawan_m->get();
         $this->data['title']        = 'Data karyawan';
         $this->data['content']      = 'admin/karyawan_data';
+        $this->template($this->data, 'admin');
+    }
+
+    //---HAK Akses--------------
+
+    public function tambah_data_hak_akses()
+    {
+        $this->load->model('karyawan_m');
+        $this->load->model('role_m');
+
+        if($this->POST('simpan')){
+
+            $this->data['input']= [
+                'id_role'       => $this->POST('id_role'),
+                'id_karyawan'   => $this->POST('id_karyawan')
+            ];
+
+            $this->load->model('hak_akses_m');
+            $this->hak_akses_m->insert($this->data['input']);
+
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data hak akses berhasil disimpan');
+
+            redirect('admin/hak_akses');
+            exit;
+        }
+
+
+        $this->data['title']        = 'Tambah Data hak_akses';
+        $this->data['content']      = 'admin/hak_akses_tambah';
+        $this->data['role']         = $this->role_m->get();
+        $this->data['karyawan']     = $this->karyawan_m->get();
+        $this->template($this->data, 'admin');
+    }
+
+    public function hapus_hak_akses(){
+        $this->data['id'] = $this->uri->segment(3);
+        if (!isset($this->data['id']))
+        {
+            $this->flashmsg('<i class="lnr lnr-warning"></i> Required parameter is missing', 'danger');
+            redirect('admin/hak_akses');
+            exit;
+        }
+
+        $pk = explode('_', $this->uri->segment(3));
+        $this->load->model('hak_akses_m');
+        $this->hak_akses_m->delete_by(['id_role' => $pk['0'], 'id_karyawan' => $pk['1'] ]);
+        $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
+        redirect('admin/hak_akses');
+        exit;
+    }
+
+    public function hak_akses()
+    {
+        $this->load->model('hak_akses_m');
+        $this->load->model('role_m');
+        $this->load->model('karyawan_m');
+
+        $this->data['data']        = $this->hak_akses_m->get();
+        $this->data['title']        = 'Data hak_akses';
+        $this->data['content']      = 'admin/hak_akses_data';
         $this->template($this->data, 'admin');
     }    
 }

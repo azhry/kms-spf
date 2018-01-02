@@ -29,12 +29,22 @@
                           
                             <div class="form-group">
                                 <label>Departemen<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="id_departemen" required value="<?= $data->id_departemen ?>">
+                                <select name="id_departemen" class="form-control" required>
+                                    <!-- <option value="<?= $data->id_departemen ?>"><?= $this->departemen_m->get_row(['id_departemen' => $data->id_departemen])->nama_departemen ?></option> -->
+                                    <?php foreach($departemen as $row): ?>
+                                        <option value="<?= $row->id_departemen ?>"><?= $row->nama_departemen ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                           
                             <div class="form-group">
                                 <label>Jabatan<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="id_jabatan" required value="<?= $data->id_jabatan?>">
+                                <select name="id_jabatan" class="form-control" required>
+                                    <!-- <option value="<?= $data->id_jabatan ?>"><?= $this->jabatan_m->get_row(['id_jabatan' => $data->id_jabatan])->nama_jabatan ?></option> -->
+                                    <?php foreach($jabatan as $row): ?>
+                                        <option value="<?= $row->id_jabatan ?>"><?= $row->nama_jabatan ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
 
                             <div class="form-group">

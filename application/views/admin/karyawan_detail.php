@@ -27,11 +27,11 @@
                                         <tbody>
                                             <tr>
                                                 <th>Departemen</th>
-                                                <td><?= $data->id_departemen ?></td>
+                                                <td><?= $this->departemen_m->get_row(['id_departemen' => $data->id_departemen])->nama_departemen ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Jabatan</th>
-                                                <td><?= $data->id_jabatan ?></td>
+                                                <td><?= $this->jabatan_m->get_row(['id_jabatan' => $data->id_jabatan])->nama_jabatan ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Username</th>

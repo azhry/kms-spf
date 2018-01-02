@@ -26,115 +26,43 @@ class Login extends MY_Controller
 	}
 
 	public function index()
-	{
-		$this->data['title']	= 'Login | ' . $this->title;
-		$this->data['content']	= 'login';
-		$this->load->view('login', $this->data);
-	}
+	{	
+		$this->load->model('login_m');
+		$this->load->model('role_m');
 
-	public function login_process()
-	{
-		if ($this->POST('login-submit'))
+		if ($this->input->post('login-submit'))
 		{
-			$this->load->model('login_m');
-			$account = $this->login_m->login($this->POST('nip'), md5($this->POST('password')));
-			if (!$account)
-			{
-				$this->flashmsg('<i class="fa fa-warning"></i> NIP atau password salah', 'danger');
+			$this->data = [
+				'username'	=> $this->input->post('username'),
+				'password'	=> md5($this->input->post('password'))
+			];
+
+			$cek_karyawan 	= $this->login_m->login($this->data);
+
+			if(count($cek_karyawan) < 1){
+				$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissable"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Anda tidak terdaftar!</div>');
+				redirect('login');
+				exit;
+			}
+
+			$id_karyawan 	= $this->session->userdata('id_karyawan');
+			$id_role		= $this->input->post('role');
+
+			$cek_hak_akses 	= $this->login_m->cek_akses($id_karyawan, $id_role);
+
+			if(count($cek_hak_akses) == 1){
+				redirect('admin');
+				exit;
+			}
+			else {
+				$this->session->set_flashdata('msg', '<div class="alert alert-danger alert-dismissable"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Username atau password salah!</div>');
+				redirect('login');
+				exit;
 			}
 		}
 
-		redirect('login');
-	}
-
-	public function secret_login_url()
-	{
-		$this->load->model('pegawai_m');
-		$postdata = json_decode(file_get_contents('php://input'));
-		// echo json_encode($postdata);exit; 
-		$response['error'] = false;
-		$nip 		= $postdata->nip;
-		$password 	= $postdata->password;
-		if (isset($nip, $password))
-		{
-			$check_account = $this->pegawai_m->get_row([
-				'nip' 		=> $nip,
-				'password' 	=> md5($password)
-			]);
-			if (!isset($check_account))
-			{
-				$response['error'] 			= true;
-				$response['error_status']	= 1;
-				$response['error_message']	= 'Wrong username or password'; 
-			}
-			else
-			{
-				$updated_at = date('Y-m-d H:i:s');
-				$ip_address = $this->input->ip_address();
-				$access_token = base64_encode($check_account->nip) . '.' .
-							base64_encode($ip_address) . '.' . 
-							base64_encode($updated_at);
-				$entry = [
-					'access_token'	=> $access_token,
-				];
-
-				$this->pegawai_m->update($check_account->nip, $entry);
-				// $response['access_token'] =  $access_token;
-				$response['profile']	= json_encode($check_account);
-			}
-		}
-		else
-		{
-			$response['error'] 			= true;
-			$response['error_status']	= 2;
-			$response['error_message']	= 'Required parameter is missing'; 
-		}
-
-		echo json_encode($response);
-	}
-
-	public function check_access_token()
-	{
-		$this->load->model('pegawai_m');
-		$response['error'] = false;
-		$access_token = $this->POST('access_token');
-		$token_generic = explode('.', $access_token);
-		if (count($token_generic) > 1)
-		{
-			$nip 		= base64_decode($token_generic[0]);
-			$username 	= base64_decode($token_generic[1]);
-			$verify = $this->pegawai_m->select_row(['access_token'], [
-				'access_token' 	=> $access_token,
-				'nip'			=> $nip
-			]);
-			if ($verify)
-			{
-				$updated_at = date('Y-m-d H:i:s');
-				$ip_address = $this->input->ip_address();
-				$access_token = base64_encode($nip) . '.' .
-							base64_encode($ip_address) . '.' . 
-							base64_encode($updated_at);
-				$entry = [
-					'access_token'	=> $access_token
-				];
-
-				$this->pegawai_m->update($nip, $entry);
-				$response['access_token'] =  $access_token;
-			}
-			else
-			{
-				$response['error']			= true;
-				$response['error_status']	= 1;
-				$response['error_message']	= 'You have no authorized access. Please login!';
-			}	
-		}
-		else
-		{
-			$response['error']			= true;
-			$response['error_status']	= 1;
-			$response['error_message']	= 'You have no authorized access. Please login!';
-		}
-		
-		echo json_encode($response);
+		$this->data['title']  = 'Login | ' . $this->title;
+        $this->data['role']   = $this->role_m->get();
+		$this->load->view('login',$this->data);
 	}
 }
