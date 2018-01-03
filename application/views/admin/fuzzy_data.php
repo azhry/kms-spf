@@ -38,7 +38,16 @@
                   <?php $i = 1; foreach($data as $row): ?>
                   <tr>
                     <td><?= $i++ ?></td>
-                    <td><?= $row->id_kriteria ?></td>
+                    
+                    <?php 
+                      $kriteria =  $this->kriteria_m->get_row(['id_kriteria' => $row->id_kriteria]);
+                      if($kriteria == NULL): 
+                    ?>
+                      <td>-</td>
+                    <?php else: ?>
+                      <td><?= $kriteria->nama ?></td>
+                    <?php endif; ?>
+
                     <td><?= $row->fuzzy ?></td>
                     <td><?= $row->bobot_min ?></td>
                     <td><?= $row->bobot_max ?></td>

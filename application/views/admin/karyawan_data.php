@@ -37,18 +37,33 @@
                   </tr>
                   <?php $i = 1; foreach($data as $row): ?>
                   <tr>
-                    <td><?= $i++ ?></td>
-                    <td><?= $this->departemen_m->get_row(['id_departemen' => $row->id_departemen])->nama_departemen ?></td>
-                    <td><?= $this->jabatan_m->get_row(['id_jabatan' => $row->id_jabatan])->nama_jabatan ?></td>
-                    <td><?= $row->NIK ?></td>
-                    <td><?= $row->nama ?></td>
-                    <td>
-                      <div class="btn-group">
-                        <a class="btn btn-success" href="<?= base_url('admin/detail_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
-                        <a class="btn btn-primary" href="<?= base_url('admin/edit_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
-                        <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
-                      </div>
-                    </td>
+                      <td><?= $i++ ?></td>
+                    <?php 
+                      $departemen = $this->departemen_m->get_row(['id_departemen' => $row->id_departemen]);
+                      if($departemen == NULL): 
+                    ?>
+                      <td>-</td>
+                    <?php else: ?>
+                      <td><?= $departemen->nama_departemen ?></td>
+                    <?php endif; ?>
+
+                    <?php 
+                      $jabatan =  $this->jabatan_m->get_row(['id_jabatan' => $row->id_jabatan]);
+                      if($jabatan == NULL): 
+                    ?>
+                      <td>-</td>
+                    <?php else: ?>
+                      <td><?= $jabatan->nama_jabatan ?></td>
+                    <?php endif; ?>
+                      <td><?= $row->NIK ?></td>
+                      <td><?= $row->nama ?></td>
+                      <td>
+                        <div class="btn-group">
+                          <a class="btn btn-success" href="<?= base_url('admin/detail_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
+                          <a class="btn btn-primary" href="<?= base_url('admin/edit_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
+                          <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                      </td>
                   </tr>
                   <?php endforeach; ?>
                 </tbody>

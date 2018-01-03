@@ -522,32 +522,70 @@ class Admin extends MY_Controller
 
     public function tambah_data_fuzzy()
     {
-        if($this->POST('simpan')){
+        $this->load->model('kriteria_m');
+        $this->load->model('fuzzy_m');
+        // if($this->POST('simpan')){
 
-            $this->data['input'] = [
-                'id_kriteria'   => $this->POST('id_kriteria'),
-                'fuzzy'         => $this->POST('fuzzy'),
-                'bobot_min'     => $this->POST('bobot_min'),
-                'bobot_max'     => $this->POST('bobot_max')
-            ];
+        //     $this->load->model('fuzzy_m');
 
-            $this->load->model('fuzzy_m');
-            $this->fuzzy_m->insert($this->data['input']);
+        //     $this->data['input'] = [
+        //         'id_kriteria'   => $this->POST('id_kriteria'),
+        //         'fuzzy'         => $this->POST('fuzzy'),
+        //         'bobot_min'     => $this->POST('bobot_min'),
+        //         'bobot_max'     => $this->POST('bobot_max')
+        //     ];
 
-            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data fuzzy berhasil disimpan');
+        //     $this->load->model('fuzzy_m');
+        //     $this->fuzzy_m->insert($this->data['input']);
 
-            redirect('admin/fuzzy');
+        //     $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data fuzzy berhasil disimpan');
+
+        //     redirect('admin/fuzzy');
+        //     exit;
+        // }
+
+        if ($this->POST('simpan'))
+        {
+            
+            $dynamic_form_count = count($this->POST('fuzzy'));
+            $fuzzy              = $this->POST('fuzzy');
+            $bobot_min          = $this->POST('bobot_min');
+            $bobot_max          = $this->POST('bobot_max');
+
+            for ($i = 0; $i < $dynamic_form_count; $i++)
+            {
+            
+
+                // if (empty($fuzzy[$i]) or !isset($bobot_min[$i]) or !isset($bobot_max[$i]) or !isset($id_kriteria[$i]))
+                // {
+                //     continue;
+                // }
+
+                $this->data['entri'] = [
+                    'id_kriteria'   => $this->POST('id_kriteria'),
+                    'fuzzy'         => $fuzzy[$i],
+                    'bobot_min'     => (int)$bobot_min[$i],
+                    'bobot_max'     => (int)$bobot_max[$i]
+                ];
+
+                $this->fuzzy_m->insert($this->data['entri']);
+            }
+
+            $this->flashmsg('Data Fuzzy berhasil ditambahkan');
+            redirect('admin/tambah-data-fuzzy');
             exit;
         }
 
 
         $this->data['title']        = 'Tambah Data Fuzzy';
         $this->data['content']      = 'admin/fuzzy_tambah';
+        $this->data['kriteria']     = $this->kriteria_m->get();
         $this->template($this->data, 'admin');
     }
 
     public function edit_data_fuzzy()
     {   
+        $this->load->model('kriteria_m');
         $this->data['id'] = $this->uri->segment(3);
         if (!isset($this->data['id']))
         {
@@ -583,12 +621,14 @@ class Admin extends MY_Controller
 
         $this->data['title']        = 'Edit Data Fuzzy';
         $this->data['content']      = 'admin/fuzzy_edit';
+        $this->data['kriteria']     = $this->kriteria_m->get();
         $this->template($this->data, 'admin');
     }
 
     public function fuzzy()
     {
         $this->load->model('fuzzy_m');
+        $this->load->model('kriteria_m');
         if ($this->POST('delete') && $this->POST('id'))
         {
             $this->fuzzy_m->delete($this->POST('id'));
@@ -596,7 +636,7 @@ class Admin extends MY_Controller
             exit;
         }
 
-        $this->data['data']        = $this->fuzzy_m->get();
+        $this->data['data']         = $this->fuzzy_m->get();
         $this->data['title']        = 'Data Fuzzy';
         $this->data['content']      = 'admin/fuzzy_data';
         $this->template($this->data, 'admin');

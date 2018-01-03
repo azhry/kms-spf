@@ -28,7 +28,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Kriteria<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="id_kriteria" required value="<?= $data->id_kriteria ?>">
+                                <select name="id_kriteria" class="form-control" required>
+                                    <?php foreach($kriteria as $row): ?>
+                                        <option value="<?= $row->id_kriteria ?>"><?= $row->nama ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                           
                             <div class="form-group">

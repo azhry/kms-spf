@@ -26,24 +26,35 @@
                                 <style type="text/css">.required{color: red;}</style>
                                 <?= $this->session->flashdata('msg') ?>
                             </div>
-                            <div class="form-group">
-                                <label>Kriteria<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="id_kriteria" required>
+                            <div style="margin-top: 2%; margin-bottom: 2%;">
+                                <button type="button" class="btn btn-primary" onclick="addFormInput(); return false;"><i class="fa fa-plus"></i> Tambah</button>
                             </div>
-                          
-                            <div class="form-group">
-                                <label>Fuzzy<span class="required">*</span></label>
-                                <input type="text" class="form-control" name="fuzzy" required>
-                            </div>
+                            
+                            <div id="form-container">
+                                <div class="form-group">
+                                    <label>Kriteria<span class="required">*</span></label>
+                                    <select name="id_kriteria" class="form-control" required>
+                                        <option>-Pilih-</option>
+                                        <?php foreach($kriteria as $row): ?>
+                                            <option value="<?= $row->id_kriteria ?>"><?= $row->nama ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                              
+                                <div class="form-group">
+                                    <label>Fuzzy<span class="required">*</span></label>
+                                    <input type="text" class="form-control" name="fuzzy[]" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Bobot Minimal<span class="required">*</span></label>
-                                <input type="number" class="form-control" name="bobot_min" required>
-                            </div>
+                                <div class="form-group">
+                                    <label>Bobot Minimal<span class="required">*</span></label>
+                                    <input type="number" class="form-control" name="bobot_min[]" required>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Bobot Maksimal<span class="required">*</span></label>
-                                <input type="number" class="form-control" name="bobot_max" required>
+                                <div class="form-group">
+                                    <label>Bobot Maksimal<span class="required">*</span></label>
+                                    <input type="number" class="form-control" name="bobot_max[]" required>
+                                </div>
                             </div>
 
                             <div>
@@ -64,31 +75,38 @@
 </section>
 
 
-
             <script type="text/javascript">
                 function submit_form() {
                     $('#form').submit();
                 }
 
-                $(document).ready(function() {
-                     tinymce.init({
-                        selector: 'textarea',
-                        height: 500,
-                        plugins: [
-                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                            'searchreplace wordcount visualblocks visualchars code fullscreen',
-                            'insertdatetime media nonbreaking save table contextmenu directionality',
-                            'emoticons template paste textcolor colorpicker textpattern imagetools'
-                        ],
-                        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                        toolbar2: 'print preview media | forecolor backcolor emoticons',
-                        image_advtab: true
-                    })
+                function addFormInput() {
+                    $.ajax({
+                        url: '<?= base_url('admin/tambah-data-fuzzy') ?>',
+                        type: 'GET',
+                        async: false,
+                        success: function(response) {
+                            console.log(response);
+                            
+                            $('#form-container').append('<div style="margin-top: 2%;">' +
+                        
+                                '<hr><div class="form-group">' +
+                                    '<label>Fuzzy<span class="required">*</span></label>' +
+                                    '<input type="text" class="form-control" name="fuzzy[]" required>' +
+                                '</div>' +
 
-                    $('.input-group.date').datetimepicker({format: "yyyy-mm-dd H:i:s"});
-                    
-                    $('#dataTables-example').DataTable({
-                        responsive: true
-                    })
-                });
+                                '<div class="form-group">' +
+                                    '<label>Bobot Minimal<span class="required">*</span></label>' +
+                                    '<input type="number" class="form-control" name="bobot_min[]" required>' +
+                                '</div>' +
+
+                                '<div class="form-group">' +
+                                    '<label>Bobot Maksimal<span class="required">*</span></label>' +
+                                    '<input type="number" class="form-control" name="bobot_max[]" required>' +
+                            '</div><hr>');
+                        }
+                    });
+
+                    return false;
+                }
             </script>

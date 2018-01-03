@@ -4,7 +4,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
             <li><a href="<?= base_url('admin/') ?>" class="active"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-            <li><a href="<?= base_url('admin/hak_akses') ?>" class=""><i class="fa fa-user fa-key"></i> <span>Hak Askses</span></a></li>
+            <li><a href="<?= base_url('admin/hak_akses') ?>" class=""><i class="fa fa-user fa-key"></i> <span>Hak Akses</span></a></li>
             <li><a href="<?= base_url('admin/karyawan') ?>" class=""><i class="fa fa-user fa-fw"></i> <span>Karyawan</span></a></li>
             <li><a href="<?= base_url('admin/departemen') ?>" class=""><i class="fa fa-book"></i> <span>Departemen</span></a></li>
             <li><a href="<?= base_url('admin/kriteria') ?>" class=""><i class="fa fa-book"></i> <span>Kriteria</span></a></li>
