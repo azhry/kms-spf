@@ -5,7 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Hak Akses</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/hak_akses') ?>">Hak Akses</a></li>
+                  <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+                  <li><i class="fa fa-lock"></i>Data Hak Akses</li>
                 </ol>
             </div>
         </div>
@@ -16,7 +17,7 @@
               <header class="panel-heading">
                 <h3>
                     Daftar Hak Akses
-                    <a href="<?= base_url('admin/tambah_data_hak_akses') ?>" class="btn btn-success">
+                    <a href="<?= base_url('admin/tambah_data_hak_akses') ?>" class="btn btn-success btn-sm">
                     <i class="fa fa-plus"></i></a>
                 </h3>
               </header>
@@ -29,15 +30,15 @@
                 <tbody>
                   <tr>
                     <th>No</th>
-                    <th><i class="icon_profile"></i> Role</th>
                     <th><i class="icon_profile"></i> Karyawan</th>
+                    <th><i class="icon_profile"></i> Role</th>
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <?php $i = 1; foreach($data as $row): ?>
                   <tr>
                     <td><?= $i++ ?></td>
-                    <td><?= $this->role_m->get_row(['id_role' => $row->id_role])->role ?></td>
                     <td><?= $this->karyawan_m->get_row(['id_karyawan' => $row->id_karyawan])->nama ?></td>
+                    <td><?= $this->role_m->get_row(['id_role' => $row->id_role])->role ?></td>
                     <td>
                       <div class="btn-group">
                         <a href="<?= base_url('admin/hapus_hak_akses/'.$row->id_role.'_'.$row->id_karyawan) ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>

@@ -7,7 +7,8 @@
             <h3 class="page-header"><i class="fa fa-file-text-o"></i> Tambah Data Role</h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-              <li><i class="icon_document_alt"></i><a href="<?= base_url('admin/role') ?>">Data Role</a></li>
+              <li><i class="fa fa-user"></i><a href="<?= base_url('admin/role') ?>">Data Role</a></li>
+              <li><i class="fa fa-plus"></i>Tambah Data</li>
             </ol>
           </div>
         </div>

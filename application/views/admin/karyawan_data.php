@@ -5,7 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Karyawan</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/karyawan') ?>">Karyawan</a></li>
+                  <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+                  <li><i class="fa fa-users"></i>Data Karyawan</li>
                 </ol>
             </div>
         </div>
@@ -16,7 +17,7 @@
               <header class="panel-heading">
                 <h3>
                     Daftar Karyawan
-                    <a href="<?= base_url('admin/tambah_data_karyawan') ?>" class="btn btn-success">
+                    <a href="<?= base_url('admin/tambah_data_karyawan') ?>" class="btn btn-success btn-sm">
                     <i class="fa fa-plus"></i></a>
                 </h3>
               </header>
@@ -29,23 +30,17 @@
                 <tbody>
                   <tr>
                     <th>No</th>
-                    <th><i class="icon_profile"></i> Departemen</th>
-                    <th><i class="icon_profile"></i> Jabatan</th>
                     <th><i class="icon_profile"></i> NIK</th>
                     <th><i class="icon_profile"></i> Nama</th>
+                    <th><i class="icon_profile"></i> Jabatan</th>
+                    <th><i class="icon_profile"></i> Departemen</th>
                     <th><i class="icon_cogs"></i> Action</th>
                   </tr>
                   <?php $i = 1; foreach($data as $row): ?>
                   <tr>
                       <td><?= $i++ ?></td>
-                    <?php 
-                      $departemen = $this->departemen_m->get_row(['id_departemen' => $row->id_departemen]);
-                      if($departemen == NULL): 
-                    ?>
-                      <td>-</td>
-                    <?php else: ?>
-                      <td><?= $departemen->nama_departemen ?></td>
-                    <?php endif; ?>
+                      <td><?= $row->NIK ?></td>
+                      <td><?= $row->nama ?></td>
 
                     <?php 
                       $jabatan =  $this->jabatan_m->get_row(['id_jabatan' => $row->id_jabatan]);
@@ -55,8 +50,17 @@
                     <?php else: ?>
                       <td><?= $jabatan->nama_jabatan ?></td>
                     <?php endif; ?>
-                      <td><?= $row->NIK ?></td>
-                      <td><?= $row->nama ?></td>
+
+                    <?php 
+                      $departemen = $this->departemen_m->get_row(['id_departemen' => $row->id_departemen]);
+                      if($departemen == NULL): 
+                    ?>
+                      <td>-</td>
+                    <?php else: ?>
+                      <td><?= $departemen->nama_departemen ?></td>
+                    <?php endif; ?>
+
+                    
                       <td>
                         <div class="btn-group">
                           <a class="btn btn-success" href="<?= base_url('admin/detail_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>

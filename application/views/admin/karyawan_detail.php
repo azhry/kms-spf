@@ -7,7 +7,8 @@
                         <h3 class="page-header"><i class="fa fa-file-text-o"></i> Detail Data Karyawan</h3>
                         <ol class="breadcrumb">
                           <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-                          <li><i class="icon_document_alt"></i><a href="<?= base_url('admin/karyawan') ?>">Data Karyawan</a></li>
+                          <li><i class="fa fa-users"></i><a href="<?= base_url('admin/karyawan') ?>">Data Karyawan</a></li>
+                          <li><i class="fa fa-info"></i>Detail Data</li>
                         </ol>
                       </div>
                     </div>
@@ -27,11 +28,29 @@
                                         <tbody>
                                             <tr>
                                                 <th>Departemen</th>
-                                                <td><?= $this->departemen_m->get_row(['id_departemen' => $data->id_departemen])->nama_departemen ?></td>
+                                                <td>
+                                                     <?php 
+                                                      $departemen = $this->departemen_m->get_row(['id_departemen' => $data->id_departemen]);
+                                                      if($departemen == NULL): 
+                                                    ?>
+                                                      -
+                                                    <?php else: ?>
+                                                      <?= $departemen->nama_departemen ?>
+                                                    <?php endif; ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>Jabatan</th>
-                                                <td><?= $this->jabatan_m->get_row(['id_jabatan' => $data->id_jabatan])->nama_jabatan ?></td>
+                                                <td>
+                                                    <?php 
+                                                      $jabatan =  $this->jabatan_m->get_row(['id_jabatan' => $data->id_jabatan]);
+                                                      if($jabatan == NULL): 
+                                                    ?>
+                                                      -
+                                                    <?php else: ?>
+                                                    <?= $jabatan->nama_jabatan ?>
+                                                    <?php endif; ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>Username</th>

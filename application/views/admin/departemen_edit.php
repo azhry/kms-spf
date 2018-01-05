@@ -6,8 +6,11 @@
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-file-text-o"></i> Edit Data Departemen</h3>
             <ol class="breadcrumb">
+              <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-              <li><i class="icon_document_alt"></i><a href="<?= base_url('admin/departemen') ?>">Data Departemen</a></li>
+              <li><i class="fa fa-university"></i><a href="<?= base_url('admin/departemen') ?>">Data Departemen</a></li>
+              <li><i class="fa fa-edit"></i>Edit Data</li>
+            </ol>
             </ol>
           </div>
         </div>

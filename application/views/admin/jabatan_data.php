@@ -5,7 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Jabatan</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/jabatan') ?>">Jabatan</a></li>
+                  <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+                  <li><i class="fa fa-book"></i>Data Jabatan</li>
                 </ol>
             </div>
         </div>
@@ -16,7 +17,7 @@
               <header class="panel-heading">
                 <h3>
                     Daftar Jabatan
-                    <a href="<?= base_url('admin/tambah_data_jabatan') ?>" class="btn btn-success">
+                    <a href="<?= base_url('admin/tambah_data_jabatan') ?>" class="btn btn-success btn-sm">
                     <i class="fa fa-plus"></i></a>
                 </h3>
               </header>
