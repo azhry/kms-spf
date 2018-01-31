@@ -7,7 +7,8 @@
             <h3 class="page-header"><i class="fa fa-file-text-o"></i> Tambah Data Hak Akses</h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-              <li><i class="icon_document_alt"></i><a href="<?= base_url('admin/hak_akses') ?>">Data hak_akses</a></li>
+              <li><i class="fa fa-lock"></i><a href="<?= base_url('admin/hak-akses') ?>">Data Hak Akses</a></li>
+              <li><i class="fa fa-plus"></i>Tambah Data</li>
             </ol>
           </div>
         </div>

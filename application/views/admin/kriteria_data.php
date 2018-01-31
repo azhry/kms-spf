@@ -5,7 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Kriteria</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/kriteria') ?>">Kriteria</a></li>
+                  <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+                  <li><i class="fa fa-list-alt"></i>Data Kriteria</li>
                 </ol>
             </div>
         </div>
@@ -16,7 +17,7 @@
               <header class="panel-heading">
                 <h3>
                     Daftar Kriteria
-                    <a href="<?= base_url('admin/tambah_data_kriteria') ?>" class="btn btn-success">
+                    <a href="<?= base_url('admin/tambah_data_kriteria') ?>" class="btn btn-success btn-sm">
                     <i class="fa fa-plus"></i></a>
                 </h3>
               </header>

@@ -5,7 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Fuzzy</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('admin/fuzzy') ?>">Fuzzy</a></li>
+                  <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+                  <li><i class="fa fa-pencil-square-o"></i>Data Fuzzy</li>
                 </ol>
             </div>
         </div>
@@ -16,7 +17,7 @@
               <header class="panel-heading">
                 <h3>
                     Daftar Fuzzy
-                    <a href="<?= base_url('admin/tambah_data_fuzzy') ?>" class="btn btn-success">
+                    <a href="<?= base_url('admin/tambah_data_fuzzy') ?>" class="btn btn-success btn-sm">
                     <i class="fa fa-plus"></i></a>
                 </h3>
               </header>
@@ -29,8 +30,8 @@
                 <tbody>
                   <tr>
                     <th>No</th>
-                    <th><i class="icon_profile"></i> Kriteria</th>
                     <th><i class="icon_profile"></i> Fuzzy</th>
+                    <th><i class="icon_profile"></i> Kriteria</th>
                     <th><i class="icon_profile"></i> Bobot Min</th>
                     <th><i class="icon_profile"></i> Bobot Max</th>
                     <th><i class="icon_cogs"></i> Action</th>
@@ -38,6 +39,8 @@
                   <?php $i = 1; foreach($data as $row): ?>
                   <tr>
                     <td><?= $i++ ?></td>
+
+                    <td><?= $row->fuzzy ?></td>
                     
                     <?php 
                       $kriteria =  $this->kriteria_m->get_row(['id_kriteria' => $row->id_kriteria]);
@@ -47,8 +50,6 @@
                     <?php else: ?>
                       <td><?= $kriteria->nama ?></td>
                     <?php endif; ?>
-
-                    <td><?= $row->fuzzy ?></td>
                     <td><?= $row->bobot_min ?></td>
                     <td><?= $row->bobot_max ?></td>
                     <td>

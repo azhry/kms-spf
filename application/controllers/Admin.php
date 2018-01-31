@@ -12,11 +12,22 @@ class Admin extends MY_Controller
 	public function index()
 	{
         $this->load->model('departemen_m');
+        $this->load->model('hak_akses_m');
         $this->load->model('karyawan_m');
+        $this->load->model('kriteria_m');
+        $this->load->model('role_m');
+        $this->load->model('fuzzy_m');
+        $this->load->model('jabatan_m');
+
 		$this->data['title']	= 'Dashboard | ' . $this->title;
 		$this->data['content']	= 'admin/dashboard';
+        $this->data['hak_akses']    = $this->hak_akses_m->get();
         $this->data['departemen']   = $this->departemen_m->get();
-        $this->data['karyawan']      = $this->karyawan_m->get();
+        $this->data['karyawan']     = $this->karyawan_m->get();
+        $this->data['kriteria']     = $this->kriteria_m->get();
+        $this->data['role']         = $this->role_m->get();
+        $this->data['fuzzy']        = $this->fuzzy_m->get();
+        $this->data['jabatan']      = $this->jabatan_m->get();
 		$this->template($this->data, 'admin');
 	}
 

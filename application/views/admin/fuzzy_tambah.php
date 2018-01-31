@@ -5,10 +5,11 @@
         <div class="row">
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-file-text-o"></i> Tambah Data Fuzzy</h3>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-              <li><i class="icon_document_alt"></i><a href="<?= base_url('admin/fuzzy') ?>">Data Fuzzy</a></li>
-            </ol>
+                <ol class="breadcrumb">
+                  <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
+                  <li><i class="fa fa-pencil-square-o"></i><a href="<?= base_url('admin/fuzzy') ?>">Data Fuzzy</a></li>
+                  <li><i class="fa fa-plus"></i>Tambah Data</li>
+                </ol>
           </div>
         </div>
 
@@ -41,19 +42,27 @@
                                     </select>
                                 </div>
                               
-                                <div class="form-group">
-                                    <label>Fuzzy<span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="fuzzy[]" required>
-                                </div>
+                                <div class="row" style="margin-top: 2%">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fuzzy<span class="required">*</span></label>
+                                            <input type="text" class="form-control" name="fuzzy[]" required>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label>Bobot Minimal<span class="required">*</span></label>
-                                    <input type="number" class="form-control" name="bobot_min[]" required>
-                                </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Bobot Minimal<span class="required">*</span></label>
+                                            <input type="number" class="form-control" name="bobot_min[]" required>
+                                        </div>
+                                    </div>
 
-                                <div class="form-group">
-                                    <label>Bobot Maksimal<span class="required">*</span></label>
-                                    <input type="number" class="form-control" name="bobot_max[]" required>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Bobot Maksimal<span class="required">*</span></label>
+                                            <input type="number" class="form-control" name="bobot_max[]" required>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -88,22 +97,29 @@
                         success: function(response) {
                             console.log(response);
                             
-                            $('#form-container').append('<div style="margin-top: 2%;">' +
-                        
-                                '<hr><div class="form-group">' +
-                                    '<label>Fuzzy<span class="required">*</span></label>' +
-                                    '<input type="text" class="form-control" name="fuzzy[]" required>' +
-                                '</div>' +
+                            $('#form-container').append('<div class="row" style="margin-top: 2%">' +
+                                    '<div class="col-md-4">' +
+                                        '<div class="form-group">' +
+                                            '<label>Fuzzy<span class="required">*</span></label>' +
+                                            '<input type="text" class="form-control" name="fuzzy[]" required>' +
+                                        '</div>' +
+                                    '</div>' +
 
-                                '<div class="form-group">' +
-                                    '<label>Bobot Minimal<span class="required">*</span></label>' +
-                                    '<input type="number" class="form-control" name="bobot_min[]" required>' +
-                                '</div>' +
+                                    '<div class="col-md-4">' +
+                                        '<div class="form-group">' +
+                                            '<label>Bobot Minimal<span class="required">*</span></label>' +
+                                            '<input type="number" class="form-control" name="bobot_min[]" required>' +
+                                        '</div>' +
+                                    '</div>' +
 
-                                '<div class="form-group">' +
-                                    '<label>Bobot Maksimal<span class="required">*</span></label>' +
-                                    '<input type="number" class="form-control" name="bobot_max[]" required>' +
-                            '</div><hr>');
+                                   '<div class="col-md-4">' +
+                                        '<div class="form-group">' +
+                                            '<label>Bobot Maksimal<span class="required">*</span></label>' +
+                                            '<input type="number" class="form-control" name="bobot_max[]" required>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>');
                         }
                     });
 
