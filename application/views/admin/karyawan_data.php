@@ -63,9 +63,10 @@
                     
                       <td>
                         <div class="btn-group">
-                          <a class="btn btn-success" href="<?= base_url('admin/detail_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
-                          <a class="btn btn-primary" href="<?= base_url('admin/edit_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
-                          <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
+                            <a class="btn btn-default" href="<?= base_url( 'admin/input-penilaian/' . $row->id_karyawan ) ?>"><i class="fa fa-edit"></i> Beri Nilai</a>
+                            <a class="btn btn-success" href="<?= base_url('admin/detail_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
+                            <a class="btn btn-primary" href="<?= base_url('admin/edit_data_karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
                         </div>
                       </td>
                   </tr>

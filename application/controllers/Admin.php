@@ -7,6 +7,7 @@ class Admin extends MY_Controller
 		parent::__construct();
 		$this->data['nip']      = $this->session->userdata('nip');
         $this->data['jabatan']  = $this->session->userdata('jabatan');
+
 	}
 
 	public function index()
@@ -45,12 +46,117 @@ class Admin extends MY_Controller
 		$this->template($this->data, 'admin');
 	}
 
-	public function input_penilaian()
-	{
+	public function input_penilaian() {
+
+        $this->data['id_karyawan'] = $this->uri->segment( 3 );
+        if ( !isset( $this->data['id_karyawan'] ) ) {
+
+            $this->flashmsg( 'Required parameter is missing', 'danger' );
+            redirect( 'admin/karyawan' );
+            exit;
+
+        }
+
+        $this->load->model( 'karyawan_m' );
+        $this->data['karyawan'] = $this->karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'] ] );
+        if ( !isset( $this->data['karyawan'] ) ) {
+
+            $this->flashmsg( 'Data not found', 'danger' );
+            redirect( 'admin/karyawan' );
+            exit;            
+
+        }
+
+        $this->load->model( 'penilaian_karyawan_m' );
+
+        if ( $this->POST( 'submit' ) ) {
+
+            $kompetensi_inti = $this->POST( 'kompetensi_inti' );
+            $KI = $this->penilaian_karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'], 'id_kriteria' => 1 ] );
+            if ( !isset( $KI ) ) {
+                $this->penilaian_karyawan_m->insert([
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_kriteria'   => 1,
+                    'bobot'         => $kompetensi_inti
+                ]);
+            } else {
+                $this->penilaian_karyawan_m->update($KI->id_penilaian, [
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'bobot'         => $kompetensi_inti
+                ]);
+            }
+
+            $kompetensi_peran = $this->POST( 'kompetensi_peran' );
+            $KP = $this->penilaian_karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'], 'id_kriteria' => 2 ] );
+            if ( !isset( $KP ) ) {
+                $this->penilaian_karyawan_m->insert([
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_kriteria'   => 2,
+                    'bobot'         => $kompetensi_peran
+                ]);
+            } else {
+                $this->penilaian_karyawan_m->update($KP->id_penilaian, [
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'bobot'         => $kompetensi_peran
+                ]);
+            }
+
+            $kompetensi_fungsional = $this->POST( 'kompetensi_fungsional' );
+            $KF = $this->penilaian_karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'], 'id_kriteria' => 3 ] );
+            if ( !isset( $KF ) ) {
+                $this->penilaian_karyawan_m->insert([
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_kriteria'   => 3,
+                    'bobot'         => $kompetensi_fungsional
+                ]);
+            } else {
+                $this->penilaian_karyawan_m->update($KF->id_penilaian, [
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'bobot'         => $kompetensi_fungsional
+                ]);
+            }
+
+            $kompetensi_pendidikan = $this->POST( 'kompetensi_pendidikan' );
+            $KPd = $this->penilaian_karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'], 'id_kriteria' => 4 ] );
+            if ( !isset( $KPd ) ) {
+                $this->penilaian_karyawan_m->insert([
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_kriteria'   => 4,
+                    'bobot'         => $kompetensi_pendidikan
+                ]);
+            } else {
+                $this->penilaian_karyawan_m->update($KPd->id_penilaian, [
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'bobot'         => $kompetensi_pendidikan
+                ]);
+            }
+
+            $kompetensi_pengalaman_kerja = $this->POST( 'kompetensi_pengalaman_kerja' );
+            $KPK = $this->penilaian_karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'], 'id_kriteria' => 5 ] );
+            if ( !isset( $KPK ) ) {
+                $this->penilaian_karyawan_m->insert([
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_kriteria'   => 5,
+                    'bobot'         => $kompetensi_pengalaman_kerja
+                ]);
+            } else {
+                $this->penilaian_karyawan_m->update($KPK->id_penilaian, [
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'bobot'         => $kompetensi_pengalaman_kerja
+                ]);
+            }
+
+            $this->flashmsg( 'Nilai berhasil disimpan' );
+            redirect( 'admin/input-penilaian/' . $this->data['id_karyawan'] );
+            exit;
+
+        }
+
 		$this->data['title']	= 'Input Penilaian | ' . $this->title;
 		$this->data['content']	= 'admin/input_penilaian';
 		$this->template($this->data, 'admin');
-	}
+	
+    }
 
 	public function hasil_penilaian()
 	{
