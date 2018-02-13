@@ -5,8 +5,51 @@ class Admin extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->data['nip']      = $this->session->userdata('nip');
-        $this->data['jabatan']  = $this->session->userdata('jabatan');
+		$this->data['id_karyawan']  = $this->session->userdata('id_karyawan');
+        $this->data['id_role']      = $this->session->userdata('id_role');
+
+        if ( !isset( $this->data['id_karyawan'], $this->data['id_role'] ) ) {
+
+            $this->session->sess_destroy();
+            redirect( 'login' );
+            exit;
+
+        }
+
+        $this->load->model( 'hak_akses_m' );
+        $this->data['hak_akses'] = $this->hak_akses_m->get_row([
+            'id_karyawan'   => $this->data['id_karyawan'],
+            'id_role'       => $this->data['id_role']
+        ]);
+
+        if ( !isset( $this->data['hak_akses'] ) ) {
+
+            $this->session->sess_destroy();
+            redirect( 'login' );
+            exit;
+
+        }
+
+        $this->load->model( 'role_m' );
+        $this->data['role'] = $this->role_m->get_row([ 'id_role' => $this->data['hak_akses']->id_role ]);
+        if ( !isset( $this->data['role'] ) or strtolower( $this->data['role']->role ) !== 'admin' ) {
+
+            $this->session->sess_destroy();
+            redirect( 'login' );
+            exit;
+
+        }
+
+        $this->load->model( 'karyawan_m' );
+        $this->data['karyawan'] = $this->karyawan_m->get_row([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+
+        if ( !isset( $this->data['karyawan'] ) ) {
+
+            $this->session->sess_destroy();
+            redirect( 'login' );
+            exit;
+
+        }
 
 	}
 
@@ -31,6 +74,92 @@ class Admin extends MY_Controller
         $this->data['jabatan']      = $this->jabatan_m->get();
 		$this->template($this->data, 'admin');
 	}
+
+    public function data_keputusan() {
+
+        $this->load->model( 'keputusan_m' );
+
+        if ( $this->POST( 'delete' ) ) {
+
+            $this->keputusan_m->delete( $this->POST( 'id_keputusan' ) );
+            $this->flashmsg( 'Data berhasil dihapus' );
+            redirect( 'admin/data-keputusan' );
+            exit;
+
+        }
+
+        $this->data['keputusan']    = $this->keputusan_m->get();
+        $this->data['title']        = 'Data Keputusan | ' . $this->title;
+        $this->data['content']      = 'admin/data_keputusan';
+        $this->template( $this->data, 'admin' );
+
+    }
+
+    public function input_keputusan() {
+
+        $this->load->model( 'keputusan_m' );
+        if ( $this->POST( 'submit' ) ) {
+
+            $this->data['keputusan'] = [
+                'nama'  => $this->POST( 'nama' ),
+                'nmin'  => $this->POST( 'nmin' ),
+                'nmax'  => $this->POST( 'nmax' )
+            ];
+
+            $this->keputusan_m->insert( $this->data['keputusan'] );
+            $this->flashmsg( 'Data berhasil disimpan' );
+            redirect( 'admin/data-keputusan' );
+
+            exit;
+
+        }
+
+        $this->data['title']        = 'Data Keputusan | ' . $this->title;
+        $this->data['content']      = 'admin/input_keputusan';
+        $this->template( $this->data, 'admin' );
+
+    }
+
+    public function edit_keputusan() {
+
+        $this->data['id_keputusan'] = $this->uri->segment( 3 );
+        if ( !isset( $this->data['id_keputusan'] ) ) {
+
+            $this->flashmsg( 'Required parameter is missing', 'danger' );
+            redirect( 'admin/data-keputusan' );
+            exit;
+
+        }
+
+        $this->load->model( 'keputusan_m' );
+        $this->data['keputusan']    = $this->keputusan_m->get_row( [ 'id_keputusan' => $this->data['id_keputusan'] ] );
+        if ( !isset( $this->data['keputusan'] ) ) {
+
+            $this->flashmsg( 'Data tidak ditemukan', 'danger' );
+            redirect( 'admin/data-keputusan' );
+            exit;
+
+        }
+
+        if ( $this->POST( 'submit' ) ) {
+
+            $this->data['keputusan'] = [
+                'nama'  => $this->POST( 'nama' ),
+                'nmin'  => $this->POST( 'nmin' ),
+                'nmax'  => $this->POST( 'nmax' )
+            ];
+            $this->keputusan_m->update( $this->data['id_keputusan'], $this->data['keputusan'] );
+            $this->flashmsg( 'Data berhasil diedit' );
+            redirect( 'admin/data-keputusan' );
+            exit;
+
+        }
+
+        $this->data['title']    = 'Edit Keputusan | ' . $this->title;
+        $this->data['content']  = 'admin/edit_keputusan';
+        $this->template( $this->data, 'admin' );
+
+    }
 
 	public function daftar_pelamar()
 	{
@@ -144,6 +273,43 @@ class Admin extends MY_Controller
                     'id_karyawan'   => $this->data['id_karyawan'],
                     'bobot'         => $kompetensi_pengalaman_kerja
                 ]);
+            }
+
+            $this->load->model( 'fuzzy_m' );
+            $this->load->model( 'keputusan_m' );
+            $this->load->model( 'hasil_penilaian_m' );
+            $Z = $this->fuzzy_m->tsukamoto( $this->data['id_karyawan'] );
+            $keputusan = $this->keputusan_m->get_row([
+                'nmin >=' => $Z,
+                'nmax <=' => $Z
+            ]);
+
+            if ( !isset( $keputusan ) ) {
+
+                $keputusan = (object)[
+                    'id_keputusan'  => 3,
+                    'nama'          => 'Kurang Baik',
+                    'nmin'          => 20,
+                    'nmax'          => 55
+                ];
+
+            }
+
+            $penilaian = $this->hasil_penilaian_m->get_row([ 'id_karyawan' => $this->data['id_karyawan'], 'id_keputusan' => $keputusan->id_keputusan ]);
+            if ( !isset( $penilaian ) ) {
+
+                $this->hasil_penilaian_m->insert([
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_keputusan'  => $keputusan->id_keputusan
+                ]);
+
+            } else {
+
+                $this->hasil_penilaian_m->update($penilaian->id_hasil, [
+                    'id_karyawan'   => $this->data['id_karyawan'],
+                    'id_keputusan'  => $keputusan->id_keputusan
+                ]);
+
             }
 
             $this->flashmsg( 'Nilai berhasil disimpan' );
@@ -1056,7 +1222,7 @@ class Admin extends MY_Controller
         $this->load->model('karyawan_m');
 
         $this->data['data']        = $this->hak_akses_m->get();
-        $this->data['title']        = 'Data hak_akses';
+        $this->data['title']        = 'Data Hak Akses';
         $this->data['content']      = 'admin/hak_akses_data';
         $this->template($this->data, 'admin');
     }    

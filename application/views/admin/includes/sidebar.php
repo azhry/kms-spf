@@ -10,6 +10,7 @@
             <li><a href="<?= base_url('admin/kriteria') ?>" class=""><i class="fa fa-list-alt"></i> <span>Kriteria</span></a></li>
             <li><a href="<?= base_url('admin/role') ?>" class=""><i class="fa fa-user"></i> <span>Role</span></a></li>
             <li><a href="<?= base_url('admin/fuzzy') ?>" class=""><i class="fa fa-pencil-square-o"></i> <span>Fuzzy</span></a></li>
+            <li><a href="<?= base_url('admin/data-keputusan') ?>" class=""><i class="fa fa-pencil-square-o"></i> <span>Nilai Keputusan</span></a></li>
             <li><a href="<?= base_url('admin/jabatan') ?>" class=""><i class="fa fa-book"></i> <span>Jabatan</span></a></li>
         </ul>
         <!-- sidebar menu end-->

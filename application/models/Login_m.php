@@ -18,11 +18,25 @@ class Login_m extends MY_Model
 
 		if ($karyawan)
 		{
+
+			$this->load->model( 'hak_akses_m' );
+			$hak_akses = $this->hak_akses_m->get_row([
+				'id_role'		=> $data['id_role'],
+				'id_karyawan'	=> $karyawan->id_karyawan
+			]);
+
+			if ( !isset( $hak_akses ) ) return false;
+
 			$this->session->set_userdata([
 				'id_karyawan'	=> $karyawan->id_karyawan,
-				'username'		=> $karyawan->username
+				'username'		=> $karyawan->username,
+				'id_role'		=> $hak_akses->id_role,
+				'id_departemen'	=> $karyawan->id_departemen,
+				'id_jabatan'	=> $karyawan->id_jabatan
 			]);
+
 		}
+
 		return $karyawan;
 	}
 

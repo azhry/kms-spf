@@ -91,7 +91,7 @@ class Fuzzy_m extends MY_Model {
 			$fuzzies['KI']['baik'],
 			$fuzzies['KP']['bisa_memimpin'],
 			$fuzzies['KF']['menguasai'],
-			$fuzzies['KPd']['sma'],
+			$fuzzies['KPd']['s1'],
 			$fuzzies['KPK']['pengalaman']
 		]);
 
