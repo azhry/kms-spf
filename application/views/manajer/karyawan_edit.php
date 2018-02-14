@@ -6,8 +6,8 @@
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-file-text-o"></i> Edit Data Karyawan</h3>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="<?= base_url('admin') ?>">Dashboard</a></li>
-              <li><i class="fa fa-users"></i><a href="<?= base_url('admin/karyawan') ?>">Data Karyawan</a></li>
+              <li><i class="fa fa-home"></i><a href="<?= base_url('manajer') ?>">Dashboard</a></li>
+              <li><i class="fa fa-users"></i><a href="<?= base_url('manajer/data-karyawan') ?>">Data Karyawan</a></li>
               <li><i class="fa fa-edit"></i>Edit Data</li>
             </ol>
           </div>
@@ -20,7 +20,7 @@
                 Edit Data Karyawan
               </header>
               <div class="panel-body">
-                <?= form_open('admin/edit_data_karyawan/'.$data->id_karyawan, ['id' => 'form']) ?>
+                <?= form_open('manajer/edit-data-karyawan/'.$data->id_karyawan, ['id' => 'form']) ?>
                     <div class="row">
                         <div class="col-lg-10 col-lg-offset-1">
                             <div>

@@ -26,7 +26,15 @@ class Login extends MY_Controller
 
 					case 2:
 						redirect( 'manajer' );
-						exit;
+						break;
+
+					case 3:
+						redirect( 'officer' );
+						break;
+
+					case 4:
+						redirect( 'direktur' );
+						break;
 
 				}
 

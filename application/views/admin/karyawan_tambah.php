@@ -59,7 +59,7 @@
 
                             <div class="form-group">
                                 <label>NIK<span class="required">*</span></label>
-                                <input type="number" class="form-control" name="NIK" required>
+                                <input type="text" class="form-control" name="NIK" required>
                             </div>
 
                             <div class="form-group">

@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Karyawan</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('manajer') ?>">Dashboard</a></li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('officer') ?>">Dashboard</a></li>
                     <li><i class="fa fa-users"></i>Data Karyawan</li>
                 </ol>
             </div>
@@ -17,7 +17,7 @@
                     <header class="panel-heading">
                         <h3>
                         Daftar Karyawan
-                        <a href="<?= base_url('manajer/tambah-data-karyawan') ?>" class="btn btn-success btn-sm">
+                        <a href="<?= base_url('officer/tambah-data-karyawan') ?>" class="btn btn-success btn-sm">
                         <i class="fa fa-plus"></i></a>
                         </h3>
                     </header>
@@ -58,9 +58,9 @@
                                 
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-default" href="<?= base_url( 'manajer/input-penilaian/' . $row->id_karyawan ) ?>"><i class="fa fa-edit"></i> Beri Nilai</a>
-                                        <a class="btn btn-success" href="<?= base_url('manajer/detail-data-karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
-                                        <a class="btn btn-primary" href="<?= base_url('manajer/edit-data-karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a class="btn btn-default" href="<?= base_url( 'officer/input-penilaian/' . $row->id_karyawan ) ?>"><i class="fa fa-edit"></i> Beri Nilai</a>
+                                        <a class="btn btn-success" href="<?= base_url('officer/detail-data-karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
+                                        <a class="btn btn-primary" href="<?= base_url('officer/edit-data-karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
                                         <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
                                     </div>
                                 </td>
@@ -80,7 +80,7 @@
 
   function delete_row(id) {
     $.ajax({
-        url: '<?= base_url('manajer/data-karyawan') ?>',
+        url: '<?= base_url('officer/data-karyawan') ?>',
         type: 'POST',
         data: {
             delete: true,
@@ -88,7 +88,7 @@
         },
         success: function(response) {
             var json = $.parseJSON(response);
-            window.location = '<?= base_url('manajer/data-karyawan') ?>';
+            window.location = '<?= base_url('officer/data-karyawan') ?>';
         },
         error: function(e) {
             console.log(e.responseText);

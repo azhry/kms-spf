@@ -5,8 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa-file-text-o"></i> Tambah Data Karyawan</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('manajer') ?>">Dashboard</a></li>
-                    <li><i class="fa fa-users"></i><a href="<?= base_url('manajer/data-karyawan') ?>">Data Karyawan</a></li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('officer') ?>">Dashboard</a></li>
+                    <li><i class="fa fa-users"></i><a href="<?= base_url('officer/data-karyawan') ?>">Data Karyawan</a></li>
                     <li><i class="fa fa-plus"></i>Tambah Data</li>
                 </ol>
             </div>
@@ -18,7 +18,7 @@
                         Tambah Data Karyawan
                     </header>
                     <div class="panel-body">
-                        <?= form_open('manajer/tambah-data-karyawan', ['id' => 'form']) ?>
+                        <?= form_open('officer/tambah-data-karyawan', ['id' => 'form']) ?>
                         <div class="row">
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div>

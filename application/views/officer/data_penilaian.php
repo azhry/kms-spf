@@ -3,10 +3,10 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-bars"></i> Daftar Karyawan</h3>
+                <h3 class="page-header"><i class="fa fa fa-bars"></i> Data Penilaian</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('manajer') ?>">Dashboard</a></li>
-                    <li><i class="fa fa-users"></i>Data Karyawan</li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('officer') ?>">Dashboard</a></li>
+                    <li><i class="fa fa-users"></i>Data Penilaian</li>
                 </ol>
             </div>
         </div>
@@ -15,11 +15,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <h3>
-                        Daftar Karyawan
-                        <a href="<?= base_url('manajer/tambah-data-karyawan') ?>" class="btn btn-success btn-sm">
-                        <i class="fa fa-plus"></i></a>
-                        </h3>
+                        <h3>Data Penilaian</h3>
                     </header>
                     <div>
                         <?= $this->session->flashdata('msg') ?>
@@ -32,13 +28,14 @@
                                 <th><i class="icon_profile"></i> Nama</th>
                                 <th><i class="icon_profile"></i> Jabatan</th>
                                 <th><i class="icon_profile"></i> Departemen</th>
+                                <th><i class="icon_profile"></i> Kinerja</th>
                                 <th><i class="icon_cogs"></i> Action</th>
                             </tr>
-                            <?php $i = 1; foreach($data as $row): ?>
+                            <?php $i = 1; foreach($hasil_penilaian as $row): ?>
                             <tr>
                                 <td><?= $i++ ?></td>
                                 <td><?= $row->NIK ?></td>
-                                <td><?= $row->nama ?></td>
+                                <td><?= $row->nama_karyawan ?></td>
                                 <?php
                                     $jabatan =  $this->jabatan_m->get_row(['id_jabatan' => $row->id_jabatan]);
                                     if($jabatan == NULL):
@@ -55,13 +52,10 @@
                                 <?php else: ?>
                                 <td><?= $departemen->nama_departemen ?></td>
                                 <?php endif; ?>
-                                
+                                <td><?= $row->kinerja ?></td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-default" href="<?= base_url( 'manajer/input-penilaian/' . $row->id_karyawan ) ?>"><i class="fa fa-edit"></i> Beri Nilai</a>
-                                        <a class="btn btn-success" href="<?= base_url('manajer/detail-data-karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
-                                        <a class="btn btn-primary" href="<?= base_url('manajer/edit-data-karyawan/'.$row->id_karyawan) ?>"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a href="" class="btn btn-danger" onclick="delete_row(<?= $row->id_karyawan ?>)"><i class="fa fa-trash-o"></i></a>
+                                        <a class="btn btn-success" href="<?= base_url('officer/detail-penilaian/'.$row->id_karyawan) ?>"><i class="fa fa-info"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -80,7 +74,7 @@
 
   function delete_row(id) {
     $.ajax({
-        url: '<?= base_url('manajer/data-karyawan') ?>',
+        url: '<?= base_url('officer/data-karyawan') ?>',
         type: 'POST',
         data: {
             delete: true,
@@ -88,7 +82,7 @@
         },
         success: function(response) {
             var json = $.parseJSON(response);
-            window.location = '<?= base_url('manajer/data-karyawan') ?>';
+            window.location = '<?= base_url('officer/data-karyawan') ?>';
         },
         error: function(e) {
             console.log(e.responseText);

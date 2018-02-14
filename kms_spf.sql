@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2017 at 03:26 PM
+-- Generation Time: Feb 14, 2018 at 09:01 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -25,6 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bobot`
+--
+
+CREATE TABLE `bobot` (
+  `id_bobot` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `nmax` int(11) NOT NULL,
+  `nmin` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `departemen`
 --
 
@@ -33,6 +46,13 @@ CREATE TABLE `departemen` (
   `nama_departemen` varchar(200) NOT NULL,
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `departemen`
+--
+
+INSERT INTO `departemen` (`id_departemen`, `nama_departemen`, `deskripsi`) VALUES
+(1, 'Human Resource General Affair', '<p>HRGA</p>');
 
 -- --------------------------------------------------------
 
@@ -48,6 +68,27 @@ CREATE TABLE `fuzzy` (
   `bobot_max` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `fuzzy`
+--
+
+INSERT INTO `fuzzy` (`id_fuzzy`, `id_kriteria`, `fuzzy`, `bobot_min`, `bobot_max`) VALUES
+(1, 1, 'Kurang Baik', 20, 55),
+(2, 1, 'Baik', 60, 80),
+(3, 1, 'Sangat Baik', 85, 100),
+(4, 2, 'Kurang Bisa Memimpin', 20, 55),
+(5, 2, 'Bisa Memimpin', 60, 80),
+(6, 2, 'Sangat Bisa Memimpin', 85, 100),
+(7, 3, 'Kurang Menguasai', 20, 55),
+(8, 3, 'Menguasai', 60, 80),
+(9, 3, 'Sangat Menguasai', 85, 100),
+(10, 4, 'SMA', 20, 55),
+(11, 4, 'D3', 60, 80),
+(12, 4, 'S1', 85, 100),
+(13, 5, 'Kurang Pengalaman', 20, 55),
+(14, 5, 'Pengalaman', 60, 80),
+(15, 5, 'Sangat Pengalaman', 85, 100);
+
 -- --------------------------------------------------------
 
 --
@@ -59,6 +100,16 @@ CREATE TABLE `hak_akses` (
   `id_karyawan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `hak_akses`
+--
+
+INSERT INTO `hak_akses` (`id_role`, `id_karyawan`) VALUES
+(1, 25),
+(2, 25),
+(3, 25),
+(4, 25);
+
 -- --------------------------------------------------------
 
 --
@@ -68,9 +119,17 @@ CREATE TABLE `hak_akses` (
 CREATE TABLE `hasil_penilaian` (
   `id_hasil` int(11) NOT NULL,
   `id_karyawan` int(11) NOT NULL,
-  `nilai` int(11) NOT NULL,
-  `kinerja` varchar(100) NOT NULL
+  `id_keputusan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hasil_penilaian`
+--
+
+INSERT INTO `hasil_penilaian` (`id_hasil`, `id_karyawan`, `id_keputusan`) VALUES
+(1, 1, 3),
+(2, 5, 3),
+(3, 25, 3);
 
 -- --------------------------------------------------------
 
@@ -83,6 +142,14 @@ CREATE TABLE `jabatan` (
   `nama_jabatan` varchar(200) NOT NULL,
   `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jabatan`
+--
+
+INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `deskripsi`) VALUES
+(1, 'Manajer', '<p>manajer</p>'),
+(4, 'Training Officer', '<p>Training Officer</p>');
 
 -- --------------------------------------------------------
 
@@ -134,7 +201,51 @@ INSERT INTO `karyawan` (`id_karyawan`, `id_departemen`, `id_jabatan`, `username`
 (21, 1, 3, 'foremanfa_nurhabibah', '9bc242fe326e1f0db6d4571f45067144', 101017, 'Nurhabibah', 'Surabaya', '1988-05-11', 'p', 'Islam', 'Indralaya', 'S1 Pertanian'),
 (22, 1, 3, 'foreman_julian', '9bc242fe326e1f0db6d4571f45067144', 101018, 'Julian', 'Medan', '1984-04-18', 'l', 'Kristen', 'Indralaya', 'S1 Akuntansi'),
 (23, 1, 3, 'foremanfa_yuliani', '9bc242fe326e1f0db6d4571f45067144', 101019, 'Yuliani', 'Indralaya', '1988-05-23', 'p', 'Islam', 'Indralaya', 'S1 Pertanian'),
-(24, 1, 3, 'foremanfa_zulkarnain', '9bc242fe326e1f0db6d4571f45067144', 101020, 'Zulkarnain', 'Samarinda', '1886-07-27', 'l', 'Islam', 'Indralaya', 'S1 Akuntannsi');
+(24, 1, 3, 'foremanfa_zulkarnain', '9bc242fe326e1f0db6d4571f45067144', 101020, 'Zulkarnain', 'Samarinda', '1886-07-27', 'l', 'Islam', 'Indralaya', 'S1 Akuntannsi'),
+(25, 1, 1, 'azhary', '985fabf8f96dc1c4c306341031569937', 12345, 'Azhary Arliansyah', 'Palembang', '2018-02-23', 'l', 'Islam', 'Alamat', 'S1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `keputusan`
+--
+
+CREATE TABLE `keputusan` (
+  `id_keputusan` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `nmin` int(11) NOT NULL,
+  `nmax` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `keputusan`
+--
+
+INSERT INTO `keputusan` (`id_keputusan`, `nama`, `nmin`, `nmax`) VALUES
+(3, 'Kurang Baik', 20, 55),
+(4, 'Baik', 60, 80),
+(5, 'Sangat Baik', 85, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `komentar_tacit`
+--
+
+CREATE TABLE `komentar_tacit` (
+  `id_komentar` int(11) NOT NULL,
+  `id_hasil` int(11) NOT NULL,
+  `id_karyawan` int(11) NOT NULL,
+  `komentar` text NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `komentar_tacit`
+--
+
+INSERT INTO `komentar_tacit` (`id_komentar`, `id_hasil`, `id_karyawan`, `komentar`, `waktu`) VALUES
+(1, 1, 25, 'Ini komentarku, mana komentarmu?', '2018-02-13 18:04:06');
 
 -- --------------------------------------------------------
 
@@ -147,6 +258,17 @@ CREATE TABLE `kriteria` (
   `nama` varchar(150) NOT NULL,
   `label` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kriteria`
+--
+
+INSERT INTO `kriteria` (`id_kriteria`, `nama`, `label`) VALUES
+(1, 'Kompetensi Inti', 'KI'),
+(2, 'Kompetensi Peran', 'KP'),
+(3, 'Kompetensi Fungsional', 'KF'),
+(4, 'Kompetensi Pendidikan', 'KPd'),
+(5, 'Kompetensi Pengalaman Kerja', 'KPK');
 
 -- --------------------------------------------------------
 
@@ -161,6 +283,32 @@ CREATE TABLE `penilaian_karyawan` (
   `bobot` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `penilaian_karyawan`
+--
+
+INSERT INTO `penilaian_karyawan` (`id_penilaian`, `id_kriteria`, `id_karyawan`, `bobot`) VALUES
+(1, 1, 1, 12),
+(2, 2, 1, 83),
+(3, 3, 1, 93),
+(4, 4, 1, 100),
+(5, 5, 1, 100),
+(6, 1, 2, 100),
+(7, 2, 2, 90),
+(8, 3, 2, 88),
+(9, 4, 2, 100),
+(10, 5, 2, 80),
+(11, 1, 5, 23),
+(12, 2, 5, 45),
+(13, 3, 5, 23),
+(14, 4, 5, 65),
+(15, 5, 5, 3),
+(16, 1, 25, 30),
+(17, 2, 25, 40),
+(18, 3, 25, 50),
+(19, 4, 25, 20),
+(20, 5, 25, 40);
+
 -- --------------------------------------------------------
 
 --
@@ -174,8 +322,24 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id_role`, `role`, `deskripsi`) VALUES
+(1, 'Admin', '<p>Ini adminn</p>'),
+(2, 'Manajer', '<p>Manajer</p>'),
+(3, 'Officer', '<p>Officer</p>'),
+(4, 'Direktur', '<p>Direktur</p>');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bobot`
+--
+ALTER TABLE `bobot`
+  ADD PRIMARY KEY (`id_bobot`);
 
 --
 -- Indexes for table `departemen`
@@ -187,7 +351,8 @@ ALTER TABLE `departemen`
 -- Indexes for table `fuzzy`
 --
 ALTER TABLE `fuzzy`
-  ADD PRIMARY KEY (`id_fuzzy`);
+  ADD PRIMARY KEY (`id_fuzzy`),
+  ADD KEY `id_kriteria` (`id_kriteria`);
 
 --
 -- Indexes for table `hasil_penilaian`
@@ -208,6 +373,18 @@ ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`id_karyawan`),
   ADD KEY `id_jabatan` (`id_jabatan`),
   ADD KEY `id_departemen` (`id_departemen`);
+
+--
+-- Indexes for table `keputusan`
+--
+ALTER TABLE `keputusan`
+  ADD PRIMARY KEY (`id_keputusan`);
+
+--
+-- Indexes for table `komentar_tacit`
+--
+ALTER TABLE `komentar_tacit`
+  ADD PRIMARY KEY (`id_komentar`);
 
 --
 -- Indexes for table `kriteria`
@@ -232,52 +409,80 @@ ALTER TABLE `role`
 --
 
 --
+-- AUTO_INCREMENT for table `bobot`
+--
+ALTER TABLE `bobot`
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `departemen`
 --
 ALTER TABLE `departemen`
-  MODIFY `id_departemen` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_departemen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `fuzzy`
 --
 ALTER TABLE `fuzzy`
-  MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `hasil_penilaian`
 --
 ALTER TABLE `hasil_penilaian`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `keputusan`
+--
+ALTER TABLE `keputusan`
+  MODIFY `id_keputusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `komentar_tacit`
+--
+ALTER TABLE `komentar_tacit`
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `penilaian_karyawan`
 --
 ALTER TABLE `penilaian_karyawan`
-  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `fuzzy`
+--
+ALTER TABLE `fuzzy`
+  ADD CONSTRAINT `fuzzy_ibfk_1` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

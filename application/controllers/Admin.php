@@ -640,7 +640,7 @@ class Admin extends MY_Controller
 
     public function tambah_data_kriteria()
     {
-        if($this->POST('simpan')){
+        if($this->POST('simpan')) {
 
             $this->data['input'] = [
                 'nama'      => $this->POST('nama'),
