@@ -235,7 +235,15 @@ class Manajer extends MY_Controller {
 		$this->load->model( 'karyawan_m' );
 		$this->load->model( 'departemen_m' );
 		$this->load->model( 'jabatan_m' );
+        $this->load->model( 'bruteforce_m' );
+
 		$this->data['hasil_penilaian']	= $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
+        if ( $this->POST( 'query' ) ) {
+
+            $this->data['hasil_penilaian'] = $this->bruteforce_m->search( $this->POST( 'query' ), $this->data['hasil_penilaian'] );
+
+        }
+
 		$this->data['title']			= 'Data Penilaian Karyawan';
 		$this->data['content']			= 'manajer/data_penilaian';
 		$this->template( $this->data, 'manajer' );
