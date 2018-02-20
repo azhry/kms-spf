@@ -62,6 +62,24 @@ class MY_Controller extends CI_Controller
 		return FALSE;
 	}
 
+	public function upload2($id, $directory, $tag_name = 'userfile')
+	{
+		if ($_FILES[$tag_name])
+		{
+			$upload_path = realpath(APPPATH . '../assets/' . $directory . '/');
+			@unlink($upload_path . '/' . $id);
+			$config = [
+				'file_name' 		=> $id,
+				'allowed_types'		=> 'pdf',
+				'upload_path'		=> $upload_path
+			];
+			$this->load->library('upload');
+			$this->upload->initialize($config);
+			return $this->upload->do_upload($tag_name);
+		}
+		return FALSE;
+	}
+
 	public function dump($var)
 	{
 		echo '<pre>';

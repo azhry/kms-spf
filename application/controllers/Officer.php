@@ -77,6 +77,18 @@ class Officer extends MY_Controller {
 
 	}
 
+    public function knowledge_sharing() {
+
+        $this->load->model( 'tacit_knowledge_m' );
+        $this->load->model( 'explicit_knowledge_m' );
+        $this->data['tacit']    = $this->tacit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['explicit'] = $this->explicit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['title']    = 'Knowledge Sharing | ' . $this->title;
+        $this->data['content']  = 'officer/knowledge_sharing';
+        $this->template( $this->data, 'officer' );
+
+    }
+
     public function data_karyawan() {
 
         $this->load->model('karyawan_m');
@@ -876,6 +888,264 @@ class Officer extends MY_Controller {
         $this->data['content']      = 'officer/fuzzy_edit';
         $this->data['kriteria']     = $this->kriteria_m->get();
         $this->template($this->data, 'officer');
+
+    }
+
+    public function tacit_knowledge() {
+
+        $this->load->model( 'tacit_knowledge_m' );
+        if ( $this->GET( 'delete' ) && $this->GET( 'id_tacit' ) ) {
+
+            $this->tacit_knowledge_m->delete_by([ 'id_tacit' => $this->GET( 'id_tacit' ), 'id_karyawan' => $this->data['id_karyawan'] ]);
+            $this->flashmsg( 'Tacit knowledge telah dihapus' );
+            redirect( 'officer/tacit-knowledge' );
+            exit;
+
+        }
+
+        $this->data['tacit']    = $this->tacit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['title']    = 'Tacit Knowledge | ' . $this->title;
+        $this->data['content']  = 'officer/tacit_knowledge';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function detail_tacit() {
+
+        $this->data['id_tacit'] = $this->uri->segment( 3 );
+        if ( !isset( $this->data['id_tacit'] ) ) {
+
+            $this->flashmsg( 'Required parameter is missing', 'danger' );
+            redirect( 'officer/tacit-knowledge' );
+            exit;
+
+        }
+
+        $this->load->model( 'tacit_knowledge_m' );
+        $this->data['tacit']    = $this->tacit_knowledge_m->get_row([ 'id_tacit' => $this->data['id_tacit'] ]);
+        if ( !isset( $this->data['tacit'] ) ) {
+
+            $this->flashmsg( 'Data not found', 'danger' );
+            redirect( 'officer/tacit-knowledge' );
+            exit;
+
+        }
+
+        $this->load->model( 'karyawan_m' );
+        $this->data['penerbit']     = $this->karyawan_m->get_row([ 'id_karyawan' => $this->data['tacit']->id_karyawan ]);
+
+        $this->load->model( 'hasil_penilaian_m' );
+        $this->load->model( 'keputusan_m' );
+        $this->load->model( 'penilaian_karyawan_m' );
+        $this->load->model( 'kriteria_m' );
+
+        $this->data['hasil_penilaian']  = $this->hasil_penilaian_m->get_row([ 'id_hasil' => $this->data['tacit']->id_hasil ]);
+        $this->data['keputusan']        = $this->keputusan_m->get_row([ 'id_keputusan' => $this->data['hasil_penilaian']->id_keputusan ]);
+        $this->data['penilaian']        = $this->penilaian_karyawan_m->get([ 'id_karyawan' => $this->data['hasil_penilaian']->id_karyawan ]);
+
+        $this->data['title']    = 'Detail Tacit | ' . $this->title;
+        $this->data['content']  = 'officer/detail_tacit';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function insert_tacit() {
+
+        $this->load->model( 'tacit_knowledge_m' );
+        $this->load->model( 'hasil_penilaian_m' );
+        if ( $this->POST( 'submit' ) ) {
+
+            $this->data['tacit'] = [
+                'id_hasil'      => $this->POST( 'id_hasil' ),
+                'id_karyawan'   => $this->data['id_karyawan']
+            ];
+            $this->tacit_knowledge_m->insert( $this->data['tacit'] );
+            $this->flashmsg( 'Tacit knowledge berhasil ditambahkan' );
+            redirect( 'officer/tacit-knowledge' );
+            exit;
+
+        }
+
+        $this->data['nilai']    = $this->hasil_penilaian_m->get();
+        $this->data['title']    = 'Insert Tacit | ' . $this->title;
+        $this->data['content']  = 'officer/insert_tacit';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function edit_tacit() {
+
+        $this->data['id_tacit'] = $this->uri->segment( 3 );
+        if ( !isset( $this->data['id_tacit'] ) ) {
+
+            $this->flashmsg( 'Required parameter is missing', 'danger' );
+            redirect( 'officer/tacit-knowledge' );
+            exit;
+
+        }
+
+        $this->load->model( 'tacit_knowledge_m' );
+        $this->data['tacit']    = $this->tacit_knowledge_m->get_row([ 'id_tacit' => $this->data['id_tacit'] ]);
+        if ( !isset( $this->data['tacit'] ) ) {
+
+            $this->flashmsg( 'Data not found', 'danger' );
+            redirect( 'officer/tacit-knowledge' );
+            exit;
+
+        }
+
+        if ( $this->POST( 'edit' ) ) {
+
+            $this->data['edit_tacit'] = [
+                'id_hasil'  => $this->POST( 'id_hasil' )
+            ];
+            $this->tacit_knowledge_m->update( $this->data['id_tacit'], $this->data['edit_tacit'] );
+            $this->flashmsg( 'Pengetahuan berhasil disunting' );
+            redirect( 'officer/edit-tacit/' . $this->data['id_tacit'] );
+            exit;
+
+        }
+
+        $this->load->model( 'hasil_penilaian_m' );
+        $this->data['nilai']    = $this->hasil_penilaian_m->get();
+        $this->data['title']    = 'Edit Tacit | ' . $this->title;
+        $this->data['content']  = 'officer/edit_tacit';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function explicit_knowledge() {
+
+        $this->load->model( 'explicit_knowledge_m' );
+        if ( $this->GET( 'delete' ) && $this->GET( 'id_explicit' ) ) {
+
+            $this->explicit_knowledge_m->delete_by([ 'id_explicit' => $this->GET( 'id_explicit' ), 'id_karyawan' => $this->data['id_karyawan'] ]);
+            $this->flashmsg( 'Explicit knowledge telah dihapus' );
+            redirect( 'officer/explicit-knowledge' );
+            exit;
+
+        }
+
+        $this->data['explicit']    = $this->explicit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['title']    = 'Explicit Knowledge | ' . $this->title;
+        $this->data['content']  = 'officer/explicit_knowledge';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function detail_explicit() {
+
+        $this->data['id_explicit'] = $this->uri->segment( 3 );
+        if ( !isset( $this->data['id_explicit'] ) ) {
+
+            $this->flashmsg( 'Required parameter is missing', 'danger' );
+            redirect( 'officer/explicit-knowledge' );
+            exit;
+
+        }
+
+        $this->load->model( 'explicit_knowledge_m' );
+        $this->data['explicit']    = $this->explicit_knowledge_m->get_row([ 'id_explicit' => $this->data['id_explicit'] ]);
+        if ( !isset( $this->data['explicit'] ) ) {
+
+            $this->flashmsg( 'Data not found', 'danger' );
+            redirect( 'officer/explicit-knowledge' );
+            exit;
+
+        }
+
+        $this->load->model( 'karyawan_m' );
+        $this->data['penerbit']     = $this->karyawan_m->get_row([ 'id_karyawan' => $this->data['explicit']->id_karyawan ]);
+
+        $this->load->model( 'hasil_penilaian_m' );
+        $this->load->model( 'keputusan_m' );
+        $this->load->model( 'penilaian_karyawan_m' );
+        $this->load->model( 'kriteria_m' );
+
+        $this->data['hasil_penilaian']  = $this->hasil_penilaian_m->get_row([ 'id_hasil' => $this->data['explicit']->id_hasil ]);
+        $this->data['keputusan']        = $this->keputusan_m->get_row([ 'id_keputusan' => $this->data['hasil_penilaian']->id_keputusan ]);
+        $this->data['penilaian']        = $this->penilaian_karyawan_m->get([ 'id_karyawan' => $this->data['hasil_penilaian']->id_karyawan ]);
+
+        $this->data['title']    = 'Detail Explicit | ' . $this->title;
+        $this->data['content']  = 'officer/detail_explicit';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function insert_explicit() {
+
+        $this->load->model( 'explicit_knowledge_m' );
+        $this->load->model( 'hasil_penilaian_m' );
+        if ( $this->POST( 'submit' ) ) {
+
+            $filename = date('YmdHis');
+            $this->data['explicit'] = [
+                'id_hasil'      => $this->POST( 'id_hasil' ),
+                'id_karyawan'   => $this->data['id_karyawan'],
+                'filename'      => $filename . '.pdf'
+            ];
+            $this->explicit_knowledge_m->insert( $this->data['explicit'] );
+            $this->upload( $filename, 'dokumen', 'dokumen' );
+            $this->flashmsg( 'Explicit knowledge berhasil ditambahkan' );
+            redirect( 'officer/explicit-knowledge' );
+            exit;
+
+        }
+
+        $this->data['nilai']    = $this->hasil_penilaian_m->get();
+        $this->data['title']    = 'Insert Explicit | ' . $this->title;
+        $this->data['content']  = 'officer/insert_explicit';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function edit_explicit() {
+
+        $this->data['id_explicit'] = $this->uri->segment( 3 );
+        if ( !isset( $this->data['id_explicit'] ) ) {
+
+            $this->flashmsg( 'Required parameter is missing', 'danger' );
+            redirect( 'officer/explicit-knowledge' );
+            exit;
+
+        }
+
+        $this->load->model( 'explicit_knowledge_m' );
+        $this->data['explicit']    = $this->explicit_knowledge_m->get_row([ 'id_explicit' => $this->data['id_explicit'] ]);
+        if ( !isset( $this->data['explicit'] ) ) {
+
+            $this->flashmsg( 'Data not found', 'danger' );
+            redirect( 'officer/explicit-knowledge' );
+            exit;
+
+        }
+
+        if ( $this->POST( 'edit' ) ) {
+
+            $this->data['edit_explicit'] = [
+                'id_hasil'  => $this->POST( 'id_hasil' )
+            ];
+            $this->explicit_knowledge_m->update( $this->data['id_explicit'], $this->data['edit_explicit'] );
+            $this->upload2( $this->data['explicit']->filename, 'dokumen', 'dokumen' );
+            $this->flashmsg( 'Pengetahuan berhasil disunting' );
+            redirect( 'officer/edit-explicit/' . $this->data['id_explicit'] );
+            exit;
+
+        }
+
+        $this->load->model( 'hasil_penilaian_m' );
+        $this->data['nilai']    = $this->hasil_penilaian_m->get();
+        $this->data['title']    = 'Edit Explicit | ' . $this->title;
+        $this->data['content']  = 'officer/edit_explicit';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function search_knowledge() {
+
+        $this->data['title']    = 'Search Knowledge | ' . $this->title;
+        $this->data['content']  = 'officer/search_knowledge';
+        $this->template( $this->data, 'officer' );
 
     }
 
