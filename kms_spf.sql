@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2018 at 04:30 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Feb 26, 2018 at 07:47 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -362,18 +362,21 @@ CREATE TABLE `tacit_knowledge` (
   `id_tacit` int(11) NOT NULL,
   `id_hasil` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
-  `id_karyawan` int(11) NOT NULL
+  `id_karyawan` int(11) NOT NULL,
+  `judul` varchar(200) NOT NULL,
+  `waktu_pembaharuan` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tacit_knowledge`
 --
 
-INSERT INTO `tacit_knowledge` (`id_tacit`, `id_hasil`, `status`, `id_karyawan`) VALUES
-(1, 3, 0, 25),
-(2, 1, 0, 25),
-(3, 3, 0, 25),
-(4, 1, 0, 25);
+INSERT INTO `tacit_knowledge` (`id_tacit`, `id_hasil`, `status`, `id_karyawan`, `judul`, `waktu_pembaharuan`) VALUES
+(1, 3, 0, 25, '', '0000-00-00 00:00:00'),
+(2, 1, 0, 25, '', '0000-00-00 00:00:00'),
+(3, 3, 0, 25, '', '0000-00-00 00:00:00'),
+(4, 1, 0, 25, '', '0000-00-00 00:00:00'),
+(5, 1, 0, 25, 'aaaabbb', '2018-02-26 18:13:46');
 
 --
 -- Indexes for dumped tables
@@ -469,79 +472,66 @@ ALTER TABLE `tacit_knowledge`
 --
 ALTER TABLE `bobot`
   MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `departemen`
 --
 ALTER TABLE `departemen`
   MODIFY `id_departemen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `explicit_knowledge`
 --
 ALTER TABLE `explicit_knowledge`
   MODIFY `id_explicit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `fuzzy`
 --
 ALTER TABLE `fuzzy`
   MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
 -- AUTO_INCREMENT for table `hasil_penilaian`
 --
 ALTER TABLE `hasil_penilaian`
   MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
   MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
 --
 -- AUTO_INCREMENT for table `keputusan`
 --
 ALTER TABLE `keputusan`
   MODIFY `id_keputusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `komentar_tacit`
 --
 ALTER TABLE `komentar_tacit`
   MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
   MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `penilaian_karyawan`
 --
 ALTER TABLE `penilaian_karyawan`
   MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tacit_knowledge`
 --
 ALTER TABLE `tacit_knowledge`
-  MODIFY `id_tacit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id_tacit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
