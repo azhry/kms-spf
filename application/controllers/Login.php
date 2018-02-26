@@ -36,6 +36,10 @@ class Login extends MY_Controller
 						redirect( 'direktur' );
 						break;
 
+					case 5:
+						redirect( 'karyawan' );
+						break;
+
 				}
 
 			}

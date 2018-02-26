@@ -23,6 +23,11 @@
                         <?= form_open( 'officer/insert-tacit' ) ?>
 
                         <div class="form-group">
+                            <label for="Judul">Judul</label>
+                            <textarea name="judul" class="form-control" required></textarea>
+                        </div>
+
+                        <div class="form-group">
                             <label for="id_hasil">ID Hasil Penilaian</label>
                             <select required class="form-control" name="id_hasil">
                                 <option>Pilih ID</option>

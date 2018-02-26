@@ -24,6 +24,11 @@
                         <?= form_open( 'officer/edit-tacit/' . $id_tacit ) ?>
 
                         <div class="form-group">
+                            <label for="Judul">Judul</label>
+                            <textarea name="judul" class="form-control" required><?=$tacit->judul ?></textarea>
+                        </div>
+
+                        <div class="form-group">
                             <label for="id_hasil">ID Hasil Penilaian</label>
                             <?php 
                                 $nilai_opt = [];

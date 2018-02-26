@@ -957,7 +957,8 @@ class Officer extends MY_Controller {
 
             $this->data['tacit'] = [
                 'id_hasil'      => $this->POST( 'id_hasil' ),
-                'id_karyawan'   => $this->data['id_karyawan']
+                'id_karyawan'   => $this->data['id_karyawan'],
+                'judul'         => $this->POST('judul')
             ];
             $this->tacit_knowledge_m->insert( $this->data['tacit'] );
             $this->flashmsg( 'Tacit knowledge berhasil ditambahkan' );
@@ -997,7 +998,8 @@ class Officer extends MY_Controller {
         if ( $this->POST( 'edit' ) ) {
 
             $this->data['edit_tacit'] = [
-                'id_hasil'  => $this->POST( 'id_hasil' )
+                'id_hasil'  => $this->POST( 'id_hasil' ),
+                'judul'         => $this->POST('judul')
             ];
             $this->tacit_knowledge_m->update( $this->data['id_tacit'], $this->data['edit_tacit'] );
             $this->flashmsg( 'Pengetahuan berhasil disunting' );
@@ -1147,6 +1149,12 @@ class Officer extends MY_Controller {
         $this->data['content']  = 'officer/search_knowledge';
         $this->template( $this->data, 'officer' );
 
+    }
+
+    public function langkah_perhitungan(){
+        $this->data['title']    = 'Langkah Perhitungan | ' . $this->title;
+        $this->data['content']  = 'officer/langkah_perhitungan';
+        $this->template( $this->data, 'officer' );
     }
 
 }
