@@ -78,38 +78,6 @@
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
-
-                <?php if ( isset( $hasil ) ): ?>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Komentar
-                    </div>
-                    <div class="panel-body">
-                        <?= form_open( 'officer/detail-penilaian/' . $id_karyawan ) ?>
-
-                        <div class="form-group">
-                            <textarea rows="4" class="form-control" name="komentar" placeholder="Komentar"></textarea>
-                        </div>
-
-                        <input type="submit" name="submit" value="Submit" class="btn btn-primary">
-
-                        <?= form_close() ?>
-                        <br>
-                        <?php foreach ( $komentar as $row ): ?>
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <?= $row->komentar ?>
-                            </div>
-                            <div class="panel-footer">
-                                <?= $row->waktu ?>
-                            </div>
-                        </div>
-
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <?php endif; ?>
             </div>
             <!-- /.col-lg-12 -->
         </div>

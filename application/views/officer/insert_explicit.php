@@ -23,6 +23,10 @@
                         <?= form_open_multipart( 'officer/insert-explicit' ) ?>
 
                         <div class="form-group">
+                            <label for="judul">Judul</label>
+                            <input type="text" class="form-control" name="judul" required>
+                        </div>
+                        <div class="form-group">
                             <label for="id_hasil">ID Hasil Penilaian</label>
                             <select required class="form-control" name="id_hasil">
                                 <option>Pilih ID</option>

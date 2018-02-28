@@ -23,13 +23,26 @@
 
                         <div class="form-group">
                             <label for="keyword">Keyword</label>
-                            <input type="text" name="keyword" class="form-control">
+                            <input type="text" name="query" class="form-control">
                         </div>
                         <input type="submit" name="search" value="Search" class="btn btn-primary">
 
                         <?= form_close() ?>
                     </div>
                 </section>
+
+                <?php if ( count( $knowledge ) > 0 ): ?>
+
+                <?php foreach ( $knowledge as $row ): ?>
+                <section class="panel">
+                    <div class="panel-body">
+                        <h3><a href="<?= base_url( 'officer/detail-penilaian/' . $row->id_karyawan ) ?>"><?= $row->judul ?></a></h3>
+                        <p>Hasil penilaian: <?= $row->kinerja ?></p>
+                    </div>
+                </section>
+                <?php endforeach; ?>
+
+                <?php endif; ?>
             </div>
         </div>
     <!-- page end-->

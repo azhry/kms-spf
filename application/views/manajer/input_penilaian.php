@@ -1,3 +1,12 @@
+<script type="text/javascript" src="<?= base_url('assets/MathJax/MathJax.js?config=TeX-MML-AM_CHTML') ?>"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
@@ -22,6 +31,11 @@
                         <h3>Karyawan</h3>
                         <p>Nama: <?= $data_karyawan->nama ?></p>
                         <p>NIK: <?= $data_karyawan->NIK ?></p>
+
+                        <div id="proses-perhitungan">
+                            
+                        </div>
+
                         <?= form_open('manajer/input-penilaian/' . $id_karyawan) ?>
                         <div class="form-group">
                             <label>Kompetensi Inti</label>

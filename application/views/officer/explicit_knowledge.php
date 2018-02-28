@@ -29,6 +29,7 @@
                         <tbody>
                             <tr>
                                 <th>No</th>
+                                <th><i class="icon_profile"></i> Judul</th>
                                 <th><i class="icon_profile"></i> ID Hasil Penilaian</th>
                                 <th><i class="icon_profile"></i> Status</th>
                                 <th><i class="icon_cogs"></i> Action</th>
@@ -36,6 +37,7 @@
                             <?php $i = 1; foreach($explicit as $row): ?>
                             <tr>
                                 <td><?= $i++ ?></td>
+                                <td><?= $row->judul ?></td>
                                 <td><?= $row->id_hasil ?></td>
                                 <td><?= $row->status ? '<span class="text-success">Valid</span>' : '<span class="text-danger">Tidak Valid</span>' ?></td>
                                 <td>

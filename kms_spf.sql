@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 07:47 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: Feb 28, 2018 at 03:58 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -63,6 +63,7 @@ INSERT INTO `departemen` (`id_departemen`, `nama_departemen`, `deskripsi`) VALUE
 CREATE TABLE `explicit_knowledge` (
   `id_explicit` int(11) NOT NULL,
   `id_hasil` int(11) NOT NULL,
+  `judul` varchar(300) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `id_karyawan` int(11) NOT NULL,
   `filename` text NOT NULL
@@ -72,8 +73,9 @@ CREATE TABLE `explicit_knowledge` (
 -- Dumping data for table `explicit_knowledge`
 --
 
-INSERT INTO `explicit_knowledge` (`id_explicit`, `id_hasil`, `status`, `id_karyawan`, `filename`) VALUES
-(3, 3, 0, 25, '20180220211920.pdf');
+INSERT INTO `explicit_knowledge` (`id_explicit`, `id_hasil`, `judul`, `status`, `id_karyawan`, `filename`) VALUES
+(3, 3, '', 0, 25, '20180220211920.pdf'),
+(4, 2, 'test', 0, 25, '20180227145918.pdf');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,8 @@ INSERT INTO `hak_akses` (`id_role`, `id_karyawan`) VALUES
 (1, 25),
 (2, 25),
 (3, 25),
-(4, 25);
+(4, 25),
+(5, 25);
 
 -- --------------------------------------------------------
 
@@ -250,12 +253,33 @@ INSERT INTO `keputusan` (`id_keputusan`, `nama`, `nmin`, `nmax`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `komentar_explicit`
+--
+
+CREATE TABLE `komentar_explicit` (
+  `id_komentar` int(11) NOT NULL,
+  `id_explicit` int(11) NOT NULL,
+  `id_karyawan` int(11) NOT NULL,
+  `komentar` text NOT NULL,
+  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `komentar_explicit`
+--
+
+INSERT INTO `komentar_explicit` (`id_komentar`, `id_explicit`, `id_karyawan`, `komentar`, `waktu`) VALUES
+(1, 3, 25, 'komentar explicit', '2018-02-27 02:10:20');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `komentar_tacit`
 --
 
 CREATE TABLE `komentar_tacit` (
   `id_komentar` int(11) NOT NULL,
-  `id_hasil` int(11) NOT NULL,
+  `id_tacit` int(11) NOT NULL,
   `id_karyawan` int(11) NOT NULL,
   `komentar` text NOT NULL,
   `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -265,8 +289,9 @@ CREATE TABLE `komentar_tacit` (
 -- Dumping data for table `komentar_tacit`
 --
 
-INSERT INTO `komentar_tacit` (`id_komentar`, `id_hasil`, `id_karyawan`, `komentar`, `waktu`) VALUES
-(1, 1, 25, 'Ini komentarku, mana komentarmu?', '2018-02-13 18:04:06');
+INSERT INTO `komentar_tacit` (`id_komentar`, `id_tacit`, `id_karyawan`, `komentar`, `waktu`) VALUES
+(1, 1, 25, 'Ini komentarku, mana komentarmu?', '2018-02-13 18:04:06'),
+(2, 1, 25, 'contoh komentar', '2018-02-27 01:50:52');
 
 -- --------------------------------------------------------
 
@@ -309,7 +334,7 @@ CREATE TABLE `penilaian_karyawan` (
 --
 
 INSERT INTO `penilaian_karyawan` (`id_penilaian`, `id_kriteria`, `id_karyawan`, `bobot`) VALUES
-(1, 1, 1, 12),
+(1, 1, 1, 13),
 (2, 2, 1, 90),
 (3, 3, 1, 30),
 (4, 4, 1, 100),
@@ -350,7 +375,8 @@ INSERT INTO `role` (`id_role`, `role`, `deskripsi`) VALUES
 (1, 'Admin', '<p>Ini adminn</p>'),
 (2, 'Manajer', '<p>Manajer</p>'),
 (3, 'Officer', '<p>Officer</p>'),
-(4, 'Direktur', '<p>Direktur</p>');
+(4, 'Direktur', '<p>Direktur</p>'),
+(5, 'Karyawan', '<p>Karyawan</p>');
 
 -- --------------------------------------------------------
 
@@ -372,7 +398,7 @@ CREATE TABLE `tacit_knowledge` (
 --
 
 INSERT INTO `tacit_knowledge` (`id_tacit`, `id_hasil`, `status`, `id_karyawan`, `judul`, `waktu_pembaharuan`) VALUES
-(1, 3, 0, 25, '', '0000-00-00 00:00:00'),
+(1, 3, 0, 25, 'haha', '0000-00-00 00:00:00'),
 (2, 1, 0, 25, '', '0000-00-00 00:00:00'),
 (3, 3, 0, 25, '', '0000-00-00 00:00:00'),
 (4, 1, 0, 25, '', '0000-00-00 00:00:00'),
@@ -434,6 +460,12 @@ ALTER TABLE `keputusan`
   ADD PRIMARY KEY (`id_keputusan`);
 
 --
+-- Indexes for table `komentar_explicit`
+--
+ALTER TABLE `komentar_explicit`
+  ADD PRIMARY KEY (`id_komentar`);
+
+--
 -- Indexes for table `komentar_tacit`
 --
 ALTER TABLE `komentar_tacit`
@@ -472,66 +504,85 @@ ALTER TABLE `tacit_knowledge`
 --
 ALTER TABLE `bobot`
   MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `departemen`
 --
 ALTER TABLE `departemen`
   MODIFY `id_departemen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `explicit_knowledge`
 --
 ALTER TABLE `explicit_knowledge`
-  MODIFY `id_explicit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_explicit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `fuzzy`
 --
 ALTER TABLE `fuzzy`
   MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `hasil_penilaian`
 --
 ALTER TABLE `hasil_penilaian`
   MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
   MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
 --
 -- AUTO_INCREMENT for table `keputusan`
 --
 ALTER TABLE `keputusan`
   MODIFY `id_keputusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `komentar_explicit`
+--
+ALTER TABLE `komentar_explicit`
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `komentar_tacit`
 --
 ALTER TABLE `komentar_tacit`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
   MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `penilaian_karyawan`
 --
 ALTER TABLE `penilaian_karyawan`
   MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `tacit_knowledge`
 --
 ALTER TABLE `tacit_knowledge`
   MODIFY `id_tacit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for dumped tables
 --

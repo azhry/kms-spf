@@ -24,6 +24,10 @@
                         <?= form_open_multipart( 'officer/edit-explicit/' . $id_explicit ) ?>
 
                         <div class="form-group">
+                            <label for="judul">Judul</label>
+                            <input value="<?= $explicit->judul ?>" type="text" class="form-control" name="judul" required>
+                        </div>
+                        <div class="form-group">
                             <label for="id_hasil">ID Hasil Penilaian</label>
                             <?php 
                                 $nilai_opt = [];

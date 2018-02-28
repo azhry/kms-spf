@@ -357,6 +357,7 @@ class Officer extends MY_Controller {
 
         }
 
+        $this->load->model( 'keputusan_m' );
         $this->load->model( 'karyawan_m' );
         $this->data['data_karyawan'] = $this->karyawan_m->get_row( [ 'id_karyawan' => $this->data['id_karyawan'] ] );
         if ( !isset( $this->data['data_karyawan'] ) ) {
@@ -447,7 +448,6 @@ class Officer extends MY_Controller {
             }
 
             $this->load->model( 'fuzzy_m' );
-            $this->load->model( 'keputusan_m' );
             $this->load->model( 'hasil_penilaian_m' );
             $Z = $this->fuzzy_m->tsukamoto( $this->data['id_karyawan'] );
             $keputusan = $this->keputusan_m->get_row([
@@ -484,6 +484,7 @@ class Officer extends MY_Controller {
             }
 
             $this->flashmsg( 'Nilai berhasil disimpan' );
+            $this->session->set_flashdata( 'nilai', $_POST );
             redirect( 'officer/input-penilaian/' . $this->data['id_karyawan'] );
             exit;
 
@@ -520,26 +521,9 @@ class Officer extends MY_Controller {
         $this->load->model( 'jabatan_m' );
         $this->load->model( 'hasil_penilaian_m' );
         $this->load->model( 'penilaian_karyawan_m' );
-        $this->load->model( 'komentar_tacit_m' );
 
         $this->data['nilai']    = $this->penilaian_karyawan_m->get_nilai([ 'id_karyawan' => $this->data['id_karyawan'] ]);
         $this->data['hasil']    = $this->hasil_penilaian_m->get_hasil( $this->data['id_karyawan'] );
-        if ( isset( $this->data['hasil'] ) ) {
-            $this->data['komentar'] = $this->komentar_tacit_m->get_by_order( 'waktu', 'DESC', [ 'id_hasil' => $this->data['hasil']->id_hasil ] );
-
-            if ( $this->POST( 'submit' ) ) {
-
-                $this->data['komentar'] = [
-                    'komentar'      => $this->POST( 'komentar' ),
-                    'id_karyawan'   => $this->session->userdata( 'id_karyawan' ),
-                    'id_hasil'      => $this->data['hasil']->id_hasil
-                ];
-                $this->komentar_tacit_m->insert( $this->data['komentar'] );
-                redirect( 'officer/detail-penilaian/' . $this->data['id_karyawan'] );
-                exit;
-
-            }
-        }
         $this->data['title']    = 'Detail Penilaian | ' . $this->title;
         $this->data['content']  = 'officer/detail_penilaian';
         $this->template( $this->data, 'officer' );
@@ -931,6 +915,25 @@ class Officer extends MY_Controller {
 
         }
 
+        if ( isset( $this->data['tacit'] ) ) {
+
+            $this->load->model( 'komentar_tacit_m' );
+            $this->data['komentar'] = $this->komentar_tacit_m->get_by_order( 'waktu', 'DESC', [ 'id_tacit' => $this->data['tacit']->id_tacit ] );
+
+            if ( $this->POST( 'submit' ) ) {
+
+                $this->data['komentar'] = [
+                    'komentar'      => $this->POST( 'komentar' ),
+                    'id_karyawan'   => $this->session->userdata( 'id_karyawan' ),
+                    'id_tacit'      => $this->data['tacit']->id_tacit
+                ];
+                $this->komentar_tacit_m->insert( $this->data['komentar'] );
+                redirect( 'officer/detail-tacit/' . $this->data['id_tacit'] );
+                exit;
+
+            }
+        }
+
         $this->load->model( 'karyawan_m' );
         $this->data['penerbit']     = $this->karyawan_m->get_row([ 'id_karyawan' => $this->data['tacit']->id_karyawan ]);
 
@@ -1056,6 +1059,25 @@ class Officer extends MY_Controller {
 
         }
 
+        if ( isset( $this->data['explicit'] ) ) {
+
+            $this->load->model( 'komentar_explicit_m' );
+            $this->data['komentar'] = $this->komentar_explicit_m->get_by_order( 'waktu', 'DESC', [ 'id_explicit' => $this->data['explicit']->id_explicit ] );
+
+            if ( $this->POST( 'submit' ) ) {
+
+                $this->data['komentar'] = [
+                    'komentar'      => $this->POST( 'komentar' ),
+                    'id_karyawan'   => $this->session->userdata( 'id_karyawan' ),
+                    'id_explicit'      => $this->data['explicit']->id_explicit
+                ];
+                $this->komentar_explicit_m->insert( $this->data['komentar'] );
+                redirect( 'officer/detail-explicit/' . $this->data['id_explicit'] );
+                exit;
+
+            }
+        }
+
         $this->load->model( 'karyawan_m' );
         $this->data['penerbit']     = $this->karyawan_m->get_row([ 'id_karyawan' => $this->data['explicit']->id_karyawan ]);
 
@@ -1084,7 +1106,8 @@ class Officer extends MY_Controller {
             $this->data['explicit'] = [
                 'id_hasil'      => $this->POST( 'id_hasil' ),
                 'id_karyawan'   => $this->data['id_karyawan'],
-                'filename'      => $filename . '.pdf'
+                'filename'      => $filename . '.pdf',
+                'judul'         => $this->POST( 'judul' )
             ];
             $this->explicit_knowledge_m->insert( $this->data['explicit'] );
             $this->upload( $filename, 'dokumen', 'dokumen' );
@@ -1125,7 +1148,8 @@ class Officer extends MY_Controller {
         if ( $this->POST( 'edit' ) ) {
 
             $this->data['edit_explicit'] = [
-                'id_hasil'  => $this->POST( 'id_hasil' )
+                'id_hasil'  => $this->POST( 'id_hasil' ),
+                'judul'     => $this->POST( 'judul' )
             ];
             $this->explicit_knowledge_m->update( $this->data['id_explicit'], $this->data['edit_explicit'] );
             $this->upload2( $this->data['explicit']->filename, 'dokumen', 'dokumen' );
@@ -1145,6 +1169,13 @@ class Officer extends MY_Controller {
 
     public function search_knowledge() {
 
+        $this->load->model( 'bruteforce_m' );
+        $this->data['knowledge'] = [];
+        if ( $this->POST( 'search' ) ) {
+
+            $this->data['knowledge'] = $this->bruteforce_m->search_knowledge( $this->POST( 'query' ) );
+
+        }
         $this->data['title']    = 'Search Knowledge | ' . $this->title;
         $this->data['content']  = 'officer/search_knowledge';
         $this->template( $this->data, 'officer' );
