@@ -65,22 +65,22 @@ class Karyawan extends MY_Controller
 
         $this->data['nilai']    = $this->penilaian_karyawan_m->get_nilai([ 'id_karyawan' => $this->data['id_karyawan'] ]);
         $this->data['hasil']    = $this->hasil_penilaian_m->get_hasil( $this->data['id_karyawan'] );
-        if ( isset( $this->data['hasil'] ) ) {
-            $this->data['komentar'] = $this->komentar_tacit_m->get_by_order( 'waktu', 'DESC', [ 'id_hasil' => $this->data['hasil']->id_hasil ] );
+        // if ( isset( $this->data['hasil'] ) ) {
+        //     $this->data['komentar'] = $this->komentar_tacit_m->get_by_order( 'waktu', 'DESC', [ 'id_hasil' => $this->data['hasil']->id_hasil ] );
 
-            if ( $this->POST( 'submit' ) ) {
+        //     if ( $this->POST( 'submit' ) ) {
 
-                $this->data['komentar'] = [
-                    'komentar'      => $this->POST( 'komentar' ),
-                    'id_karyawan'   => $this->session->userdata( 'id_karyawan' ),
-                    'id_hasil'      => $this->data['hasil']->id_hasil
-                ];
-                $this->komentar_tacit_m->insert( $this->data['komentar'] );
-                redirect( 'officer/detail-penilaian/' . $this->data['id_karyawan'] );
-                exit;
+        //         $this->data['komentar'] = [
+        //             'komentar'      => $this->POST( 'komentar' ),
+        //             'id_karyawan'   => $this->session->userdata( 'id_karyawan' ),
+        //             'id_hasil'      => $this->data['hasil']->id_hasil
+        //         ];
+        //         $this->komentar_tacit_m->insert( $this->data['komentar'] );
+        //         redirect( 'officer/detail-penilaian/' . $this->data['id_karyawan'] );
+        //         exit;
 
-            }
-        }
+        //     }
+        // }
 
         $this->load->view('karyawan/detail_penilaian',$this->data);
     }

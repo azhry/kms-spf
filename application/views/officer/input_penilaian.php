@@ -157,8 +157,8 @@
                             <?php
                                 echo 'Kinerja: ';
                                 $keputusan = $this->keputusan_m->get_row([
-                                    'nmin >=' => $hasil_akhir,
-                                    'nmax <=' => $hasil_akhir
+                                    'nmin <=' => $hasil_akhir,
+                                    'nmax >=' => $hasil_akhir
                                 ]);
 
                                 if ( !isset( $keputusan ) ) {

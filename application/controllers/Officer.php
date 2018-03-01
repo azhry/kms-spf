@@ -451,8 +451,8 @@ class Officer extends MY_Controller {
             $this->load->model( 'hasil_penilaian_m' );
             $Z = $this->fuzzy_m->tsukamoto( $this->data['id_karyawan'] );
             $keputusan = $this->keputusan_m->get_row([
-                'nmin >=' => $Z,
-                'nmax <=' => $Z
+                'nmin <=' => $Z,
+                'nmax >=' => $Z
             ]);
 
             if ( !isset( $keputusan ) ) {
