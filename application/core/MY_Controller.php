@@ -62,15 +62,15 @@ class MY_Controller extends CI_Controller
 		return FALSE;
 	}
 
-	public function upload2($id, $directory, $tag_name = 'userfile')
+	public function upload_img($id, $directory, $tag_name = 'userfile')
 	{
 		if ($_FILES[$tag_name])
 		{
 			$upload_path = realpath(APPPATH . '../assets/' . $directory . '/');
-			@unlink($upload_path . '/' . $id);
+			@unlink($upload_path . '/' . $id . '.jpg');
 			$config = [
-				'file_name' 		=> $id,
-				'allowed_types'		=> 'pdf',
+				'file_name' 		=> $id. '.jpg',
+				'allowed_types'		=> 'jpeg|png|jpg',
 				'upload_path'		=> $upload_path
 			];
 			$this->load->library('upload');

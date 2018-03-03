@@ -23,15 +23,19 @@
             <!-- user login dropdown start-->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <!-- <span class="profile-ava">
-                        <img alt="" src="<?= base_url('assets/NiceAdmin') ?>/img/avatar1_small.jpg">
-                    </span> -->
+                    <span class="profile-ava">
+                        <img alt="Foto" src="<?= base_url('assets/foto/direktur/'.$this->data['id_karyawan'].'.jpg') ?>" onerror="this.src='<?= base_url("assets/NiceAdmin") ?>/img/avatar1_small.jpg'" width="40" height="40">
+                    </span>
                     <span class="username"><?= $karyawan->nama ?></span>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">
                     <div class="log-arrow-up"></div>
+                    <li class="eborder-top">
+                        <a href="<?= base_url('direktur/upload_foto') ?>"><i class="icon_profile"></i> Foto Profile</a>
+                    </li>
                     <li>
+
                         <a href="<?= base_url('logout') ?>"><i class="icon_key_alt"></i> Log Out</a>
                     </li>
                 </ul>

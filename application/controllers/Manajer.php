@@ -460,4 +460,20 @@ class Manajer extends MY_Controller {
 
 	}
 
+    public function upload_foto()
+    { 
+        if($this->POST('upload')){
+            $id = $this->data['id_karyawan'];
+            $this->upload_img($id, 'foto/manajer', 'foto');
+
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Foto berhasil di upload!');
+            redirect('manajer/upload-foto');
+            exit;
+        }
+
+        $this->data['title']        = 'Upload Foto Profile';
+        $this->data['content']      = 'manajer/profile';
+        $this->template($this->data, 'manajer');
+    } 
+
 }

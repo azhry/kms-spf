@@ -1225,5 +1225,21 @@ class Admin extends MY_Controller
         $this->data['title']        = 'Data Hak Akses';
         $this->data['content']      = 'admin/hak_akses_data';
         $this->template($this->data, 'admin');
+    }
+
+    public function upload_foto()
+    { 
+        if($this->POST('upload')){
+            $id = $this->data['id_karyawan'];
+            $this->upload_img($id, 'foto/admin', 'foto');
+
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Foto berhasil di upload!');
+            redirect('admin/upload-foto');
+            exit;
+        }
+
+        $this->data['title']        = 'Upload Foto Profile';
+        $this->data['content']      = 'admin/profile';
+        $this->template($this->data, 'admin');
     }    
 }

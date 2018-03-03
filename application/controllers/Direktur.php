@@ -143,4 +143,20 @@ class Direktur extends MY_Controller {
 
     }
 
+    public function upload_foto()
+    { 
+        if($this->POST('upload')){
+            $id = $this->data['id_karyawan'];
+            $this->upload_img($id, 'foto/direktur', 'foto');
+
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Foto berhasil di upload!');
+            redirect('direktur/upload-foto');
+            exit;
+        }
+
+        $this->data['title']        = 'Upload Foto Profile';
+        $this->data['content']      = 'direktur/profile';
+        $this->template($this->data, 'direktur');
+    } 
+
 }

@@ -1188,4 +1188,20 @@ class Officer extends MY_Controller {
         $this->template( $this->data, 'officer' );
     }
 
+    public function upload_foto()
+    { 
+        if($this->POST('upload')){
+            $id = $this->data['id_karyawan'];
+            $this->upload_img($id, 'foto/officer', 'foto');
+
+            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Foto berhasil di upload!');
+            redirect('officer/upload-foto');
+            exit;
+        }
+
+        $this->data['title']        = 'Upload Foto Profile';
+        $this->data['content']      = 'officer/profile';
+        $this->template($this->data, 'officer');
+    } 
+
 }
