@@ -35,7 +35,8 @@
         <div class="container">
             <?= form_open('login','class="login-form"') ?>
             <div class="login-wrap">
-                <p class="login-img"><i class="icon_lock_alt"></i></p>
+                <h4 style="text-align: center; font-weight: bolder;">Knowledge Management System <br> PT. Sumatera Prima Fibreboard</h4>
+                <p class="login-img"><img src="<?= base_url('assets/logo.jpg') ?>" width="300" height="80"></p>
                 <div>
                     <?= $this->session->flashdata('msg') ?>
                 </div>

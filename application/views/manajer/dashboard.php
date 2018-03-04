@@ -3,10 +3,7 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-bars"></i> Dashboard</h3>
-                <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i>Dashboard</li>
-                </ol>
+                <h3 class="page-header"><i class="fa fa fa-bars"></i> Knowledge Management System PT. Sumatera Prima Fibreboard</h3>
             </div>
         </div>
         <!-- page start-->

@@ -25,7 +25,7 @@
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                     <span class="profile-ava">
                         <img alt="Foto" src="<?= base_url('assets/foto/officer/'.$this->data['id_karyawan'].'.jpg') ?>" onerror="this.src='<?= base_url("assets/NiceAdmin") ?>/img/avatar1_small.jpg'" width="40" height="40">
-                    <span class="username"><?= $karyawan->nama ?></span>
+                    <span class="username"><?= $data_karyawan2->username ?></span>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">

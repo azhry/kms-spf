@@ -42,7 +42,7 @@ class Admin extends MY_Controller
 
         $this->load->model( 'karyawan_m' );
         $this->data['karyawan'] = $this->karyawan_m->get_row([ 'id_karyawan' => $this->data['id_karyawan'] ]);
-
+        $this->data['data_karyawan'] = $this->data['karyawan'];
         if ( !isset( $this->data['karyawan'] ) ) {
 
             $this->session->sess_destroy();
