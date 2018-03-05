@@ -5,9 +5,9 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> Edit Explicit Knowledge</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('manajer') ?>">Dashboard</a></li>
-                    <li><i class="fa fa-share"></i><a href="<?= base_url('manajer/knowledge-sharing') ?>">Knowledge Sharing</a></li>
-                    <li><i class="fa fa-share"></i><a href="<?= base_url('manajer/explicit-knowledge') ?>">My Explicit Knowledge</a></li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('direktur') ?>">Dashboard</a></li>
+                    <li><i class="fa fa-share"></i><a href="<?= base_url('direktur/knowledge-sharing') ?>">Knowledge Sharing</a></li>
+                    <li><i class="fa fa-share"></i><a href="<?= base_url('direktur/explicit-knowledge') ?>">My Explicit Knowledge</a></li>
                     <li><i class="fa fa-list"></i> Detail Explicit Knowledge</li>
                 </ol>
             </div>
@@ -74,7 +74,7 @@
                         Komentar
                     </div>
                     <div class="panel-body">
-                        <?= form_open( 'manajer/detail-explicit/' . $id_explicit ) ?>
+                        <?= form_open( 'direktur/detail-explicit/' . $id_explicit ) ?>
 
                         <div class="form-group">
                             <textarea rows="4" class="form-control" name="komentar" placeholder="Komentar"></textarea>

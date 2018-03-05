@@ -5,8 +5,8 @@
             <div class="col-lg-12">
                 <h3 class="page-header"><i class="fa fa fa-bars"></i> My Tacit Knowledge</h3>
                 <ol class="breadcrumb">
-                    <li><i class="fa fa-home"></i><a href="<?= base_url('manajer') ?>">Dashboard</a></li>
-                    <li><i class="fa fa-share"></i><a href="<?= base_url('manajer/knowledge-sharing') ?>">Knowledge Sharing</a></li>
+                    <li><i class="fa fa-home"></i><a href="<?= base_url('direktur') ?>">Dashboard</a></li>
+                    <li><i class="fa fa-share"></i><a href="<?= base_url('direktur/knowledge-sharing') ?>">Knowledge Sharing</a></li>
                     <li><i class="fa fa-book"></i>My Tacit Knowledge</li>
                 </ol>
             </div>
@@ -29,7 +29,7 @@
                                 <th>No</th>
                                 <th><i class="icon_profile"></i> ID Hasil Penilaian</th>
                                 <th><i class="icon_profile"></i> Judul</th>
-                                <th><i class="icon_profile"></i> id_tacit</th>
+                                <th><i class="icon_profile"></i> Status</th>
                                 <th><i class="icon_cogs"></i> Action</th>
                             </tr>
                             <?php $i = 1; foreach($tacit as $row): ?>
@@ -37,18 +37,18 @@
                                 <td><?= $i++ ?></td>
                                 <td><?= $row->id_hasil ?></td>
                                 <td><p><?= $row->judul ?></p></td>
-                                <td id="btn-<?= $row->id_tacit?>">
-                                      
-                                      <?php if ($row->status == 1): ?>
-                                        <button onclick="changeStatus(<?= $row->id_tacit ?>)" class="btn btn-success"><i class="fa fa-check"></i> Valid</button>
-                                      <?php else: ?>
-                                        <button onclick="changeStatus(<?= $row->id_tacit ?>)" class="btn btn-danger"><i class="fa fa-close"></i> Tidak Valid</button>
-                                      <?php endif; ?>
-
-                                    </td>
+                                <td>
+                                    <?php if($row->status == '1'): ?>
+                                        Valid
+                                    <?php elseif($row->status == '0'): ?>
+                                        Tidak Valid
+                                    <?php else: ?>
+                                        -
+                                    <?php endif; ?>
+                                </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-success" href="<?= base_url('manajer/detail-tacit/'.$row->id_tacit) ?>"><i class="fa fa-info"></i></a>
+                                        <a class="btn btn-success" href="<?= base_url('direktur/detail-tacit/'.$row->id_tacit) ?>"><i class="fa fa-info"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -65,7 +65,7 @@
 <script type="text/javascript">
     function changeStatus(id_tacit) {
         $.ajax({
-          url: '<?= base_url('manajer/tacit_knowledge') ?>',
+          url: '<?= base_url('direktur/tacit_knowledge') ?>',
           type: 'POST',
           data: {
             id_tacit: id_tacit,

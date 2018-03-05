@@ -29,7 +29,7 @@
                                 <th>No</th>
                                 <th><i class="icon_profile"></i> ID Hasil Penilaian</th>
                                 <th><i class="icon_profile"></i> Judul</th>
-                                <th><i class="icon_profile"></i> id_tacit</th>
+                                <th><i class="icon_profile"></i> Status</th>
                                 <th><i class="icon_cogs"></i> Action</th>
                             </tr>
                             <?php $i = 1; foreach($tacit as $row): ?>
