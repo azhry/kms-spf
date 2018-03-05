@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2018 at 03:58 AM
+-- Generation Time: Mar 05, 2018 at 09:56 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -96,15 +96,15 @@ CREATE TABLE `fuzzy` (
 --
 
 INSERT INTO `fuzzy` (`id_fuzzy`, `id_kriteria`, `fuzzy`, `bobot_min`, `bobot_max`) VALUES
-(1, 1, 'Kurang Baik', 20, 55),
+(1, 1, 'Kurang Baik', 20, 60),
 (2, 1, 'Baik', 60, 80),
-(3, 1, 'Sangat Baik', 85, 100),
-(4, 2, 'Kurang Bisa Memimpin', 20, 55),
+(3, 1, 'Sangat Baik', 80, 100),
+(4, 2, 'Kurang Bisa Memimpin', 20, 60),
 (5, 2, 'Bisa Memimpin', 60, 80),
-(6, 2, 'Sangat Bisa Memimpin', 85, 100),
-(7, 3, 'Kurang Menguasai', 20, 55),
+(6, 2, 'Sangat Bisa Memimpin', 80, 100),
+(7, 3, 'Kurang Menguasai', 20, 60),
 (8, 3, 'Menguasai', 60, 80),
-(9, 3, 'Sangat Menguasai', 85, 100),
+(9, 3, 'Sangat Menguasai', 80, 100),
 (10, 4, 'SMA', 20, 55),
 (11, 4, 'D3', 60, 80),
 (12, 4, 'S1', 85, 100),
@@ -132,7 +132,8 @@ INSERT INTO `hak_akses` (`id_role`, `id_karyawan`) VALUES
 (2, 25),
 (3, 25),
 (4, 25),
-(5, 25);
+(5, 25),
+(3, 26);
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,9 @@ CREATE TABLE `hasil_penilaian` (
 INSERT INTO `hasil_penilaian` (`id_hasil`, `id_karyawan`, `id_keputusan`) VALUES
 (1, 1, 3),
 (2, 5, 3),
-(3, 25, 3);
+(3, 25, 3),
+(4, 1, 4),
+(5, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -226,7 +229,8 @@ INSERT INTO `karyawan` (`id_karyawan`, `id_departemen`, `id_jabatan`, `username`
 (22, 1, 3, 'foreman_julian', '9bc242fe326e1f0db6d4571f45067144', 101018, 'Julian', 'Medan', '1984-04-18', 'l', 'Kristen', 'Indralaya', 'S1 Akuntansi'),
 (23, 1, 3, 'foremanfa_yuliani', '9bc242fe326e1f0db6d4571f45067144', 101019, 'Yuliani', 'Indralaya', '1988-05-23', 'p', 'Islam', 'Indralaya', 'S1 Pertanian'),
 (24, 1, 3, 'foremanfa_zulkarnain', '9bc242fe326e1f0db6d4571f45067144', 101020, 'Zulkarnain', 'Samarinda', '1886-07-27', 'l', 'Islam', 'Indralaya', 'S1 Akuntannsi'),
-(25, 1, 1, 'azhary', '985fabf8f96dc1c4c306341031569937', 12345, 'Azhary Arliansyah', 'Palembang', '2018-02-23', 'l', 'Islam', 'Alamat', 'S1');
+(25, 1, 1, 'azhary', '985fabf8f96dc1c4c306341031569937', 12345, 'Azhary Arliansyah', 'Palembang', '2018-02-23', 'l', 'Islam', 'Alamat', 'S1'),
+(26, 1, 1, 'harsi', '827ccb0eea8a706c4c34a16891f84e7b', 23456, 'Harsi Rahayu', 'Bunga Mayang', '1995-11-06', 'p', 'Islam', 'Griya Sejahtera', 'Mahasiswa');
 
 -- --------------------------------------------------------
 
@@ -247,8 +251,8 @@ CREATE TABLE `keputusan` (
 
 INSERT INTO `keputusan` (`id_keputusan`, `nama`, `nmin`, `nmax`) VALUES
 (3, 'Kurang Baik', 20, 55),
-(4, 'Baik', 60, 80),
-(5, 'Sangat Baik', 85, 100);
+(4, 'Baik', 55, 80),
+(5, 'Sangat Baik', 80, 100);
 
 -- --------------------------------------------------------
 
@@ -334,11 +338,11 @@ CREATE TABLE `penilaian_karyawan` (
 --
 
 INSERT INTO `penilaian_karyawan` (`id_penilaian`, `id_kriteria`, `id_karyawan`, `bobot`) VALUES
-(1, 1, 1, 13),
+(1, 1, 1, 100),
 (2, 2, 1, 90),
 (3, 3, 1, 30),
 (4, 4, 1, 100),
-(5, 5, 1, 50),
+(5, 5, 1, 65),
 (6, 1, 2, 100),
 (7, 2, 2, 90),
 (8, 3, 2, 88),
@@ -399,7 +403,7 @@ CREATE TABLE `tacit_knowledge` (
 
 INSERT INTO `tacit_knowledge` (`id_tacit`, `id_hasil`, `status`, `id_karyawan`, `judul`, `waktu_pembaharuan`) VALUES
 (1, 3, 0, 25, 'haha', '0000-00-00 00:00:00'),
-(2, 1, 0, 25, '', '0000-00-00 00:00:00'),
+(2, 1, 1, 25, '', '0000-00-00 00:00:00'),
 (3, 3, 0, 25, '', '0000-00-00 00:00:00'),
 (4, 1, 0, 25, '', '0000-00-00 00:00:00'),
 (5, 1, 0, 25, 'aaaabbb', '2018-02-26 18:13:46');
@@ -527,7 +531,7 @@ ALTER TABLE `fuzzy`
 -- AUTO_INCREMENT for table `hasil_penilaian`
 --
 ALTER TABLE `hasil_penilaian`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -539,7 +543,7 @@ ALTER TABLE `jabatan`
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `keputusan`

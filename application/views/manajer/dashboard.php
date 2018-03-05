@@ -26,7 +26,7 @@
                     <div class="info-box dark-bg">
                         <i class="fa fa-list-alt"></i>
                         <div class="count"><?= count($penilaian) ?></div>
-                        <div class="title">Penilaian</div>
+                        <div class="title">Data Penilaian</div>
                     </div>
                     <!--/.info-box-->
                 </div>
@@ -53,6 +53,17 @@
                     <!--/.info-box-->
                 </div>
                 <!--/.col-->
+            </a>
+            <a href="<?= base_url('manajer/hasil-penilaian') ?>">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box green-bg">
+                  <i class="fa fa-book"></i>
+                  <div class="count"><?= count($penilaian) ?></div>
+                  <div class="title">Hasil Penilaian</div>
+                </div>
+                <!--/.info-box-->
+              </div>
+              <!--/.col-->
             </a>
         </div>
         <!--/.row-->

@@ -79,7 +79,7 @@
                 </div>
                 <!-- /.panel -->
 
-                <?php if ( isset( $hasil ) ): ?>
+                <!-- <?php if ( isset( $hasil ) ): ?>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Komentar
@@ -109,7 +109,7 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-                <?php endif; ?>
+                <?php endif; ?> -->
             </div>
             <!-- /.col-lg-12 -->
         </div>

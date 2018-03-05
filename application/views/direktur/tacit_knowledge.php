@@ -3,11 +3,11 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"><i class="fa fa fa-bars"></i> My Tacit Knowledge</h3>
+                <h3 class="page-header"><i class="fa fa fa-bars"></i> Tacit Knowledge</h3>
                 <ol class="breadcrumb">
                     <li><i class="fa fa-home"></i><a href="<?= base_url('direktur') ?>">Dashboard</a></li>
                     <li><i class="fa fa-share"></i><a href="<?= base_url('direktur/knowledge-sharing') ?>">Knowledge Sharing</a></li>
-                    <li><i class="fa fa-book"></i>My Tacit Knowledge</li>
+                    <li><i class="fa fa-book"></i>Tacit Knowledge</li>
                 </ol>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 <section class="panel">
                     <header class="panel-heading">
                         <h3>
-                        My Tacit Knowledge
+                        Tacit Knowledge
                         </h3>
                     </header>
                     <div>

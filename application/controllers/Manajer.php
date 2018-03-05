@@ -237,21 +237,14 @@ class Manajer extends MY_Controller {
 
 	public function data_penilaian() {
 
-		$this->load->model( 'karyawan_m' );
-		$this->load->model( 'departemen_m' );
-		$this->load->model( 'jabatan_m' );
-        $this->load->model( 'bruteforce_m' );
-
-		$this->data['hasil_penilaian']	= $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
-        if ( $this->POST( 'query' ) ) {
-
-            $this->data['hasil_penilaian'] = $this->bruteforce_m->search( $this->POST( 'query' ), $this->data['hasil_penilaian'] );
-
-        }
-
-		$this->data['title']			= 'Data Penilaian Karyawan';
-		$this->data['content']			= 'manajer/data_penilaian';
-		$this->template( $this->data, 'manajer' );
+        $this->load->model( 'penilaian_karyawan_m' );
+        $this->load->model( 'kriteria_m' );
+        $this->load->model( 'karyawan_m' );
+        $this->data['hasil_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
+        $this->data['kriteria'] = $this->kriteria_m->get();
+        $this->data['title']    = 'Hasil Penilaian | ' . $this->title;
+        $this->data['content']  = 'manajer/hasil_penilaian';
+        $this->template( $this->data, 'manajer' );
 
 	}
 
@@ -433,22 +426,22 @@ class Manajer extends MY_Controller {
 
 		$this->data['nilai']	= $this->penilaian_karyawan_m->get_nilai([ 'id_karyawan' => $this->data['id_karyawan'] ]);
 		$this->data['hasil']	= $this->hasil_penilaian_m->get_hasil( $this->data['id_karyawan'] );
-		if ( isset( $this->data['hasil'] ) ) {
-			$this->data['komentar']	= $this->komentar_tacit_m->get_by_order( 'waktu', 'DESC', [ 'id_hasil' => $this->data['hasil']->id_hasil ] );
+		// if ( isset( $this->data['hasil'] ) ) {
+		// 	$this->data['komentar']	= $this->komentar_tacit_m->get_by_order( 'waktu', 'DESC', [ 'id_hasil' => $this->data['hasil']->id_hasil ] );
 
-			if ( $this->POST( 'submit' ) ) {
+		// 	if ( $this->POST( 'submit' ) ) {
 
-				$this->data['komentar'] = [
-					'komentar'		=> $this->POST( 'komentar' ),
-					'id_karyawan'	=> $this->session->userdata( 'id_karyawan' ),
-					'id_hasil'		=> $this->data['hasil']->id_hasil
-				];
-				$this->komentar_tacit_m->insert( $this->data['komentar'] );
-				redirect( 'manajer/detail-penilaian/' . $this->data['id_karyawan'] );
-				exit;
+		// 		$this->data['komentar'] = [
+		// 			'komentar'		=> $this->POST( 'komentar' ),
+		// 			'id_karyawan'	=> $this->session->userdata( 'id_karyawan' ),
+		// 			'id_hasil'		=> $this->data['hasil']->id_hasil
+		// 		];
+		// 		$this->komentar_tacit_m->insert( $this->data['komentar'] );
+		// 		redirect( 'manajer/detail-penilaian/' . $this->data['id_karyawan'] );
+		// 		exit;
 
-			}
-		}
+		// 	}
+		// }
 		$this->data['title']	= 'Detail Penilaian | ' . $this->title;
 		$this->data['content']	= 'manajer/detail_penilaian';
 		$this->template( $this->data, 'manajer' );
@@ -457,16 +450,23 @@ class Manajer extends MY_Controller {
 
     public function hasil_penilaian()
     {
-        $this->load->model( 'penilaian_karyawan_m' );
-        $this->load->model( 'kriteria_m' );
         $this->load->model( 'karyawan_m' );
+        $this->load->model( 'departemen_m' );
+        $this->load->model( 'jabatan_m' );
+        $this->load->model( 'bruteforce_m' );
+
         $this->data['hasil_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
-        $this->data['kriteria'] = $this->kriteria_m->get();
-        $this->data['title']    = 'Hasil Penilaian | ' . $this->title;
-        $this->data['content']  = 'manajer/hasil_penilaian';
+        if ( $this->POST( 'query' ) ) {
+
+            $this->data['hasil_penilaian'] = $this->bruteforce_m->search( $this->POST( 'query' ), $this->data['hasil_penilaian'] );
+
+        }
+
+        $this->data['title']            = 'Data Penilaian Karyawan';
+        $this->data['content']          = 'manajer/data_penilaian';
         $this->template( $this->data, 'manajer' );
     }
-    
+
     public function upload_foto()
     { 
         if($this->POST('upload')){
@@ -487,8 +487,8 @@ class Manajer extends MY_Controller {
 
         $this->load->model( 'tacit_knowledge_m' );
         $this->load->model( 'explicit_knowledge_m' );
-        $this->data['tacit']    = $this->tacit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
-        $this->data['explicit'] = $this->explicit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['tacit']    = $this->tacit_knowledge_m->get();
+        $this->data['explicit'] = $this->explicit_knowledge_m->get();
         $this->data['title']    = 'Knowledge Sharing | ' . $this->title;
         $this->data['content']  = 'manajer/knowledge_sharing';
         $this->template( $this->data, 'manajer' );
@@ -528,7 +528,7 @@ class Manajer extends MY_Controller {
             exit;
         }
 
-        $this->data['tacit']    = $this->tacit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['tacit']    = $this->tacit_knowledge_m->get();
         $this->data['title']    = 'Tacit Knowledge | ' . $this->title;
         $this->data['content']  = 'manajer/tacit_knowledge';
         $this->template( $this->data, 'manajer' );
@@ -626,7 +626,7 @@ class Manajer extends MY_Controller {
             exit;
         }
 
-        $this->data['explicit']    = $this->explicit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
+        $this->data['explicit']    = $this->explicit_knowledge_m->get();
         $this->data['title']    = 'Explicit Knowledge | ' . $this->title;
         $this->data['content']  = 'manajer/explicit_knowledge';
         $this->template( $this->data, 'manajer' );
