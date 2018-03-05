@@ -79,9 +79,9 @@
 
 
             <script type="text/javascript">
-                function submit_form() {
-                    $('#form').submit();
-                }
+                // function submit_form() {
+                //     $('#form').submit();
+                // }
 
                 $(document).ready(function() {
                      tinymce.init({
