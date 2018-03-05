@@ -30,7 +30,7 @@
                             </div>
 
                             <div>
-                                <input type="submit" onclick="submit_form();" name="upload" value="Simpan" class="btn btn-success">
+                                <input type="submit" name="upload" value="Simpan" class="btn btn-success">
                             </div>
                         </div>
 
@@ -49,7 +49,7 @@
 
 
             <script type="text/javascript">
-                function submit_form() {
-                    $('#form').submit();
-                }
+                // function submit_form() {
+                //     $('#form').submit();
+                // }
             </script>

@@ -37,7 +37,7 @@
                                     <textarea id="tinymce" class="form-control" name="deskripsi" required><?= $data->deskripsi ?></textarea>
                                 </div>
                                 <div>
-                                    <input type="submit" onclick="submit_form();" name="simpan" value="Simpan" class="btn btn-success">
+                                    <input type="submit" name="simpan" value="Simpan" class="btn btn-success">
                                 </div>
                             </div>
                             <!-- /.col-lg-12 -->
@@ -52,9 +52,9 @@
 </section>
 
 <script type="text/javascript">
-    function submit_form() {
-        $('#form').submit();
-    }
+    // function submit_form() {
+    //     $('#form').submit();
+    // }
 
     $(document).ready(function() {
          tinymce.init({
