@@ -27,11 +27,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Kriteria<span class="required">*</span></label>
-                                    <select name="id_kriteria" class="form-control" required>
-                                        <?php foreach($kriteria as $row): ?>
-                                        <option value="<?= $row->id_kriteria ?>"><?= $row->nama ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <?php  
+                                        $kriteria_opt = [];
+                                        foreach ( $kriteria as $row ) $kriteria_opt[$row->id_kriteria] = $row->nama;
+                                        echo form_dropdown( 'id_kriteria', $kriteria_opt, $data->id_kriteria, [ 'class' => 'form-control', 'required' => 'required' ] );
+                                    ?>
                                 </div>
                                 
                                 <div class="form-group">

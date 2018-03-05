@@ -32,17 +32,17 @@ class Fuzzy_m extends MY_Model {
 			foreach ( $fuzzy as $f ) {
 
 				$f_label = str_replace( ' ', '_', strtolower( $f->fuzzy ) );
-				if ( $f->bobot_min >= 20 && $f->bobot_max <= 55 ) {
+				if ( $nilai->bobot >= 0 && $nilai->bobot <= 55 ) {
 
 					if ( !isset( $nilai ) ) $result[ $row->label ] []= 0;
 					else $result[ $row->label ][ $f_label ] = ( 60 - $nilai->bobot ) / 55;
 
-				} else if ( $f->bobot_min >= 60 && $f->bobot_max <= 80 ) {
+				} else if ( $nilai->bobot > 55 && $nilai->bobot <= 80 ) {
 
 					if ( !isset( $nilai ) ) $result[ $row->label ] []= 0;
 					else $result[ $row->label ][ $f_label ] = ( $nilai->bobot - 55 ) / 60;
 
-				} else if ( $f->bobot_min >= 85 && $f->bobot_max <= 100 ) {
+				} else if ( $nilai->bobot > 80 && $nilai->bobot <= 100 ) {
 
 					if ( !isset( $nilai ) ) $result[ $row->label ] []= 0;
 					else $result[ $row->label ][ $f_label ] = ( $nilai->bobot - 80 ) / 100;

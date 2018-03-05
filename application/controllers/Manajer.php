@@ -451,15 +451,17 @@ class Manajer extends MY_Controller {
 
 	}
 
-	public function tacit_knowledge() {
-
-
-	}
-
-	public function explicit_knowledge() {
-
-
-	}
+    public function hasil_penilaian()
+    {
+        $this->load->model( 'penilaian_karyawan_m' );
+        $this->load->model( 'kriteria_m' );
+        $this->load->model( 'karyawan_m' );
+        $this->data['hasil_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
+        $this->data['kriteria'] = $this->kriteria_m->get();
+        $this->data['title']    = 'Hasil Penilaian | ' . $this->title;
+        $this->data['content']  = 'manajer/hasil_penilaian';
+        $this->template( $this->data, 'manajer' );
+    }
 
     public function upload_foto()
     { 
