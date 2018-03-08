@@ -71,169 +71,169 @@ class Manajer extends MY_Controller {
 
 	}
 
-	public function data_karyawan() {
+	// public function data_karyawan() {
 
-		$this->load->model('karyawan_m');
-        $this->load->model('departemen_m');
-        $this->load->model('jabatan_m');
-        $this->load->model('hak_akses_m');
+	// 	$this->load->model('karyawan_m');
+ //        $this->load->model('departemen_m');
+ //        $this->load->model('jabatan_m');
+ //        $this->load->model('hak_akses_m');
 
-        if ($this->POST('delete') && $this->POST('id'))
-        {
-            $this->karyawan_m->delete($this->POST('id'));
+ //        if ($this->POST('delete') && $this->POST('id'))
+ //        {
+ //            $this->karyawan_m->delete($this->POST('id'));
 
-            // hapus juga di hak akses
-            $this->hak_akses_m->delete_by(['id_karyawan' => $this->POST('id')]);
-            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
-            exit;
-        }
+ //            // hapus juga di hak akses
+ //            $this->hak_akses_m->delete_by(['id_karyawan' => $this->POST('id')]);
+ //            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data berhasil dihapus!');
+ //            exit;
+ //        }
 
-        $this->data['data']        	= $this->karyawan_m->get([ 'id_departemen' => $this->session->userdata( 'id_departemen' ) ]);
-        $this->data['title']        = 'Data karyawan';
-        $this->data['content']      = 'manajer/karyawan_data';
-        $this->template($this->data, 'manajer');
+ //        $this->data['data']        	= $this->karyawan_m->get([ 'id_departemen' => $this->session->userdata( 'id_departemen' ) ]);
+ //        $this->data['title']        = 'Data karyawan';
+ //        $this->data['content']      = 'manajer/karyawan_data';
+ //        $this->template($this->data, 'manajer');
 
-	}
+	// }
 
-	public function detail_data_karyawan() {
+	// public function detail_data_karyawan() {
 
-		$this->load->model('departemen_m');
-        $this->load->model('jabatan_m');
+	// 	$this->load->model('departemen_m');
+ //        $this->load->model('jabatan_m');
 
-        $this->data['id'] = $this->uri->segment(3);
-        if (!isset($this->data['id']))
-        {
-            $this->flashmsg('<i class="lnr lnr-warning"></i> Required parameter is missing', 'danger');
-            redirect('manajer/data-karyawan');
-            exit;
-        }
+ //        $this->data['id'] = $this->uri->segment(3);
+ //        if (!isset($this->data['id']))
+ //        {
+ //            $this->flashmsg('<i class="lnr lnr-warning"></i> Required parameter is missing', 'danger');
+ //            redirect('manajer/data-karyawan');
+ //            exit;
+ //        }
 
-        $this->load->model('karyawan_m');
-        $this->data['data']        = $this->karyawan_m->get_row(['id_karyawan' => $this->data['id']]);
-        if (!isset($this->data['id']))
-        {
-            $this->flashmsg('<i class="lnr lnr-warning"></i> Data karyawan tidak ditemukan', 'danger');
-            redirect('manajer/data-karyawan');
-            exit;
-        }
+ //        $this->load->model('karyawan_m');
+ //        $this->data['data']        = $this->karyawan_m->get_row(['id_karyawan' => $this->data['id']]);
+ //        if (!isset($this->data['id']))
+ //        {
+ //            $this->flashmsg('<i class="lnr lnr-warning"></i> Data karyawan tidak ditemukan', 'danger');
+ //            redirect('manajer/data-karyawan');
+ //            exit;
+ //        }
 
-        $this->data['title']        = 'Detail Data Karyawan';
-        $this->data['content']      = 'manajer/karyawan_detail';
-        $this->template($this->data, 'manajer');
+ //        $this->data['title']        = 'Detail Data Karyawan';
+ //        $this->data['content']      = 'manajer/karyawan_detail';
+ //        $this->template($this->data, 'manajer');
 
-	}
+	// }
 
-	public function tambah_data_karyawan() {
+	// public function tambah_data_karyawan() {
 
-		$this->load->model('departemen_m');
-        $this->load->model('jabatan_m');
+	// 	$this->load->model('departemen_m');
+ //        $this->load->model('jabatan_m');
 
-        if($this->POST('simpan')){
+ //        if($this->POST('simpan')){
 
-            $this->data['input'] = [
-                'id_departemen'     => $this->POST('id_departemen'),
-                'id_jabatan'        => $this->POST('id_jabatan'),
-                'username'          => $this->POST('username'),
-                'password'          => md5($this->POST('password')),
-                'NIK'               => $this->POST('NIK'),
-                'nama'              => $this->POST('nama'),
-                'tempat_lahir'      => $this->POST('tempat_lahir'),
-                'tgl_lahir'         => $this->POST('tgl_lahir'),
-                'jenis_kelamin'     => $this->POST('jenis_kelamin'),
-                'agama'             => $this->POST('agama'),
-                'alamat'            => $this->POST('alamat'),
-                'pendidikan'        => $this->POST('pendidikan')
-            ];
+ //            $this->data['input'] = [
+ //                'id_departemen'     => $this->POST('id_departemen'),
+ //                'id_jabatan'        => $this->POST('id_jabatan'),
+ //                'username'          => $this->POST('username'),
+ //                'password'          => md5($this->POST('password')),
+ //                'NIK'               => $this->POST('NIK'),
+ //                'nama'              => $this->POST('nama'),
+ //                'tempat_lahir'      => $this->POST('tempat_lahir'),
+ //                'tgl_lahir'         => $this->POST('tgl_lahir'),
+ //                'jenis_kelamin'     => $this->POST('jenis_kelamin'),
+ //                'agama'             => $this->POST('agama'),
+ //                'alamat'            => $this->POST('alamat'),
+ //                'pendidikan'        => $this->POST('pendidikan')
+ //            ];
 
-            $this->load->model('karyawan_m');
-            $this->karyawan_m->insert($this->data['input']);
+ //            $this->load->model('karyawan_m');
+ //            $this->karyawan_m->insert($this->data['input']);
 
-            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data karyawan berhasil disimpan');
+ //            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data karyawan berhasil disimpan');
 
-            redirect('manajer/data-karyawan');
-            exit;
-        }
+ //            redirect('manajer/data-karyawan');
+ //            exit;
+ //        }
 
 
-        $this->data['title']        = 'Tambah Data karyawan';
-        $this->data['content']      = 'manajer/karyawan_tambah';
-        $this->data['departemen']   = $this->departemen_m->get();
-        $this->data['jabatan']      = $this->jabatan_m->get();
-        $this->template($this->data, 'manajer');
+ //        $this->data['title']        = 'Tambah Data karyawan';
+ //        $this->data['content']      = 'manajer/karyawan_tambah';
+ //        $this->data['departemen']   = $this->departemen_m->get();
+ //        $this->data['jabatan']      = $this->jabatan_m->get();
+ //        $this->template($this->data, 'manajer');
 
-	}
+	// }
 
-	public function edit_data_karyawan() {
+	// public function edit_data_karyawan() {
 
-        $this->load->model('departemen_m');
-        $this->load->model('jabatan_m');
+ //        $this->load->model('departemen_m');
+ //        $this->load->model('jabatan_m');
 
-        $this->data['id'] = $this->uri->segment(3);
-        if (!isset($this->data['id']))
-        {
-            $this->flashmsg('<i class="lnr lnr-warning"></i> Required parameter is missing', 'danger');
-            redirect('manajer/data-karyawan');
-            exit;
-        }
+ //        $this->data['id'] = $this->uri->segment(3);
+ //        if (!isset($this->data['id']))
+ //        {
+ //            $this->flashmsg('<i class="lnr lnr-warning"></i> Required parameter is missing', 'danger');
+ //            redirect('manajer/data-karyawan');
+ //            exit;
+ //        }
 
-        $this->load->model('karyawan_m');
-        $this->data['data']        = $this->karyawan_m->get_row(['id_karyawan' => $this->data['id']]);
+ //        $this->load->model('karyawan_m');
+ //        $this->data['data']        = $this->karyawan_m->get_row(['id_karyawan' => $this->data['id']]);
        
-        if (!isset($this->data['data']))
-        {
-            $this->flashmsg('<i class="lnr lnr-warning"></i> Data karyawan tidak ditemukan', 'danger');
-            redirect('manajer/data-karyawan');
-            exit;
-        }
+ //        if (!isset($this->data['data']))
+ //        {
+ //            $this->flashmsg('<i class="lnr lnr-warning"></i> Data karyawan tidak ditemukan', 'danger');
+ //            redirect('manajer/data-karyawan');
+ //            exit;
+ //        }
 
 
-        if($this->POST('simpan'))
-        {
-            if(empty($this->POST('password'))){
-                $this->data['data_row'] = [
-                    'id_departemen'     => $this->POST('id_departemen'),
-                    'id_jabatan'        => $this->POST('id_jabatan'),
-                    'username'          => $this->POST('username'),
-                    'NIK'               => $this->POST('NIK'),
-                    'nama'              => $this->POST('nama'),
-                    'tempat_lahir'      => $this->POST('tempat_lahir'),
-                    'tgl_lahir'         => $this->POST('tgl_lahir'),
-                    'jenis_kelamin'     => $this->POST('jenis_kelamin'),
-                    'agama'             => $this->POST('agama'),
-                    'alamat'            => $this->POST('alamat'),
-                    'pendidikan'        => $this->POST('pendidikan')
-                ];
-            }
-            else {
-                $this->data['data_row'] = [
-                    'id_departemen'     => $this->POST('id_departemen'),
-                    'id_jabatan'        => $this->POST('id_jabatan'),
-                    'username'          => $this->POST('username'),
-                    'password'          => md5($this->POST('password')),
-                    'NIK'               => $this->POST('NIK'),
-                    'nama'              => $this->POST('nama'),
-                    'tempat_lahir'      => $this->POST('tempat_lahir'),
-                    'tgl_lahir'         => $this->POST('tgl_lahir'),
-                    'jenis_kelamin'     => $this->POST('jenis_kelamin'),
-                    'agama'             => $this->POST('agama'),
-                    'alamat'            => $this->POST('alamat'),
-                    'pendidikan'        => $this->POST('pendidikan')
-                ];
-            }
+ //        if($this->POST('simpan'))
+ //        {
+ //            if(empty($this->POST('password'))){
+ //                $this->data['data_row'] = [
+ //                    'id_departemen'     => $this->POST('id_departemen'),
+ //                    'id_jabatan'        => $this->POST('id_jabatan'),
+ //                    'username'          => $this->POST('username'),
+ //                    'NIK'               => $this->POST('NIK'),
+ //                    'nama'              => $this->POST('nama'),
+ //                    'tempat_lahir'      => $this->POST('tempat_lahir'),
+ //                    'tgl_lahir'         => $this->POST('tgl_lahir'),
+ //                    'jenis_kelamin'     => $this->POST('jenis_kelamin'),
+ //                    'agama'             => $this->POST('agama'),
+ //                    'alamat'            => $this->POST('alamat'),
+ //                    'pendidikan'        => $this->POST('pendidikan')
+ //                ];
+ //            }
+ //            else {
+ //                $this->data['data_row'] = [
+ //                    'id_departemen'     => $this->POST('id_departemen'),
+ //                    'id_jabatan'        => $this->POST('id_jabatan'),
+ //                    'username'          => $this->POST('username'),
+ //                    'password'          => md5($this->POST('password')),
+ //                    'NIK'               => $this->POST('NIK'),
+ //                    'nama'              => $this->POST('nama'),
+ //                    'tempat_lahir'      => $this->POST('tempat_lahir'),
+ //                    'tgl_lahir'         => $this->POST('tgl_lahir'),
+ //                    'jenis_kelamin'     => $this->POST('jenis_kelamin'),
+ //                    'agama'             => $this->POST('agama'),
+ //                    'alamat'            => $this->POST('alamat'),
+ //                    'pendidikan'        => $this->POST('pendidikan')
+ //                ];
+ //            }
 
-            $this->karyawan_m->update($this->data['id'], $this->data['data_row']);
-            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data karyawan berhasil diedit');
-            redirect('manajer/edit-data-karyawan/' . $this->data['id']);
-            exit;
-        }
+ //            $this->karyawan_m->update($this->data['id'], $this->data['data_row']);
+ //            $this->flashmsg('<i class="glyphicon glyphicon-success"></i> Data karyawan berhasil diedit');
+ //            redirect('manajer/edit-data-karyawan/' . $this->data['id']);
+ //            exit;
+ //        }
 
-        $this->data['title']        = 'Edit Data karyawan';
-        $this->data['content']      = 'manajer/karyawan_edit';
-        $this->data['departemen']   = $this->departemen_m->get();
-        $this->data['jabatan']      = $this->jabatan_m->get();
-        $this->template($this->data, 'manajer');
+ //        $this->data['title']        = 'Edit Data karyawan';
+ //        $this->data['content']      = 'manajer/karyawan_edit';
+ //        $this->data['departemen']   = $this->departemen_m->get();
+ //        $this->data['jabatan']      = $this->jabatan_m->get();
+ //        $this->template($this->data, 'manajer');
 
-    }
+ //    }
 
 	public function data_penilaian() {
 
