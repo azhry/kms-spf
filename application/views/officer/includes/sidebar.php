@@ -5,7 +5,8 @@
         <ul class="sidebar-menu">
             <li><a href="<?= base_url('officer/') ?>" class="active"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
             <li><a href="<?= base_url('officer/data-karyawan') ?>" class="active"><i class="fa fa-users"></i> <span>Daftar Karyawan</span></a></li>
-            <li><a href="<?= base_url('officer/data-penilaian') ?>" class="active"><i class="fa fa-book"></i> <span>Hasil Penilaian</span></a></li>
+            <li><a href="<?= base_url('officer/data_penilaian') ?>" class="active"><i class="fa fa-book"></i> <span>Data Penilaian</span></a></li>
+            <li><a href="<?= base_url('officer/hasil-penilaian') ?>" class="active"><i class="fa fa-book"></i> <span>Hasil Penilaian</span></a></li>
             <li><a href="<?= base_url( 'officer/data-kriteria' ) ?>" class="active"><i class="fa fa-list-alt"></i> Data Kriteria</a></li>
             <li><a href="<?= base_url( 'officer/data-keputusan' ) ?>" class="active"><i class="fa fa-list-alt"></i> Data Keputusan</a></li>
             <li><a href="<?= base_url( 'officer/data-departemen' ) ?>" class="active"><i class="fa fa-university"></i> Data Departemen</a></li>

@@ -10,12 +10,12 @@
         
         
         <div class="row">
-            <a href="<?= base_url('manajer/data-karyawan') ?>">
+            <a href="<?= base_url('manajer/data-penilaian') ?>">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box brown-bg">
                         <i class="fa fa-users"></i>
-                        <div class="count"><?= count($data_karyawan) ?></div>
-                        <div class="title">Karyawan</div>
+                        <div class="count"><?= count($data_penilaian) ?></div>
+                        <div class="title">Data Penilaian</div>
                     </div>
                     <!--/.info-box-->
                 </div>

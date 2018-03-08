@@ -64,6 +64,7 @@ class Manajer extends MY_Controller {
         $this->data['tacit']    = $this->tacit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
         $this->data['explicit'] = $this->explicit_knowledge_m->get([ 'id_karyawan' => $this->data['id_karyawan'] ]);
 		$this->data['data_karyawan']	= $this->karyawan_m->get([ 'id_departemen' => $this->data['id_departemen'] ]);
+        $this->data['data_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
 		$this->data['penilaian']		= $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
 		$this->data['title']	= 'Dashboard | ' . $this->title;
 		$this->data['content']	= 'manajer/dashboard';

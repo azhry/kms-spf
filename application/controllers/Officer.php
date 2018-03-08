@@ -69,6 +69,7 @@ class Officer extends MY_Controller {
         $this->data['content']  = 'officer/dashboard';
         $this->data['departemen']   = $this->departemen_m->get();
         $this->data['data_karyawan']= $this->karyawan_m->get([ 'id_departemen' => $this->data['id_departemen'] ]);
+        $this->data['data_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
         $this->data['kriteria']     = $this->kriteria_m->get();
         $this->data['fuzzy']        = $this->fuzzy_m->get();
         $this->data['jabatan']      = $this->jabatan_m->get();
@@ -335,14 +336,14 @@ class Officer extends MY_Controller {
 
     }
 
-    public function data_penilaian() {
+    public function hasil_penilaian() {
 
         $this->load->model( 'karyawan_m' );
         $this->load->model( 'departemen_m' );
         $this->load->model( 'jabatan_m' );
         $this->data['hasil_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
         $this->data['title']            = 'Data Penilaian Karyawan';
-        $this->data['content']          = 'officer/data_penilaian';
+        $this->data['content']          = 'officer/hasil_penilaian';
         $this->template( $this->data, 'officer' );
 
     }
@@ -527,6 +528,19 @@ class Officer extends MY_Controller {
         $this->data['hasil']    = $this->hasil_penilaian_m->get_hasil( $this->data['id_karyawan'] );
         $this->data['title']    = 'Detail Penilaian | ' . $this->title;
         $this->data['content']  = 'officer/detail_penilaian';
+        $this->template( $this->data, 'officer' );
+
+    }
+
+    public function data_penilaian() {
+
+        $this->load->model( 'penilaian_karyawan_m' );
+        $this->load->model( 'kriteria_m' );
+        $this->load->model( 'karyawan_m' );
+        $this->data['hasil_penilaian']  = $this->karyawan_m->get_hasil_penilaian([ 'id_departemen' => $this->data['id_departemen'] ]);
+        $this->data['kriteria'] = $this->kriteria_m->get();
+        $this->data['title']    = 'Hasil Penilaian | ' . $this->title;
+        $this->data['content']  = 'officer/data_penilaian';
         $this->template( $this->data, 'officer' );
 
     }
