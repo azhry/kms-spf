@@ -15,7 +15,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <h3>Data Penilaian</h3>
+                        <h3>Data Penilaian <a href="<?= base_url( 'manajer/buat-laporan' ) ?>" class="btn btn-primary"><i class="fa fa-download"></i> Download Laporan</a></h3></h3>
                     </header>
                     <div class="panel-body">
                         <div>

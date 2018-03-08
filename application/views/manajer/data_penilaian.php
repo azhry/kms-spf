@@ -17,7 +17,7 @@
                 <section class="panel">
                     <header class="panel-heading">
                         <h3 class="pull-left">Data Penilaian</h3>
-                        <?= form_open( 'manajer/data-penilaian', [ 'class' => 'navbar-form pull-right', 'id' => 'searchform' ] ) ?>
+                        <?= form_open( 'manajer/hasil-penilaian', [ 'class' => 'navbar-form pull-right', 'id' => 'searchform' ] ) ?>
                             <input class="form-control" name="query" placeholder="Search" type="text" id="searchbox">
                         <?= form_close() ?>
                     </header>

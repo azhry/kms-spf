@@ -691,4 +691,20 @@ class Manajer extends MY_Controller {
         $this->template( $this->data, 'manajer' );
 
     }
+
+    public function buat_laporan() {
+
+        $this->load->model( 'karyawan_m' );
+        $this->load->model( 'penilaian_karyawan_m' );
+        $this->load->model( 'departemen_m' );
+        $this->load->model( 'jabatan_m' );
+
+        $this->data['hasil_penilaian']  = $this->karyawan_m->get_hasil_penilaian();
+        $html = $this->load->view('direktur/laporan_penilaian', $this->data, true);
+        $pdfFilePath = 'Laporan Penilaian Karyawan - ' . date('Y-m-d') . '.pdf';
+        $this->load->library('m_pdf');
+        $this->m_pdf->pdf->WriteHTML($html);
+        $this->m_pdf->pdf->Output($pdfFilePath, "D");
+
+    }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2018 at 09:56 AM
+-- Generation Time: Mar 08, 2018 at 10:50 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kms_spf`
+-- Database: `kms_spf2`
 --
 
 -- --------------------------------------------------------
@@ -52,7 +52,7 @@ CREATE TABLE `departemen` (
 --
 
 INSERT INTO `departemen` (`id_departemen`, `nama_departemen`, `deskripsi`) VALUES
-(1, 'Human Resource General Affair', '<p>HRGA</p>');
+(1, 'Human Resource Development', 'HRD');
 
 -- --------------------------------------------------------
 
@@ -68,14 +68,6 @@ CREATE TABLE `explicit_knowledge` (
   `id_karyawan` int(11) NOT NULL,
   `filename` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `explicit_knowledge`
---
-
-INSERT INTO `explicit_knowledge` (`id_explicit`, `id_hasil`, `judul`, `status`, `id_karyawan`, `filename`) VALUES
-(3, 3, '', 0, 25, '20180220211920.pdf'),
-(4, 2, 'test', 0, 25, '20180227145918.pdf');
 
 -- --------------------------------------------------------
 
@@ -96,21 +88,22 @@ CREATE TABLE `fuzzy` (
 --
 
 INSERT INTO `fuzzy` (`id_fuzzy`, `id_kriteria`, `fuzzy`, `bobot_min`, `bobot_max`) VALUES
-(1, 1, 'Kurang Baik', 20, 60),
+(1, 1, 'Kurang Baik', 20, 55),
 (2, 1, 'Baik', 60, 80),
-(3, 1, 'Sangat Baik', 80, 100),
-(4, 2, 'Kurang Bisa Memimpin', 20, 60),
+(3, 1, 'Sangat Baik', 85, 100),
+(4, 2, 'Kurang Bisa Memimpin', 20, 55),
 (5, 2, 'Bisa Memimpin', 60, 80),
-(6, 2, 'Sangat Bisa Memimpin', 80, 100),
-(7, 3, 'Kurang Menguasai', 20, 60),
+(6, 2, 'Sangat Bisa Memimpin', 85, 100),
+(7, 3, 'Kurang Menguasai', 20, 55),
 (8, 3, 'Menguasai', 60, 80),
-(9, 3, 'Sangat Menguasai', 80, 100),
+(9, 3, 'Sangat Menguasai', 85, 100),
 (10, 4, 'SMA', 20, 55),
 (11, 4, 'D3', 60, 80),
 (12, 4, 'S1', 85, 100),
 (13, 5, 'Kurang Pengalaman', 20, 55),
 (14, 5, 'Pengalaman', 60, 80),
-(15, 5, 'Sangat Pengalaman', 85, 100);
+(15, 5, 'Sangat Pengalaman', 85, 100),
+(16, 1, 'aaa', 11, 11);
 
 -- --------------------------------------------------------
 
@@ -128,12 +121,11 @@ CREATE TABLE `hak_akses` (
 --
 
 INSERT INTO `hak_akses` (`id_role`, `id_karyawan`) VALUES
-(1, 25),
-(2, 25),
-(3, 25),
-(4, 25),
-(5, 25),
-(3, 26);
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
 
 -- --------------------------------------------------------
 
@@ -146,17 +138,6 @@ CREATE TABLE `hasil_penilaian` (
   `id_karyawan` int(11) NOT NULL,
   `id_keputusan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `hasil_penilaian`
---
-
-INSERT INTO `hasil_penilaian` (`id_hasil`, `id_karyawan`, `id_keputusan`) VALUES
-(1, 1, 3),
-(2, 5, 3),
-(3, 25, 3),
-(4, 1, 4),
-(5, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -175,8 +156,7 @@ CREATE TABLE `jabatan` (
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `deskripsi`) VALUES
-(1, 'Manajer', '<p>manajer</p>'),
-(4, 'Training Officer', '<p>Training Officer</p>');
+(1, 'Manajer', 'Manajer');
 
 -- --------------------------------------------------------
 
@@ -190,7 +170,7 @@ CREATE TABLE `karyawan` (
   `id_jabatan` int(11) NOT NULL,
   `username` varchar(64) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `NIK` int(11) NOT NULL,
+  `NIK` varchar(32) NOT NULL,
   `nama` varchar(32) NOT NULL,
   `tempat_lahir` varchar(225) NOT NULL,
   `tgl_lahir` date NOT NULL,
@@ -205,32 +185,7 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`id_karyawan`, `id_departemen`, `id_jabatan`, `username`, `password`, `NIK`, `nama`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `agama`, `alamat`, `pendidikan`) VALUES
-(1, 1, 4, 'direktur', '9bc242fe326e1f0db6d4571f45067144', 101000, 'Fathoni', 'Padang', '1960-08-06', 'l', 'Islam', 'Palembang', 'S1 Manajemen'),
-(2, 2, 5, 'admin_hrd', '9bc242fe326e1f0db6d4571f45067144', 102005, 'Rudiyan', 'Palembang', '1987-11-09', 'l', 'Islam', 'Palembang', 'S. Ag'),
-(3, 2, 2, 'manajer_hrd', '985fabf8f96dc1c4c306341031569937', 102002, 'Erva Yanti', 'Ujung Gading', '1990-09-27', 'p', 'Islam', 'Palembang', 'S1 Sistem Informasi'),
-(4, 1, 2, 'manajer_fa', '9bc242fe326e1f0db6d4571f45067144', 101001, 'Jon Hendri', 'Palembang', '1968-02-02', 'l', 'Islam', 'Palembang', 'S1 Akuntansi'),
-(5, 1, 1, 'supervisorfa_desiana', '9bc242fe326e1f0db6d4571f45067144', 10102, 'Desiana', 'Palembang', '1985-05-12', 'p', 'Islam', 'Palembang', 'S1 Akuntansi'),
-(6, 1, 1, 'supervisorfa_agus', '9bc242fe326e1f0db6d4571f45067144', 10101, 'Agus Munandar', 'Palembang', '1985-01-25', 'l', 'Islam', 'Indralaya', 'S1 Akuntansi'),
-(7, 1, 3, 'foremanfa_usman', '9bc242fe326e1f0db6d4571f45067144', 10107, 'Usman', 'Banda', '1980-12-01', 'l', 'Islam', 'Palembang', 'S1 Agama'),
-(8, 1, 3, 'foremanfa_aulia', '9bc242fe326e1f0db6d4571f45067144', 10103, 'Aulia Taqwa', 'Prabumulih', '1986-09-01', 'l', 'Islam', 'Indralaya', 'D3 Akuntansi'),
-(9, 1, 3, 'foremanfa_dermawan', '9bc242fe326e1f0db6d4571f45067144', 10104, 'Dermawan ', 'Bandung', '1986-07-07', 'p', 'Islam', 'Tanjung Raja', 'D3 Statistika'),
-(10, 1, 3, 'foremanfa_suci', '9bc242fe326e1f0db6d4571f45067144', 10105, 'Suci Rahmawati', 'Banjarmasin', '1980-06-16', 'p', 'Islam', 'Palembang', 'S1 Akuntansi'),
-(11, 1, 3, 'foremanfa_michael', '9bc242fe326e1f0db6d4571f45067144', 10106, 'Michael Saut', 'Medan', '1980-09-15', 'l', 'Kristen', 'Pelembang', 'S1 Sistem Informasi'),
-(12, 1, 3, 'foremanfa_aryadi', '9bc242fe326e1f0db6d4571f45067144', 10108, 'Aryadi', 'Banjarmasin', '1990-01-12', 'l', 'Islam', 'Palembang', 'S1 Akuntasi'),
-(13, 1, 3, 'foreman_tri', '9bc242fe326e1f0db6d4571f45067144', 10109, 'Tri Sutrisno', 'Palembang', '1989-01-17', 'l', 'Islam', 'Palembang', 'S. Ag'),
-(14, 1, 3, 'foremanfa_wulandari', '9bc242fe326e1f0db6d4571f45067144', 101010, 'Wulandari', 'Palembang', '1989-01-13', 'p', 'Islam', 'Palembang', 'S1 Akuntansi'),
-(15, 1, 3, 'foremanfa_reno', '9bc242fe326e1f0db6d4571f45067144', 101011, 'Reno', 'Palembang', '1988-02-15', 'p', 'Islam', 'Palembang', 'S1 Pertanian'),
-(16, 1, 3, 'foremanfa_yuliza', 'borneos1', 101012, 'Yuliza Subhan', 'Palembang', '1986-02-20', 'p', 'Islam', 'Indralaya', 'S1 Teknik'),
-(17, 1, 3, 'foremanfa_supriyadi', '9bc242fe326e1f0db6d4571f45067144', 101013, 'Supriyadi', 'Indralaya', '1988-03-01', 'l', 'Kristen', 'Indralaya', 'S1 Akuntansi'),
-(18, 1, 3, 'foremanfa_suparti', '9bc242fe326e1f0db6d4571f45067144', 101013, 'Suparti', 'Wonosobo', '1985-03-25', 'p', 'Islam', 'Prabumulih', 'S1 Akuntansi'),
-(19, 1, 3, 'foremanfa_hartaty', '9bc242fe326e1f0db6d4571f45067144', 101014, 'Hartaty', 'Bangka', '1995-03-07', 'p', 'Islam', 'Indralaya', 'S1 sistem Informasi'),
-(20, 1, 3, 'foremanfa_hambali', '9bc242fe326e1f0db6d4571f45067144', 101016, 'Hambali', 'Padang', '1899-04-04', 'l', 'Islam', 'Tanjung Senai', 'S1 Akuntansi'),
-(21, 1, 3, 'foremanfa_nurhabibah', '9bc242fe326e1f0db6d4571f45067144', 101017, 'Nurhabibah', 'Surabaya', '1988-05-11', 'p', 'Islam', 'Indralaya', 'S1 Pertanian'),
-(22, 1, 3, 'foreman_julian', '9bc242fe326e1f0db6d4571f45067144', 101018, 'Julian', 'Medan', '1984-04-18', 'l', 'Kristen', 'Indralaya', 'S1 Akuntansi'),
-(23, 1, 3, 'foremanfa_yuliani', '9bc242fe326e1f0db6d4571f45067144', 101019, 'Yuliani', 'Indralaya', '1988-05-23', 'p', 'Islam', 'Indralaya', 'S1 Pertanian'),
-(24, 1, 3, 'foremanfa_zulkarnain', '9bc242fe326e1f0db6d4571f45067144', 101020, 'Zulkarnain', 'Samarinda', '1886-07-27', 'l', 'Islam', 'Indralaya', 'S1 Akuntannsi'),
-(25, 1, 1, 'azhary', '985fabf8f96dc1c4c306341031569937', 12345, 'Azhary Arliansyah', 'Palembang', '2018-02-23', 'l', 'Islam', 'Alamat', 'S1'),
-(26, 1, 1, 'harsi', '827ccb0eea8a706c4c34a16891f84e7b', 23456, 'Harsi Rahayu', 'Bunga Mayang', '1995-11-06', 'p', 'Islam', 'Griya Sejahtera', 'Mahasiswa');
+(1, 1, 1, 'harsi', '827ccb0eea8a706c4c34a16891f84e7b', '12345', 'Harsi Rahayu', '-', '2018-03-07', 'p', 'Islam', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -251,8 +206,8 @@ CREATE TABLE `keputusan` (
 
 INSERT INTO `keputusan` (`id_keputusan`, `nama`, `nmin`, `nmax`) VALUES
 (3, 'Kurang Baik', 20, 55),
-(4, 'Baik', 55, 80),
-(5, 'Sangat Baik', 80, 100);
+(4, 'Baik', 60, 80),
+(5, 'Sangat Baik', 85, 100);
 
 -- --------------------------------------------------------
 
@@ -268,13 +223,6 @@ CREATE TABLE `komentar_explicit` (
   `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `komentar_explicit`
---
-
-INSERT INTO `komentar_explicit` (`id_komentar`, `id_explicit`, `id_karyawan`, `komentar`, `waktu`) VALUES
-(1, 3, 25, 'komentar explicit', '2018-02-27 02:10:20');
-
 -- --------------------------------------------------------
 
 --
@@ -288,14 +236,6 @@ CREATE TABLE `komentar_tacit` (
   `komentar` text NOT NULL,
   `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `komentar_tacit`
---
-
-INSERT INTO `komentar_tacit` (`id_komentar`, `id_tacit`, `id_karyawan`, `komentar`, `waktu`) VALUES
-(1, 1, 25, 'Ini komentarku, mana komentarmu?', '2018-02-13 18:04:06'),
-(2, 1, 25, 'contoh komentar', '2018-02-27 01:50:52');
 
 -- --------------------------------------------------------
 
@@ -332,32 +272,6 @@ CREATE TABLE `penilaian_karyawan` (
   `id_karyawan` int(11) NOT NULL,
   `bobot` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `penilaian_karyawan`
---
-
-INSERT INTO `penilaian_karyawan` (`id_penilaian`, `id_kriteria`, `id_karyawan`, `bobot`) VALUES
-(1, 1, 1, 100),
-(2, 2, 1, 90),
-(3, 3, 1, 30),
-(4, 4, 1, 100),
-(5, 5, 1, 65),
-(6, 1, 2, 100),
-(7, 2, 2, 90),
-(8, 3, 2, 88),
-(9, 4, 2, 100),
-(10, 5, 2, 80),
-(11, 1, 5, 23),
-(12, 2, 5, 45),
-(13, 3, 5, 23),
-(14, 4, 5, 65),
-(15, 5, 5, 3),
-(16, 1, 25, 30),
-(17, 2, 25, 40),
-(18, 3, 25, 50),
-(19, 4, 25, 20),
-(20, 5, 25, 40);
 
 -- --------------------------------------------------------
 
@@ -398,17 +312,6 @@ CREATE TABLE `tacit_knowledge` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tacit_knowledge`
---
-
-INSERT INTO `tacit_knowledge` (`id_tacit`, `id_hasil`, `status`, `id_karyawan`, `judul`, `waktu_pembaharuan`) VALUES
-(1, 3, 0, 25, 'haha', '0000-00-00 00:00:00'),
-(2, 1, 1, 25, '', '0000-00-00 00:00:00'),
-(3, 3, 0, 25, '', '0000-00-00 00:00:00'),
-(4, 1, 0, 25, '', '0000-00-00 00:00:00'),
-(5, 1, 0, 25, 'aaaabbb', '2018-02-26 18:13:46');
-
---
 -- Indexes for dumped tables
 --
 
@@ -428,7 +331,9 @@ ALTER TABLE `departemen`
 -- Indexes for table `explicit_knowledge`
 --
 ALTER TABLE `explicit_knowledge`
-  ADD PRIMARY KEY (`id_explicit`);
+  ADD PRIMARY KEY (`id_explicit`),
+  ADD KEY `explicit_hasil` (`id_hasil`),
+  ADD KEY `explicit_karyawan` (`id_karyawan`);
 
 --
 -- Indexes for table `fuzzy`
@@ -438,10 +343,19 @@ ALTER TABLE `fuzzy`
   ADD KEY `id_kriteria` (`id_kriteria`);
 
 --
+-- Indexes for table `hak_akses`
+--
+ALTER TABLE `hak_akses`
+  ADD KEY `hak_role` (`id_role`),
+  ADD KEY `hak_karyawan` (`id_karyawan`);
+
+--
 -- Indexes for table `hasil_penilaian`
 --
 ALTER TABLE `hasil_penilaian`
-  ADD PRIMARY KEY (`id_hasil`);
+  ADD PRIMARY KEY (`id_hasil`),
+  ADD KEY `karyawan` (`id_karyawan`),
+  ADD KEY `keputusan_penilaian` (`id_keputusan`);
 
 --
 -- Indexes for table `jabatan`
@@ -467,13 +381,17 @@ ALTER TABLE `keputusan`
 -- Indexes for table `komentar_explicit`
 --
 ALTER TABLE `komentar_explicit`
-  ADD PRIMARY KEY (`id_komentar`);
+  ADD PRIMARY KEY (`id_komentar`),
+  ADD KEY `komentar_explicit` (`id_explicit`),
+  ADD KEY `komentar2_karyawan` (`id_karyawan`);
 
 --
 -- Indexes for table `komentar_tacit`
 --
 ALTER TABLE `komentar_tacit`
-  ADD PRIMARY KEY (`id_komentar`);
+  ADD PRIMARY KEY (`id_komentar`),
+  ADD KEY `komentar_tacit` (`id_tacit`),
+  ADD KEY `komentar_karyawan` (`id_karyawan`);
 
 --
 -- Indexes for table `kriteria`
@@ -485,7 +403,9 @@ ALTER TABLE `kriteria`
 -- Indexes for table `penilaian_karyawan`
 --
 ALTER TABLE `penilaian_karyawan`
-  ADD PRIMARY KEY (`id_penilaian`);
+  ADD PRIMARY KEY (`id_penilaian`),
+  ADD KEY `kriteria` (`id_kriteria`),
+  ADD KEY `id_karyawan` (`id_karyawan`);
 
 --
 -- Indexes for table `role`
@@ -497,7 +417,9 @@ ALTER TABLE `role`
 -- Indexes for table `tacit_knowledge`
 --
 ALTER TABLE `tacit_knowledge`
-  ADD PRIMARY KEY (`id_tacit`);
+  ADD PRIMARY KEY (`id_tacit`),
+  ADD KEY `tacit_hasil` (`id_hasil`),
+  ADD KEY `tacit_karyawan` (`id_karyawan`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -519,31 +441,31 @@ ALTER TABLE `departemen`
 -- AUTO_INCREMENT for table `explicit_knowledge`
 --
 ALTER TABLE `explicit_knowledge`
-  MODIFY `id_explicit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_explicit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fuzzy`
 --
 ALTER TABLE `fuzzy`
-  MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_fuzzy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `hasil_penilaian`
 --
 ALTER TABLE `hasil_penilaian`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `keputusan`
@@ -555,13 +477,13 @@ ALTER TABLE `keputusan`
 -- AUTO_INCREMENT for table `komentar_explicit`
 --
 ALTER TABLE `komentar_explicit`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `komentar_tacit`
 --
 ALTER TABLE `komentar_tacit`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -573,7 +495,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `penilaian_karyawan`
 --
 ALTER TABLE `penilaian_karyawan`
-  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -585,17 +507,73 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `tacit_knowledge`
 --
 ALTER TABLE `tacit_knowledge`
-  MODIFY `id_tacit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_tacit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `explicit_knowledge`
+--
+ALTER TABLE `explicit_knowledge`
+  ADD CONSTRAINT `explicit_hasil` FOREIGN KEY (`id_hasil`) REFERENCES `hasil_penilaian` (`id_hasil`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `explicit_karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `fuzzy`
 --
 ALTER TABLE `fuzzy`
   ADD CONSTRAINT `fuzzy_ibfk_1` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `hak_akses`
+--
+ALTER TABLE `hak_akses`
+  ADD CONSTRAINT `hak_karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hak_role` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `hasil_penilaian`
+--
+ALTER TABLE `hasil_penilaian`
+  ADD CONSTRAINT `karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `keputusan_penilaian` FOREIGN KEY (`id_keputusan`) REFERENCES `keputusan` (`id_keputusan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `karyawan`
+--
+ALTER TABLE `karyawan`
+  ADD CONSTRAINT `kar_departemen` FOREIGN KEY (`id_departemen`) REFERENCES `departemen` (`id_departemen`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kar_jabatan` FOREIGN KEY (`id_jabatan`) REFERENCES `jabatan` (`id_jabatan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `komentar_explicit`
+--
+ALTER TABLE `komentar_explicit`
+  ADD CONSTRAINT `komentar2_karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `komentar_explicit` FOREIGN KEY (`id_explicit`) REFERENCES `explicit_knowledge` (`id_explicit`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `komentar_tacit`
+--
+ALTER TABLE `komentar_tacit`
+  ADD CONSTRAINT `komentar_karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `komentar_tacit` FOREIGN KEY (`id_tacit`) REFERENCES `tacit_knowledge` (`id_tacit`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `penilaian_karyawan`
+--
+ALTER TABLE `penilaian_karyawan`
+  ADD CONSTRAINT `id_karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kriteria` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tacit_knowledge`
+--
+ALTER TABLE `tacit_knowledge`
+  ADD CONSTRAINT `tacit_hasil` FOREIGN KEY (`id_hasil`) REFERENCES `hasil_penilaian` (`id_hasil`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tacit_karyawan` FOREIGN KEY (`id_karyawan`) REFERENCES `karyawan` (`id_karyawan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
