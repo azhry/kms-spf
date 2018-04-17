@@ -165,6 +165,29 @@ class Officer extends MY_Controller {
                 'pendidikan'        => $this->POST('pendidikan')
             ];
 
+            $cek_nik = $this->karyawan_m->get(['nik' => $this->POST('NIK')]);
+            if(count($cek_nik) > 0){
+                $this->flashmsg('<i class="glyphicon glyphicon-danger"></i> NIK sudah dipakai!', 'danger');
+                redirect('officer/tambah-data-karyawan');
+                exit;  
+            }
+
+            $nama = $this->POST('nama');
+            if(strlen($nama) < 3){
+                $this->flashmsg('<i class="glyphicon glyphicon-danger"></i> Nama harus lebih dari dua karakter!', 'danger');
+                redirect('officer/tambah-data-karyawan');
+                exit;
+            }
+
+            $tgl_lahir  = $this->POST('tgl_lahir');
+            $now        = new DateTime();
+
+            if(new DateTime($tgl_lahir) > $now) {
+                $this->flashmsg('<i class="glyphicon glyphicon-danger"></i> Tanggal lahir tidak valid!', 'danger');
+                redirect('officer/tambah-data-karyawan');
+                exit;
+            }
+
             $this->load->model('karyawan_m');
             $this->karyawan_m->insert($this->data['input']);
 
